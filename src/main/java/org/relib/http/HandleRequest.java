@@ -28,6 +28,10 @@ import java.lang.annotation.Target;
  * <pre> @HandleRequest("/home")</pre>
  *
  * <p>
+ * Additionally, the handler may specify any combination of accept and contentType values. If not specified
+ * the path will default to "/".
+ *
+ * <p>
  * Accept
  * <pre> @HandleRequest(accept=MediaType.JSON)</pre>
  *

@@ -76,7 +76,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
 	public String getParameter(String name) {
 		final String[] values = this.parameterMap.get(name);
-		return values.length > 0 ? values[0] : null;
+		return values != null && values.length > 0 ? values[0] : null;
 	}
 
 	public Object getAttribute(String name) {
@@ -190,7 +190,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	/**
 	 * @return the parameterMap
 	 */
-	public Map getParameterMap() {
+	public Map<String, String[]> getParameterMap() {
 		return this.parameterMap;
 	}
 

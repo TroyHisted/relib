@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.http;
+package org.relib.http.request;
 
 /**
  * Represents a url request path that has been mapped to a specific method.

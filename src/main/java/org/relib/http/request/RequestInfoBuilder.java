@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.http;
+package org.relib.http.request;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.relib.http.HttpMethod;
+import org.relib.http.MediaType;
 
 /**
  * Parses an Http request into a {@link RequestInfo} object.
@@ -28,12 +32,14 @@ class RequestInfoBuilder {
 	 * Parses an {@link HttpServletRequest} into a {@link RequestInfo} object.
 	 *
 	 * @param request the http request
+	 * @param response the http response
 	 * @return request info object
 	 */
-	RequestInfo parseRequest(HttpServletRequest request) {
+	RequestInfo parseRequest(HttpServletRequest request, HttpServletResponse response) {
 		final RequestInfo requestInfo = new RequestInfo();
 
-		String pathUrlString = request.getPathInfo();
+		String pathUrlString = request.getRequestURI().substring(request.getContextPath().length());
+
 		if (pathUrlString.charAt(0) == '/') {
 			pathUrlString = pathUrlString.substring(1);
 		}
@@ -42,6 +48,8 @@ class RequestInfoBuilder {
 		requestInfo.setMethod(HttpMethod.byName(request.getMethod()));
 		requestInfo.setContentType(MediaType.byTypeString(request.getContentType()));
 		requestInfo.setAccept(MediaType.byTypeString(request.getHeader("Accept")));
+		requestInfo.setRequest(request);
+		requestInfo.setResponse(response);
 
 		return requestInfo;
 	}

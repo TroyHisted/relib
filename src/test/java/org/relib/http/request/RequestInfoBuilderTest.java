@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.http;
+package org.relib.http.request;
 
 import java.io.IOException;
 
@@ -22,6 +22,10 @@ import javax.servlet.ServletException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.relib.http.HttpMethod;
+import org.relib.http.MediaType;
+import org.relib.http.MockHttpServletRequest;
+import org.relib.http.MockHttpServletResponse;
 
 /**
  * Tests the {@link RequestInfoBuilder} class.
@@ -31,6 +35,7 @@ import org.junit.Test;
 public class RequestInfoBuilderTest {
 
 	private MockHttpServletRequest request;
+	private MockHttpServletResponse response;
 	private final RequestInfoBuilder requestInfoBuilder = new RequestInfoBuilder();
 
 	/**
@@ -39,6 +44,7 @@ public class RequestInfoBuilderTest {
 	@Before
 	public void setup() {
 		this.request = new MockHttpServletRequest();
+		this.response = new MockHttpServletResponse();
 	}
 
 	/**
@@ -52,9 +58,10 @@ public class RequestInfoBuilderTest {
 		this.request.setMethod("GET");
 		this.request.setContentType("application/json");
 		this.request.setHeader("Accept", "application/json");
-		this.request.setPathInfo("/a/b");
+		this.request.setContextPath("/context");
+		this.request.setRequestURI("/context/a/b");
 
-		final RequestInfo requestInfo = this.requestInfoBuilder.parseRequest(this.request);
+		final RequestInfo requestInfo = this.requestInfoBuilder.parseRequest(this.request, this.response);
 
 		final String[] expectedPath = { "a", "b" };
 		Assert.assertArrayEquals(expectedPath, requestInfo.getPathParts());
@@ -74,9 +81,10 @@ public class RequestInfoBuilderTest {
 		this.request.setMethod("GET");
 		this.request.setContentType("application/json");
 		this.request.setHeader("Accept", null);
-		this.request.setPathInfo("/a/b");
+		this.request.setContextPath("/context");
+		this.request.setRequestURI("/context/a/b");
 
-		final RequestInfo requestInfo = this.requestInfoBuilder.parseRequest(this.request);
+		final RequestInfo requestInfo = this.requestInfoBuilder.parseRequest(this.request, this.response);
 
 		final String[] expectedPath = { "a", "b" };
 		Assert.assertArrayEquals(expectedPath, requestInfo.getPathParts());
@@ -92,13 +100,14 @@ public class RequestInfoBuilderTest {
 	 * @throws IOException exception
 	 */
 	@Test
-	public void testRequestPathWithNoLeadingSlash() throws ServletException, IOException {
+	public void testRequestPathWithTrailingSlash() throws ServletException, IOException {
 		this.request.setMethod("GET");
 		this.request.setContentType("application/json");
 		this.request.setHeader("Accept", null);
-		this.request.setPathInfo("a/b");
+		this.request.setContextPath("/context");
+		this.request.setRequestURI("/context/a/b/");
 
-		final RequestInfo requestInfo = this.requestInfoBuilder.parseRequest(this.request);
+		final RequestInfo requestInfo = this.requestInfoBuilder.parseRequest(this.request, this.response);
 
 		final String[] expectedPath = { "a", "b" };
 		Assert.assertArrayEquals(expectedPath, requestInfo.getPathParts());

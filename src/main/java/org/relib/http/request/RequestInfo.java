@@ -13,9 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.http;
+package org.relib.http.request;
 
 import java.util.Arrays;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.relib.http.HttpMethod;
+import org.relib.http.MediaType;
 
 /**
  * Represents various bits of an Http request.
@@ -28,6 +34,8 @@ class RequestInfo {
 	private MediaType contentType;
 	private HttpMethod method;
 	private String[] pathParts;
+	private HttpServletRequest request;
+	private HttpServletResponse response;
 
 	/**
 	 * @return the accept
@@ -87,6 +95,36 @@ class RequestInfo {
 	 */
 	public void setPathParts(String[] pathParts) {
 		this.pathParts = pathParts;
+	}
+
+	/**
+	 * @return the request
+	 */
+	public HttpServletRequest getRequest() {
+		return this.request;
+	}
+
+	/**
+	 * @param request
+	 *            the request to set
+	 */
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
+	/**
+	 * @return the response
+	 */
+	public HttpServletResponse getResponse() {
+		return this.response;
+	}
+
+	/**
+	 * @param response
+	 *            the response to set
+	 */
+	public void setResponse(HttpServletResponse response) {
+		this.response = response;
 	}
 
 	/*

@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.http;
+package org.relib.http.request;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +26,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.beanutils.ConvertUtils;
+import org.relib.http.HandleRequest;
+import org.relib.http.HttpMethod;
+import org.relib.http.MediaType;
 
 /**
  * Handles mapping requests to methods calls.
@@ -77,35 +78,13 @@ public class RequestHandler {
 			throws ServletException, IOException {
 
 		boolean handled = false;
-		final RequestInfo requestInfo = this.requestInfoBuilder.parseRequest(req);
+		final RequestInfo requestInfo = this.requestInfoBuilder.parseRequest(req, resp);
 
 		for (final RequestDefinition requestDefinition : this.requestDefinitions) {
 			try {
 				if (this.requestMatchesDefinition(requestInfo, requestDefinition)) {
-
 					final Method method = requestDefinition.getMethod();
-					final Parameter[] parameters = method.getParameters();
-					final Object[] args = new Object[parameters.length];
-
-					// Inject any automatically configured arguments based on the parameter type
-					for (int i = 0; i < parameters.length; i++) {
-						if (parameters[i].getType().equals(HttpServletRequest.class)) {
-							args[i] = req;
-						} else if (parameters[i].getType().equals(HttpServletResponse.class)) {
-							args[i] = resp;
-						}
-					}
-
-					final String[] requestPathParts = requestInfo.getPathParts();
-					final PathDefinition[] pathDefinitions = requestDefinition.getPathParts();
-					// Inject any path based values
-					for (int i = 0; i < pathDefinitions.length; i++) {
-						if (pathDefinitions[i].getType() != null) {
-							args[pathDefinitions[i].getParameterIndex()] =
-								ConvertUtils.convert(requestPathParts[i], pathDefinitions[i].getType());
-						}
-					}
-
+					final Object[] args = this.generateMethodArguments(requestInfo, requestDefinition);
 					method.invoke(this.controller, args);
 					handled = true;
 					break;
@@ -157,6 +136,27 @@ public class RequestHandler {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Builds the method arguments by using the requestDefinitions argument generators.
+	 *
+	 * @param requestInfo the current request information
+	 * @param requestDefinition the method handler definition
+	 * @return an array of arguments
+	 */
+	private Object[] generateMethodArguments(
+			RequestInfo requestInfo, RequestDefinition requestDefinition) {
+
+		final ArgumentGenerator[] argumentGenerators = requestDefinition.getArgumentGenerators();
+
+		final Object[] args = new Object[argumentGenerators.length];
+		for (int i = 0; i < argumentGenerators.length; i++) {
+			if (argumentGenerators[i] != null) {
+				args[i] = argumentGenerators[i].generateArgument(requestInfo);
+			}
+		}
+		return args;
 	}
 
 }

@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.http;
+package org.relib.http.request;
 
 import java.util.Comparator;
+
+import org.relib.http.HttpMethod;
+import org.relib.http.MediaType;
 
 /**
  * Specifies the priority for request definitions.

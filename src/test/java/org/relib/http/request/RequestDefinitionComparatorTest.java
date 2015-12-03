@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.http;
+package org.relib.http.request;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +23,10 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.relib.http.HttpMethod;
+import org.relib.http.MediaType;
+import org.relib.http.request.RequestDefinition;
+import org.relib.http.request.RequestDefinitionComparator;
 
 /**
  * Tests the {@link RequestDefinitionComparator} to ensure sorting is working as expected.

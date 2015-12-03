@@ -24,29 +24,97 @@ import java.lang.annotation.Annotation;
  */
 public class MockHandleRequest implements HandleRequest {
 
-	String value;
-	HttpMethod method;
-	MediaType contentType;
-	MediaType accept;
+	private String value;
+	private HttpMethod method;
+	private MediaType contentType;
+	private MediaType accept;
 
 	public Class<? extends Annotation> annotationType() {
-		return null;
+		return HandleRequest.class;
 	}
 
+	/**
+	 * @return the value
+	 */
 	public String value() {
 		return this.value;
 	}
 
+	/**
+	 * @return the value
+	 */
+	public String getValue() {
+		return this.value;
+	}
+
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	/**
+	 * @return the method
+	 */
 	public HttpMethod method() {
 		return this.method;
 	}
 
+	/**
+	 * @return the method
+	 */
+	public HttpMethod getMethod() {
+		return this.method;
+	}
+
+	/**
+	 * @param method the method to set
+	 */
+	public void setMethod(HttpMethod method) {
+		this.method = method;
+	}
+
+	/**
+	 * @return the contentType
+	 */
+	public MediaType contentType() {
+		return this.contentType;
+	}
+
+	/**
+	 * @return the contentType
+	 */
+	public MediaType getContentType() {
+		return this.contentType;
+	}
+
+	/**
+	 * @param contentType the contentType to set
+	 */
+	public void setContentType(MediaType contentType) {
+		this.contentType = contentType;
+	}
+
+	/**
+	 * @return the accept
+	 */
 	public MediaType accept() {
 		return this.accept;
 	}
 
-	public MediaType contentType() {
-		return this.contentType;
+	/**
+	 * @return the accept
+	 */
+	public MediaType getAccept() {
+		return this.accept;
+	}
+
+	/**
+	 * @param accept the accept to set
+	 */
+	public void setAccept(MediaType accept) {
+		this.accept = accept;
 	}
 
 }

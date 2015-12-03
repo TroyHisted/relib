@@ -13,13 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.http;
+package org.relib.http.request;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.relib.http.HandleRequest;
+import org.relib.http.PathParam;
+import org.relib.http.RequestParam;
+
 /**
- * Handles parsing an {@link HandleRequest} into a {@link RequestDefinition}.
+ * Handles parsing a {@link HandleRequest} annotation into a {@link RequestDefinition}.
+ *
+ * <p>
+ * The {@link RequestDefinition} contains computed meta-data for the method and arguments. This
+ * allows the computations to be done once rather than for every request.
  *
  * @author Troy Histed
  */
@@ -40,8 +51,53 @@ public class RequestDefinitionBuilder {
 		requestDefinition.setContentType(handleRequest.contentType());
 		requestDefinition.setAccept(handleRequest.accept());
 		requestDefinition.setPathParts(this.buildPathDefinitions(handleRequest.value(), method));
+		requestDefinition.setArgumentGenerators(this.buildArgumentGenerators(handleRequest, method));
 
 		return requestDefinition;
+	}
+
+	/**
+	 * Builds argument generators for each of the method arguments.
+	 *
+	 * <p>
+	 * The argument generators will inspect the request and pull out the specific data that is
+	 * mapped to a method argument.
+	 *
+	 * <p>
+	 * The argument generators will be returned in a list where their index corresponds to the
+	 * index of the method argument they pertain to.
+	 *
+	 * @param handleRequest the annotation
+	 * @param method the method that was annotated
+	 * @return non-null list of argument generators
+	 */
+	private ArgumentGenerator[] buildArgumentGenerators(HandleRequest handleRequest, Method method) {
+
+		final Parameter[] parameters = method.getParameters();
+		final ArgumentGenerator[] argumentGenerators = new ArgumentGenerator[parameters.length];
+
+		for (int i = 0; i < parameters.length; i++) {
+			if (HttpServletRequest.class.isAssignableFrom(parameters[i].getType())) {
+				argumentGenerators[i] = new ArgumentGeneratorForHttpServletRequest();
+			} else if (HttpServletResponse.class.isAssignableFrom(parameters[i].getType())) {
+				argumentGenerators[i] = new ArgumentGeneratorForHttpServletResponse();
+			} else {
+
+				final RequestParam requestParam = parameters[i].getAnnotation(RequestParam.class);
+				if (requestParam != null) {
+					argumentGenerators[i] =
+						new ArgumentGeneratorForRequestParam(requestParam, parameters[i].getType());
+				}
+
+				final PathParam pathParam = parameters[i].getAnnotation(PathParam.class);
+				if (pathParam != null) {
+					argumentGenerators[i] =
+						new ArgumentGeneratorForPathParam(pathParam, handleRequest, parameters[i].getType());
+				}
+			}
+		}
+
+		return argumentGenerators;
 	}
 
 	/**

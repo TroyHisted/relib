@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.http;
+package org.relib.http.request;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -22,6 +22,10 @@ import javax.servlet.ServletException;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.relib.http.HandleRequest;
+import org.relib.http.HttpMethod;
+import org.relib.http.MediaType;
+import org.relib.http.PathParam;
 
 /**
  * Tests the {@link RequestDefinitionBuilder} class.
@@ -167,4 +171,28 @@ public class RequestDefinitionBuilderTest {
 		Assert.assertEquals(0, pathDefinition.getParameterIndex());
 		Assert.assertNull(pathDefinition.getValue());
 	}
+
+	/**
+	 * Test buildPathDefinition.
+	 *
+	 * @throws ServletException exception
+	 * @throws IOException exception
+	 */
+//	@Test
+//	public void testBuildParamDefinition() throws ServletException, IOException {
+//
+//		class MockClass {
+//			@SuppressWarnings("unused")
+//			@HandleRequest("/a")
+//			public void mockMethod(int a, @RequestParam("number") int b, String c) { /* NOP */ }
+//		}
+//		final Method method = MockClass.class.getMethods()[0];
+//		final ParamDefinition[] paramDefinitions =
+//				this.requestDefinitionBuilder.buildRequestParamDefinition(method.getParameters());
+//
+//		Assert.assertEquals(int.class, paramDefinitions[1].getType());
+//		Assert.assertEquals(1, paramDefinitions[1].getParameterIndex());
+//	}
+
+
 }

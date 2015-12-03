@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.http;
+package org.relib.http.request;
 
 import java.lang.reflect.Method;
+
+import org.relib.http.HttpMethod;
+import org.relib.http.MediaType;
 
 /**
  * Represents a url request path that has been mapped to a specific method.
@@ -24,11 +27,27 @@ import java.lang.reflect.Method;
  */
 class RequestDefinition {
 
+	ArgumentGenerator[] argumentGenerators;
+
 	PathDefinition[] pathParts;
 	HttpMethod httpMethod;
 	MediaType contentType;
 	MediaType accept;
 	Method method;
+
+	/**
+	 * @return the argumentGenerators
+	 */
+	public ArgumentGenerator[] getArgumentGenerators() {
+		return this.argumentGenerators;
+	}
+
+	/**
+	 * @param argumentGenerators the argumentGenerators to set
+	 */
+	public void setArgumentGenerators(ArgumentGenerator[] argumentGenerators) {
+		this.argumentGenerators = argumentGenerators;
+	}
 
 	/**
 	 * @return the pathParts
