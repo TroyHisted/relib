@@ -23,7 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.relib.http.HandleRequest;
 import org.relib.http.PathParam;
+import org.relib.http.RequestBean;
 import org.relib.http.RequestParam;
+import org.relib.http.View;
 
 /**
  * Handles parsing a {@link HandleRequest} annotation into a {@link RequestDefinition}.
@@ -52,6 +54,7 @@ public class RequestDefinitionBuilder {
 		requestDefinition.setAccept(handleRequest.accept());
 		requestDefinition.setPathParts(this.buildPathDefinitions(handleRequest.value(), method));
 		requestDefinition.setArgumentGenerators(this.buildArgumentGenerators(handleRequest, method));
+		requestDefinition.setResponseGenerator(this.buildResponseGenerator(handleRequest, method));
 
 		return requestDefinition;
 	}
@@ -94,6 +97,12 @@ public class RequestDefinitionBuilder {
 					argumentGenerators[i] =
 						new ArgumentGeneratorForPathParam(pathParam, handleRequest, parameters[i].getType());
 				}
+
+//				final RequestBean requestBean = parameters[i].getAnnotation(RequestBean.class);
+//				if (requestBean != null) {
+//					argumentGenerators[i] =
+//						new ArgumentGeneratorForRequestBean(requestBean, parameters[i].getType());
+//				}
 			}
 		}
 
@@ -160,4 +169,26 @@ public class RequestDefinitionBuilder {
 
 		return pathDefinition;
 	}
+
+	/**
+	 * Inspects the return type of the annotated method to build an appropriate {@link ResponseGenerator}
+	 * to handle building a response.
+	 *
+	 * @param handleRequest the method annotation
+	 * @param method the method
+	 * @return non-null response generator
+	 */
+	ResponseGenerator buildResponseGenerator(HandleRequest handleRequest, Method method) {
+
+		final Class<?> returnType = method.getReturnType();
+
+		if (returnType == void.class) {
+			return new ResponseGeneratorForVoid();
+		} else if (returnType.isAssignableFrom(View.class)) {
+			return new ResponseGeneratorForView();
+		}
+
+		throw new IllegalStateException("Return type of " + returnType + " is not supported");
+	}
+
 }
