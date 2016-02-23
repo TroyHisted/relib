@@ -79,13 +79,15 @@ public class RequestHandler {
 
 		boolean handled = false;
 		final RequestInfo requestInfo = this.requestInfoBuilder.parseRequest(req, resp);
+		Object returnValue = null;
 
 		for (final RequestDefinition requestDefinition : this.requestDefinitions) {
 			try {
 				if (this.requestMatchesDefinition(requestInfo, requestDefinition)) {
 					final Method method = requestDefinition.getMethod();
 					final Object[] args = this.generateMethodArguments(requestInfo, requestDefinition);
-					method.invoke(this.controller, args);
+					returnValue = method.invoke(this.controller, args);
+					requestDefinition.getResponseGenerator().generateResponse(req, resp, returnValue);
 					handled = true;
 					break;
 				}

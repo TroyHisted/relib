@@ -32,12 +32,21 @@ import java.lang.annotation.Target;
  * the path will default to "/".
  *
  * <p>
- * Accept
+ * Accept specifies the format of data returned by the method (the source of the http request
+ * will accept a response in the specified format).
  * <pre> @HandleRequest(accept=MediaType.JSON)</pre>
  *
  * <p>
- * Content-Type
+ * Content-Type specifies the format of the data coming into the method (the contents of the request
+ * are in the specified format).
  * <pre> @HanleRequest(contentType=MediaType.JSON)</pre>
+ *
+ * <p>
+ * The method may return any of the following:
+ * <ul>
+ * <li>void - no additional processing takes place
+ * <li>view - the view specifies how the response will be returned.
+ * </ul>
  *
  * @author Troy Histed
  */

@@ -28,6 +28,7 @@ import org.relib.http.MediaType;
 class RequestDefinition {
 
 	ArgumentGenerator[] argumentGenerators;
+	ResponseGenerator responseGenerator;
 
 	PathDefinition[] pathParts;
 	HttpMethod httpMethod;
@@ -47,6 +48,20 @@ class RequestDefinition {
 	 */
 	public void setArgumentGenerators(ArgumentGenerator[] argumentGenerators) {
 		this.argumentGenerators = argumentGenerators;
+	}
+
+	/**
+	 * @return the responseGenerator
+	 */
+	public ResponseGenerator getResponseGenerator() {
+		return this.responseGenerator;
+	}
+
+	/**
+	 * @param responseGenerator the responseGenerator to set
+	 */
+	public void setResponseGenerator(ResponseGenerator responseGenerator) {
+		this.responseGenerator = responseGenerator;
 	}
 
 	/**
