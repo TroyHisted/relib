@@ -217,4 +217,43 @@ public class StringsTest {
 		Assert.assertEquals("b", Strings.subString("abc", 1, 2));
 	}
 
+	/**
+	 * Verify capitalize handles null.
+	 */
+	@Test
+	public void testCapitalizeNull() {
+		Assert.assertEquals(null, Strings.capitalize(null));
+	}
+
+	/**
+	 * Verify capitalize handles a string.
+	 */
+	@Test
+	public void testCapitalizeString() {
+		Assert.assertEquals("Test string", Strings.capitalize("test string"));
+	}
+
+	/**
+	 * Verify capitalize handles a ignores non alpha characters.
+	 */
+	@Test
+	public void testCapitalizeNumber() {
+		Assert.assertEquals("5 string", Strings.capitalize("5 string"));
+	}
+
+	/**
+	 * Verify default string handles null.
+	 */
+	@Test
+	public void testDefaultStringNull() {
+		Assert.assertEquals("", Strings.defaultString(null));
+	}
+
+	/**
+	 * Verify default string handles a string.
+	 */
+	@Test
+	public void testDefaultString() {
+		Assert.assertEquals("test", Strings.defaultString("test"));
+	}
 }

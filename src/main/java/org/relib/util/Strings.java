@@ -142,4 +142,32 @@ public class Strings {
 	public static String subString(String string, int start, int end) {
 		return string == null ? null : string.substring(start, end);
 	}
+
+	/**
+	 * Capitalizes the first character of the specified string.
+	 *
+	 * @param string the string to capitalize
+	 * @return the capitalized string or null if the input was null
+	 */
+	public static String capitalize(String string) {
+		if (string == null) {
+			return null;
+		}
+		final char[] characters = string.toCharArray();
+		characters[0] = Character.toTitleCase(characters[0]);
+		return String.valueOf(characters);
+	}
+
+	/**
+	 * Sanitizes the string to avoid null pointer exceptions.
+	 *
+	 * @param string the string to sanitize
+	 * @return the string argument or Strings.EMPTY if the argument is null
+	 */
+	public static String defaultString(String string) {
+		if (string == null) {
+			return EMPTY;
+		}
+		return string;
+	}
 }
