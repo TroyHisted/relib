@@ -81,7 +81,7 @@ public interface Field<T> {
 	 *            the value to set
 	 * @return the field
 	 */
-	Field<? extends T> value(T aValue);
+	Field<T> value(T aValue);
 
 	/**
 	 * Returns the value of the field.
@@ -105,7 +105,7 @@ public interface Field<T> {
 	 *            the message to set
 	 * @return the field
 	 */
-	Field<? extends T> message(Message message);
+	Field<T> message(Message message);
 
 	/**
 	 * @return the message
@@ -127,7 +127,7 @@ public interface Field<T> {
 	 *            label
 	 * @return the field
 	 */
-	Field<? extends T> label(String label);
+	Field<T> label(String label);
 
 	/**
 	 * @return the label
@@ -147,7 +147,7 @@ public interface Field<T> {
 	 *            the options to set
 	 * @return the field
 	 */
-	Field<? extends T> options(Iterable<?> options);
+	Field<T> options(Iterable<?> options);
 
 	/**
 	 * @return the options

@@ -15,8 +15,8 @@
  */
 package org.relib.ui.field;
 
-import org.apache.commons.lang3.StringUtils;
 import org.relib.ui.message.Message;
+import org.relib.util.Strings;
 
 /**
  * Represents a field that a user can interact with to provide information to the application.
@@ -83,7 +83,7 @@ public class InputField<T> implements Field<T> {
 	public String getMessageText() {
 		if (this.message != null) {
 			return this.message.getText().replace("{label}", String.valueOf(this.label))
-					.replace("{Label}", String.valueOf(StringUtils.capitalize(this.label)))
+					.replace("{Label}", String.valueOf(Strings.capitalize(this.label)))
 					.replace("{value}", String.valueOf(this.value));
 		}
 		return null;
@@ -92,7 +92,7 @@ public class InputField<T> implements Field<T> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public InputField<? extends T> value(T aValue) {
+	public InputField<T> value(T aValue) {
 		this.value = aValue;
 		return this;
 	}
@@ -114,7 +114,7 @@ public class InputField<T> implements Field<T> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public InputField<? extends T> message(Message message) {
+	public InputField<T> message(Message message) {
 		this.message = message;
 		return this;
 	}
@@ -136,7 +136,7 @@ public class InputField<T> implements Field<T> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public InputField<? extends T> label(String label) {
+	public InputField<T> label(String label) {
 		this.label = label;
 		return this;
 	}
@@ -158,7 +158,7 @@ public class InputField<T> implements Field<T> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public InputField<? extends T> options(Iterable<?> options) {
+	public InputField<T> options(Iterable<?> options) {
 		this.options = options;
 		return this;
 	}
