@@ -98,11 +98,11 @@ public class RequestDefinitionBuilder {
 						new ArgumentGeneratorForPathParam(pathParam, handleRequest, parameters[i].getType());
 				}
 
-//				final RequestBean requestBean = parameters[i].getAnnotation(RequestBean.class);
-//				if (requestBean != null) {
-//					argumentGenerators[i] =
-//						new ArgumentGeneratorForRequestBean(requestBean, parameters[i].getType());
-//				}
+				final RequestBean requestBean = parameters[i].getAnnotation(RequestBean.class);
+				if (requestBean != null) {
+					argumentGenerators[i] =
+						new ArgumentGeneratorForRequestBean(requestBean, parameters[i].getType());
+				}
 			}
 		}
 
