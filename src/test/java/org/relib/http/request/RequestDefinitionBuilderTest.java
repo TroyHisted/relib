@@ -119,7 +119,8 @@ public class RequestDefinitionBuilderTest {
 		}
 		final Method method = MockClass.class.getMethods()[0];
 		final PathDefinition pathDefinition =
-				this.requestDefinitionBuilder.buildPathDefinition("c", method.getParameters());
+				this.requestDefinitionBuilder.buildPathDefinition(
+					"c", method.getParameterTypes(), method.getParameterAnnotations());
 
 		Assert.assertEquals(String.class, pathDefinition.getType());
 		Assert.assertEquals(1, pathDefinition.getParameterIndex());
@@ -142,7 +143,8 @@ public class RequestDefinitionBuilderTest {
 		}
 		final Method method = MockClass.class.getMethods()[0];
 		final PathDefinition pathDefinition =
-				this.requestDefinitionBuilder.buildPathDefinition("b", method.getParameters());
+				this.requestDefinitionBuilder.buildPathDefinition(
+					"b", method.getParameterTypes(), method.getParameterAnnotations());
 
 		Assert.assertNull(pathDefinition.getType());
 		Assert.assertEquals(0, pathDefinition.getParameterIndex());
@@ -164,8 +166,8 @@ public class RequestDefinitionBuilderTest {
 			public void mockMethod(@PathParam("a") int a, @PathParam("c") String c) { /* NOP */ }
 		}
 		final Method method = MockClass.class.getMethods()[0];
-		final PathDefinition pathDefinition =
-				this.requestDefinitionBuilder.buildPathDefinition("a", method.getParameters());
+		final PathDefinition pathDefinition = this.requestDefinitionBuilder.buildPathDefinition(
+			"a", method.getParameterTypes(), method.getParameterAnnotations());
 
 		Assert.assertEquals(int.class, pathDefinition.getType());
 		Assert.assertEquals(0, pathDefinition.getParameterIndex());

@@ -15,8 +15,8 @@
  */
 package org.relib.http.request;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,32 +76,32 @@ public class RequestDefinitionBuilder {
 	 */
 	private ArgumentGenerator[] buildArgumentGenerators(HandleRequest handleRequest, Method method) {
 
-		final Parameter[] parameters = method.getParameters();
+		final Class<?>[] parameters = method.getParameterTypes();
 		final ArgumentGenerator[] argumentGenerators = new ArgumentGenerator[parameters.length];
 
 		for (int i = 0; i < parameters.length; i++) {
-			if (HttpServletRequest.class.isAssignableFrom(parameters[i].getType())) {
+			if (HttpServletRequest.class.isAssignableFrom(parameters[i])) {
 				argumentGenerators[i] = new ArgumentGeneratorForHttpServletRequest();
-			} else if (HttpServletResponse.class.isAssignableFrom(parameters[i].getType())) {
+			} else if (HttpServletResponse.class.isAssignableFrom(parameters[i])) {
 				argumentGenerators[i] = new ArgumentGeneratorForHttpServletResponse();
 			} else {
 
 				final RequestParam requestParam = parameters[i].getAnnotation(RequestParam.class);
 				if (requestParam != null) {
 					argumentGenerators[i] =
-						new ArgumentGeneratorForRequestParam(requestParam, parameters[i].getType());
+						new ArgumentGeneratorForRequestParam(requestParam, parameters[i]);
 				}
 
 				final PathParam pathParam = parameters[i].getAnnotation(PathParam.class);
 				if (pathParam != null) {
 					argumentGenerators[i] =
-						new ArgumentGeneratorForPathParam(pathParam, handleRequest, parameters[i].getType());
+						new ArgumentGeneratorForPathParam(pathParam, handleRequest, parameters[i]);
 				}
 
 				final RequestBean requestBean = parameters[i].getAnnotation(RequestBean.class);
 				if (requestBean != null) {
 					argumentGenerators[i] =
-						new ArgumentGeneratorForRequestBean(requestBean, parameters[i].getType());
+						new ArgumentGeneratorForRequestBean(requestBean, parameters[i]);
 				}
 			}
 		}
@@ -127,7 +127,8 @@ public class RequestDefinitionBuilder {
 		final PathDefinition[] pathDefinitions = new PathDefinition[pathParts.length];
 
 		for (int i = 0; i < pathParts.length; i++) {
-			pathDefinitions[i] = this.buildPathDefinition(pathParts[i], method.getParameters());
+			pathDefinitions[i] = this.buildPathDefinition(
+				pathParts[i], method.getParameterTypes(), method.getParameterAnnotations());
 		}
 
 		return pathDefinitions;
@@ -148,15 +149,24 @@ public class RequestDefinitionBuilder {
 	 * @param parameters the method arguments that could declare path params
 	 * @return a path definition
 	 */
-	PathDefinition buildPathDefinition(String pathValue, Parameter[] parameters) {
-		final PathDefinition pathDefinition = new PathDefinition();
+	PathDefinition buildPathDefinition(String pathValue, Class<?>[] parameters,
+			Annotation[][] parameterAnnotations) {
 
+		final PathDefinition pathDefinition = new PathDefinition();
 		for (int paramIndex = 0 ; paramIndex < parameters.length; paramIndex++) {
-			final PathParam annotation = parameters[paramIndex].getAnnotation(PathParam.class);
+
+			PathParam pathParamAnnotation = null;
+			final Annotation[] annotations = parameterAnnotations[paramIndex];
+			for (final Annotation annotation : annotations) {
+				if (annotation instanceof PathParam) {
+					pathParamAnnotation = (PathParam) annotation;
+					break;
+				}
+			}
 
 			// If the annotation value matches the path url fragment, it's a match
-			if (annotation != null && annotation.value().equals(pathValue)) {
-				pathDefinition.setType(parameters[paramIndex].getType());
+			if (pathParamAnnotation != null && pathParamAnnotation.value().equals(pathValue)) {
+				pathDefinition.setType(parameters[paramIndex]);
 				pathDefinition.setParameterIndex(paramIndex);
 				break;
 			}
