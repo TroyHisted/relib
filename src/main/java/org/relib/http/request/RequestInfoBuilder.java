@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.relib.http.HttpMethod;
 import org.relib.http.MediaType;
+import org.relib.util.Strings;
 
 /**
  * Parses an Http request into a {@link RequestInfo} object.
@@ -38,7 +39,8 @@ class RequestInfoBuilder {
 	RequestInfo parseRequest(HttpServletRequest request, HttpServletResponse response) {
 		final RequestInfo requestInfo = new RequestInfo();
 
-		String pathUrlString = request.getRequestURI().substring(request.getContextPath().length());
+		String pathUrlString = !Strings.isBlank(request.getContextPath()) ?
+			request.getRequestURI().substring(request.getContextPath().length()) : request.getRequestURI();
 
 		if (pathUrlString.charAt(0) == '/') {
 			pathUrlString = pathUrlString.substring(1);

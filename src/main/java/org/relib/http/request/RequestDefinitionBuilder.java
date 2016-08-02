@@ -77,6 +77,7 @@ public class RequestDefinitionBuilder {
 	private ArgumentGenerator[] buildArgumentGenerators(HandleRequest handleRequest, Method method) {
 
 		final Class<?>[] parameters = method.getParameterTypes();
+		final Annotation[][] parameterAnnotations = method.getParameterAnnotations();
 		final ArgumentGenerator[] argumentGenerators = new ArgumentGenerator[parameters.length];
 
 		for (int i = 0; i < parameters.length; i++) {
@@ -85,23 +86,22 @@ public class RequestDefinitionBuilder {
 			} else if (HttpServletResponse.class.isAssignableFrom(parameters[i])) {
 				argumentGenerators[i] = new ArgumentGeneratorForHttpServletResponse();
 			} else {
-
-				final RequestParam requestParam = parameters[i].getAnnotation(RequestParam.class);
-				if (requestParam != null) {
-					argumentGenerators[i] =
-						new ArgumentGeneratorForRequestParam(requestParam, parameters[i]);
-				}
-
-				final PathParam pathParam = parameters[i].getAnnotation(PathParam.class);
-				if (pathParam != null) {
-					argumentGenerators[i] =
-						new ArgumentGeneratorForPathParam(pathParam, handleRequest, parameters[i]);
-				}
-
-				final RequestBean requestBean = parameters[i].getAnnotation(RequestBean.class);
-				if (requestBean != null) {
-					argumentGenerators[i] =
-						new ArgumentGeneratorForRequestBean(requestBean, parameters[i]);
+				final Annotation[] annotations = parameterAnnotations[i];
+				for (final Annotation annotation : annotations) {
+					if (annotation instanceof RequestParam) {
+						argumentGenerators[i] =
+							new ArgumentGeneratorForRequestParam((RequestParam)annotation, parameters[i]);
+						break;
+					} else if (annotation instanceof PathParam) {
+						argumentGenerators[i] =
+								new ArgumentGeneratorForPathParam(
+									(PathParam)annotation, handleRequest, parameters[i]);
+						break;
+					} else if (annotation instanceof RequestBean) {
+						argumentGenerators[i] =
+								new ArgumentGeneratorForRequestBean((RequestBean)annotation, parameters[i]);
+						break;
+					}
 				}
 			}
 		}

@@ -72,4 +72,13 @@ public class View {
 	public Map<String, Object> getValues() {
 		return this.values;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return "View [viewPath=" + this.viewPath + "]";
+	}
+
 }

@@ -58,7 +58,7 @@ public class ControllerTest {
 	@Test
 	public void testControllerDoGetWithPathParam() throws ServletException, IOException {
 		this.request.setMethod("GET");
-		this.request.setPathInfo("/123/b/third/d");
+		this.request.setRequestURI("/123/b/third/d");
 
 		final Controller mockController = new Controller() {
 			@HandleRequest("/a/b/c/d")
@@ -84,7 +84,7 @@ public class ControllerTest {
 	@Test
 	public void testControllerDoGet() throws ServletException, IOException {
 		this.request.setMethod("GET");
-		this.request.setPathInfo("/a");
+		this.request.setRequestURI("/a");
 
 		final Controller mockController = new Controller() {
 			@HandleRequest("/a")
@@ -115,7 +115,7 @@ public class ControllerTest {
 	@Test
 	public void testControllerDoPost() throws ServletException, IOException {
 		this.request.setMethod("POST");
-		this.request.setPathInfo("/a");
+		this.request.setRequestURI("/a");
 
 		final Controller mockController = new Controller() {
 			@HandleRequest("/a")
@@ -146,7 +146,7 @@ public class ControllerTest {
 	@Test
 	public void testControllerInjectRequestObject() throws ServletException, IOException {
 		this.request.setMethod("GET");
-		this.request.setPathInfo("/a");
+		this.request.setRequestURI("/a");
 
 		final Controller mockController = new Controller() {
 			@HandleRequest("/a")
@@ -170,7 +170,7 @@ public class ControllerTest {
 	@Test
 	public void testControllerWithSuperclass() throws ServletException, IOException {
 		this.request.setMethod("GET");
-		this.request.setPathInfo("/a");
+		this.request.setRequestURI("/a");
 
 		class MockSuperController extends Controller {
 			@HandleRequest(value = "/a", method = HttpMethod.GET)
@@ -201,7 +201,7 @@ public class ControllerTest {
 	@Test
 	public void testControllerWithSuperclassAndOverriddenMethod() throws ServletException, IOException {
 		this.request.setMethod("GET");
-		this.request.setPathInfo("/a");
+		this.request.setRequestURI("/a");
 
 		class MockSuperController extends Controller {
 			@HandleRequest(value = "/a", method = HttpMethod.GET)

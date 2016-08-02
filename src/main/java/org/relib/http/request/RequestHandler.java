@@ -85,6 +85,7 @@ public class RequestHandler {
 			try {
 				if (this.requestMatchesDefinition(requestInfo, requestDefinition)) {
 					final Method method = requestDefinition.getMethod();
+					method.setAccessible(true);
 					final Object[] args = this.generateMethodArguments(requestInfo, requestDefinition);
 					returnValue = method.invoke(this.controller, args);
 					requestDefinition.getResponseGenerator().generateResponse(req, resp, returnValue);

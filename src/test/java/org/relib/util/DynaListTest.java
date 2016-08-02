@@ -49,6 +49,7 @@ public class DynaListTest {
 	 */
 	static {
 		ConvertUtils.register(new Converter() {
+			@Override
 			@SuppressWarnings("unchecked")
 			public <T> T convert(Class<T> type, Object value) {
 				return value == null ? null : (T) Direction.valueOf(String.valueOf(value));
@@ -66,7 +67,7 @@ public class DynaListTest {
 	@Test
 	public void testDynaListInitialization() throws IllegalAccessException, InvocationTargetException,
 	NoSuchMethodException {
-		List<Direction> directions = DynaList.of(Direction.class, Direction.North, Direction.South);
+		final List<Direction> directions = DynaList.of(Direction.class, Direction.North, Direction.South);
 		Assert.assertEquals(Direction.South, directions.get(1));
 		Assert.assertEquals(Direction.South, PropertyUtils.getProperty(directions, "[1]"));
 	}

@@ -15,6 +15,8 @@
  */
 package org.relib.http.request;
 
+import java.util.Arrays;
+
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
 import org.junit.Assert;
@@ -22,6 +24,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.relib.http.MockHttpServletRequest;
 import org.relib.http.MockRequestBean;
+import org.relib.ui.field.DynaField;
+import org.relib.ui.field.Field;
 
 /**
  * Tests the {@link ArgumentGeneratorForRequestBean} to ensure it is working as expected.
@@ -143,6 +147,7 @@ public class ArgumentGeneratorForRequestBeanTest {
 			= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
 
 		ConvertUtils.register(new Converter() {
+			@Override
 			@SuppressWarnings("unchecked")
 			public <T> T convert(Class<T> type, Object value) {
 				for (final Animal.Color color : Animal.Color.values()) {
@@ -165,6 +170,40 @@ public class ArgumentGeneratorForRequestBeanTest {
 	}
 
 	/**
+	 * Verify array of Field values.
+	 */
+	@Test
+	public void testGenerateArgumentWithMultipleEnumFieldValues() {
+
+		this.mockRequest.getParameterMap().put("colorFields.value", new String[] {"RED", "GREEN"} );
+
+		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean
+			= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
+
+		ConvertUtils.register(new Converter() {
+			@Override
+			@SuppressWarnings("unchecked")
+			public <T> T convert(Class<T> type, Object value) {
+				for (final Animal.Color color : Animal.Color.values()) {
+					if (String.valueOf(value).equals(color.name())) {
+						return (T) color;
+					}
+				}
+				return null;
+			}
+		}, Animal.Color.class);
+
+		final Object argument = argumentGeneratorForRequestBean.generateArgument(this.requestInfo);
+
+		Assert.assertTrue(argument instanceof Animal);
+		if (argument instanceof Animal) {
+			final Animal animal = (Animal) argument;
+			Assert.assertArrayEquals(
+				new Animal.Color[]{ Animal.Color.RED, Animal.Color.GREEN}, animal.getColorFields().getValue());
+		}
+	}
+
+	/**
 	 * Simple bean for an animal.
 	 *
 	 * @author Troy Histed
@@ -176,6 +215,7 @@ public class ArgumentGeneratorForRequestBeanTest {
 		private int age;
 		private String[] colorStrings = new String[2];
 		private Color[] colorEnums = new Color[2];
+		private Field<Color[]> colorFields = DynaField.create(Color[].class);
 
 		/**
 		 * @return the name
@@ -225,6 +265,24 @@ public class ArgumentGeneratorForRequestBeanTest {
 		public void setColorEnums(Color[] colorEnums) {
 			this.colorEnums = colorEnums;
 		}
+		/**
+		 * @return the colorFields
+		 */
+		public Field<Color[]> getColorFields() {
+			return this.colorFields;
+		}
+		/**
+		 * @param colorFields the colorFields to set
+		 */
+		public void setColorFields(Field<Color[]> colorFields) {
+			this.colorFields = colorFields;
+		}
+		@Override
+		public String toString() {
+			return "Animal [name=" + this.name + ", age=" + this.age + ", colorStrings=" + Arrays.toString(this.colorStrings)
+					+ ", colorEnums=" + Arrays.toString(this.colorEnums) + ", colorFields=" + this.colorFields + "]";
+		}
+
 
 	}
 }

@@ -52,6 +52,7 @@ public class DynaFieldTest extends InputFieldTest {
 	 */
 	static {
 		ConvertUtils.register(new Converter() {
+			@Override
 			@SuppressWarnings("unchecked")
 			public <T> T convert(Class<T> type, Object value) {
 				return value == null ? null : (T) Direction.valueOf(String.valueOf(value));
@@ -173,6 +174,60 @@ public class DynaFieldTest extends InputFieldTest {
 		BeanUtils.setProperty(field, "value", "North");
 		Assert.assertEquals(Direction.North, field.getValue());
 	}
+
+	/**
+	 * Ensure an enum array property can be set using {@link BeanUtils}.
+	 *
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void testSetBeanEnumArrayPropertyFromStringArray() throws IllegalAccessException,
+			InvocationTargetException {
+
+		final Direction[] directions = new Direction[] { Direction.North, Direction.South };
+		final Field<Direction[]> field = this.construct(Direction[].class);
+		BeanUtils.setProperty(field, "value", new String [] {"North", "South"});
+		Assert.assertArrayEquals(directions, field.getValue());
+	}
+
+	/**
+	 * Ensure an enum array property can be set using {@link BeanUtils}.
+	 *
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 */
+	@Test
+	public void testSetBeanPopulateEnumArrayPropertyFromStringArray() throws IllegalAccessException,
+			InvocationTargetException {
+
+		final Direction[] directions = new Direction[] { Direction.North, Direction.South };
+		final Field<Direction[]> field = this.construct(Direction[].class);
+		final Map<String, Object> properties = new HashMap<String, Object>();
+		properties.put("value", new String [] {"North", "South" });
+		BeanUtils.populate(field, properties);
+		Assert.assertArrayEquals(directions, field.getValue());
+	}
+
+//	/**
+//	 * Ensure an enum array property can be set using {@link BeanUtils}.
+//	 *
+//	 * @throws InvocationTargetException
+//	 * @throws IllegalAccessException
+//	 */
+//	@Test
+//	public void testSetBeanPopulateEnumListPropertyFromStringArray() throws IllegalAccessException,
+//			InvocationTargetException {
+//
+//		final List<Direction> directions = Arrays.asList(Direction.North, Direction.South);
+//		final Field<? extends List<Direction>> directionsField = DynaField.of(DynaList.of(Direction.class));
+//
+//		final Map<String, Object> properties = new HashMap<String, Object>();
+//		properties.put("value", new String [] {"North", "South" });
+//
+//		BeanUtils.populate(directionsField, properties);
+//		Assert.assertEquals(directions, directionsField.getValue());
+//	}
 
 	/**
 	 * Ensure an enum property can be retrieved using {@link BeanUtils}.

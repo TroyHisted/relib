@@ -48,9 +48,10 @@ class ArgumentGeneratorForRequestBean implements ArgumentGenerator {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object generateArgument(RequestInfo requestInfo) {
 
-		final Map<String, Object> matchingParameters = new HashMap<String, Object>();
+		final Map<String, String[]> matchingParameters = new HashMap<String, String[]>();
 
 		@SuppressWarnings("unchecked")
 		final Map<String, String[]> parameters = requestInfo.getRequest().getParameterMap();
