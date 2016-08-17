@@ -242,6 +242,31 @@ public class StringsTest {
 	}
 
 	/**
+	 * Verify unCapitalize handles null.
+	 */
+	@Test
+	public void testUnCapitalizeNull() {
+		Assert.assertEquals(null, Strings.unCapitalize(null));
+	}
+
+	/**
+	 * Verify capitalize handles a string.
+	 */
+	@Test
+	public void testUnCapitalizeString() {
+		Assert.assertEquals("test string", Strings.unCapitalize("Test string"));
+	}
+
+	/**
+	 * Verify unCapitalize handles a ignores non alpha characters.
+	 */
+	@Test
+	public void testUnCapitalizeNumber() {
+		Assert.assertEquals("5 string", Strings.unCapitalize("5 string"));
+	}
+
+
+	/**
 	 * Verify default string handles null.
 	 */
 	@Test

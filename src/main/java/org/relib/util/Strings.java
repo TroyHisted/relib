@@ -159,6 +159,21 @@ public class Strings {
 	}
 
 	/**
+	 * Changes the first character of the specified string to lower case.
+	 *
+	 * @param string the string to manipulate
+	 * @return the manipulated string or null if the input was null
+	 */
+	public static String unCapitalize(String string) {
+		if (string == null) {
+			return null;
+		}
+		final char[] characters = string.toCharArray();
+		characters[0] = Character.toLowerCase(characters[0]);
+		return String.valueOf(characters);
+	}
+
+	/**
 	 * Sanitizes the string to avoid null pointer exceptions.
 	 *
 	 * @param string the string to sanitize
