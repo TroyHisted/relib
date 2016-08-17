@@ -1,4 +1,5 @@
-org.relib.ui.tag.Text;
-org.relib.ui.tag.Select;
-org.relib.ui.tag.Radio;
-org.relib.ui.tag.Checkbox;
+org.relib.ui.input.Text;
+org.relib.ui.input.Select;
+org.relib.ui.input.Radio;
+org.relib.ui.input.Checkbox;
+org.relib.ui.input.Textarea;

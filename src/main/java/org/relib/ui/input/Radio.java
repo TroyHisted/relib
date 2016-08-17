@@ -34,6 +34,7 @@ public class Radio extends AbstractInputRenderer implements InputRenderer {
 	 *
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean supports(String type) {
 		return "radio".equals(type);
 	}
@@ -43,17 +44,19 @@ public class Radio extends AbstractInputRenderer implements InputRenderer {
 	 *
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void render(InputTag input, JspWriter out) throws JspException, IOException {
 
 		final List<RendererOption> computedOptions = this.generateOptions(input);
 
 		if (computedOptions != null) {
+			final Map<String, Object> dynamicAttributes = input.getDynamicAttributes();
+			final Object id = dynamicAttributes.remove("id");
+
 			for (final RendererOption option : computedOptions) {
-				out.println("<input type=\"radio\"");
+				out.println("<label class=\"radio\">");
+				out.print("<input type=\"radio\"");
 
-				final Map<String, Object> dynamicAttributes = input.getDynamicAttributes();
-
-				final Object id = dynamicAttributes.remove("id");
 				if (id != null) {
 					out.print(" id=\"" + id + "_" + this.sanitizeForId(option.getValue()) + "\"");
 				}
@@ -72,6 +75,7 @@ public class Radio extends AbstractInputRenderer implements InputRenderer {
 				out.print("/>");
 
 				out.print(option.getLabel());
+				out.println("</label>");
 			}
 		}
 	}

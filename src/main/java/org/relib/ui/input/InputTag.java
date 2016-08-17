@@ -16,16 +16,14 @@
 package org.relib.ui.input;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.DynamicAttributes;
-import javax.servlet.jsp.tagext.JspFragment;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
+
+import org.relib.ui.DynamicTag;
 
 /**
  * A dynamic form input.
@@ -39,7 +37,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  *
  * @author Troy Histed
  */
-public class InputTag extends SimpleTagSupport implements DynamicAttributes {
+public class InputTag extends DynamicTag {
 
 	/**
 	 * Loader for the {@link InputRenderer} service providers.
@@ -59,6 +57,7 @@ public class InputTag extends SimpleTagSupport implements DynamicAttributes {
 		RENDERER_CACHE.put("select", new Select());
 		RENDERER_CACHE.put("radio", new Radio());
 		RENDERER_CACHE.put("checkbox", new Checkbox());
+		RENDERER_CACHE.put("textarea", new Textarea());
 	}
 
 	/**
@@ -112,12 +111,8 @@ public class InputTag extends SimpleTagSupport implements DynamicAttributes {
 	 */
 	private String enabledProperty;
 
-	/**
-	 * The dynamic attributes to give to the input.
-	 */
-	private final Map<String, Object> dynamicAttributes = new HashMap<String, Object>();
-
 	@Override
+	@SuppressWarnings("resource")
 	public void doTag() throws JspException, IOException {
 		final JspWriter out = this.getJspContext().getOut();
 
@@ -143,38 +138,6 @@ public class InputTag extends SimpleTagSupport implements DynamicAttributes {
 		}
 
 		throw new IllegalArgumentException("No renderer exists to support an input of type " + this.type);
-	}
-
-	/**
-	 * Invokes the body of the tag, writing the results to the specified writer.
-	 *
-	 * <p>
-	 * If the tag is self closing, or has no body, nothing will be written.
-	 *
-	 * @param out
-	 *            the writer to write the out to
-	 * @throws JspException
-	 * @throws IOException
-	 */
-	public void doBody(Writer out) throws JspException, IOException {
-		final JspFragment body = this.getJspBody();
-		if (body != null) {
-			this.getJspBody().invoke(out);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
-		this.dynamicAttributes.put(localName, value);
-	}
-
-	/**
-	 * @return dynamic attributes
-	 */
-	public Map<String, Object> getDynamicAttributes() {
-		return this.dynamicAttributes;
 	}
 
 	/**
@@ -305,7 +268,7 @@ public class InputTag extends SimpleTagSupport implements DynamicAttributes {
 		return "Input [type=" + this.type + ", value=" + this.value + ", submitValue=" + this.submitValue
 				+ ", options=" + this.options + ", valueProperty=" + this.valueProperty + ", labelProperty="
 				+ this.labelProperty + ", groupProperty=" + this.groupProperty + ", enabledProperty="
-				+ this.enabledProperty + ", dynamicAttributes=" + this.dynamicAttributes + "]";
+				+ this.enabledProperty + "]";
 	}
 
 }

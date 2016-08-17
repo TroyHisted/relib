@@ -34,6 +34,7 @@ public class Checkbox extends AbstractInputRenderer implements InputRenderer {
 	 *
 	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean supports(String type) {
 		return "checkbox".equals(type);
 	}
@@ -43,34 +44,36 @@ public class Checkbox extends AbstractInputRenderer implements InputRenderer {
 	 *
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void render(InputTag input, JspWriter out) throws JspException, IOException {
 
 		final List<RendererOption> computedOptions = this.generateOptions(input);
 
 		if (computedOptions == null) {
 			// It's a single check-box
-			out.println("<input type=\"checkbox\"");
+			out.print("<input type=\"checkbox\" class=\"checkbox\"");
 
 			if (input.getSubmitValue() == null || "".equals(input.getSubmitValue())) {
 				// just use the value as the value
-				out.println(" value=\"" + input.getValue() + "\"");
+				out.print(" value=\"" + input.getValue() + "\"");
 			} else {
-				out.println(" value=\"" + input.getSubmitValue() + "\"");
+				out.print(" value=\"" + input.getSubmitValue() + "\"");
 				if (input.getSubmitValue().toString().equals(String.valueOf(input.getValue()))) {
-					out.println(" checked");
+					out.print(" checked");
 				}
 			}
 
 			this.writeAttributes(input.getDynamicAttributes(), out);
-			out.print(">");
+			out.println(">");
 		} else {
+			final Map<String, Object> dynamicAttributes = input.getDynamicAttributes();
+			final Object id = dynamicAttributes.remove("id");
+
 			// It's multiple check-boxes
 			for (final RendererOption option : computedOptions) {
-				out.println("<input type=\"checkbox\"");
+				out.print("<label class=\"checkbox\">");
+				out.print("<input type=\"checkbox\"");
 
-				final Map<String, Object> dynamicAttributes = input.getDynamicAttributes();
-
-				final Object id = dynamicAttributes.remove("id");
 				if (id != null) {
 					out.print(" id=\"" + id + "_" + this.sanitizeForId(option.getValue()) + "\"");
 				}
@@ -89,6 +92,7 @@ public class Checkbox extends AbstractInputRenderer implements InputRenderer {
 				out.print(">");
 
 				out.print(option.getLabel());
+				out.println("</label>");
 			}
 		}
 	}

@@ -4,8 +4,9 @@
 	version="2.1">
 	<tlib-version>1.0</tlib-version>
 	<short-name>r</short-name>
-	<uri>http://relib.org/relib</uri> 
+	<uri>http://relib.org/relib</uri>
 	<tag>
+		<description>A flexible input tag capable of rendering multiple types of form input fields.</description>
 		<name>input</name>
 		<tag-class>org.relib.ui.input.InputTag</tag-class>
 		<body-content>scriptless</body-content>
@@ -61,6 +62,7 @@
 		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 	<tag>
+		<description>An form input designed to wrap a Field class.</description>
 		<name>field</name>
 		<tag-class>org.relib.ui.input.FieldTag</tag-class>
 		<body-content>scriptless</body-content>
@@ -109,6 +111,55 @@
 		<attribute>
 			<description>Specifies which property of an option to use as the indicator for enable. If unspecified, all options will be enabled.</description>
 			<name>enabledProperty</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description>Writes out the standard html5 tag.</description>
+		<name>html</name>
+		<tag-class>org.relib.ui.layout.HtmlTag</tag-class>
+		<body-content>scriptless</body-content>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description>Writes out a css link tag.</description>
+		<name>css</name>
+		<tag-class>org.relib.ui.layout.CssTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<description>Specifies the path to the css file.</description>
+			<name>src</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Specifies the root context to prefix the src path with. Defaults to the application context of this application.</description>
+			<name>context</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description>Writes out a script tag.</description>
+		<name>js</name>
+		<tag-class>org.relib.ui.layout.JsTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<description>Specifies the path to the js file.</description>
+			<name>src</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Specifies the root context to prefix the src path with. Defaults to the application context of this application.</description>
+			<name>context</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
