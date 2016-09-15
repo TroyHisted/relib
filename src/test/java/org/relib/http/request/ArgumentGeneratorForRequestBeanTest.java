@@ -198,10 +198,36 @@ public class ArgumentGeneratorForRequestBeanTest {
 		Assert.assertTrue(argument instanceof Animal);
 		if (argument instanceof Animal) {
 			final Animal animal = (Animal) argument;
+			System.err.println(animal);
 			Assert.assertArrayEquals(
 				new Animal.Color[]{ Animal.Color.RED, Animal.Color.GREEN}, animal.getColorFields().getValue());
 		}
 	}
+
+	/**
+	 * Verify array of Field values.
+	 */
+	@Test
+	public void testGenerateArgumentWithFieldProperties() {
+
+		this.mockRequest.getParameterMap().put("nameField.value", new String[] {"testValue"} );
+		this.mockRequest.getParameterMap().put("nameField.label", new String[] {"testLabel"} );
+		this.mockRequest.getParameterMap().put("nameField.message", new String[] {"testMessage"} );
+		this.mockRequest.getParameterMap().put("nameField.messageText", new String[] {"testMessage"} );
+		this.mockRequest.getParameterMap().put("nameField.options", new String[] {"one", "two"} );
+
+		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean
+			= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
+
+		final Object argument = argumentGeneratorForRequestBean.generateArgument(this.requestInfo);
+
+		Assert.assertTrue(argument instanceof Animal);
+		if (argument instanceof Animal) {
+			final Animal animal = (Animal) argument;
+			System.err.println(animal.getNameField());
+		}
+	}
+
 
 	/**
 	 * Simple bean for an animal.
@@ -216,6 +242,7 @@ public class ArgumentGeneratorForRequestBeanTest {
 		private String[] colorStrings = new String[2];
 		private Color[] colorEnums = new Color[2];
 		private Field<Color[]> colorFields = DynaField.create(Color[].class);
+		private Field<String> nameField = DynaField.create(String.class);
 
 		/**
 		 * @return the name
@@ -277,12 +304,23 @@ public class ArgumentGeneratorForRequestBeanTest {
 		public void setColorFields(Field<Color[]> colorFields) {
 			this.colorFields = colorFields;
 		}
+		/**
+		 * @return the nameField
+		 */
+		public Field<String> getNameField() {
+			return this.nameField;
+		}
+		/**
+		 * @param nameField the nameField to set
+		 */
+		public void setNameField(Field<String> nameField) {
+			this.nameField = nameField;
+		}
 		@Override
 		public String toString() {
 			return "Animal [name=" + this.name + ", age=" + this.age + ", colorStrings=" + Arrays.toString(this.colorStrings)
 					+ ", colorEnums=" + Arrays.toString(this.colorEnums) + ", colorFields=" + this.colorFields + "]";
 		}
-
 
 	}
 }

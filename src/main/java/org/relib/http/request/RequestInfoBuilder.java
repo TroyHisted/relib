@@ -48,12 +48,29 @@ class RequestInfoBuilder {
 
 		requestInfo.setPathParts(pathUrlString.split("/"));
 		requestInfo.setMethod(HttpMethod.byName(request.getMethod()));
-		requestInfo.setContentType(MediaType.byTypeString(request.getContentType()));
-		requestInfo.setAccept(MediaType.byTypeString(request.getHeader("Accept")));
+		requestInfo.setContentType(this.determineMediaType(request.getContentType()));
+		requestInfo.setAccept(this.determineMediaType(request.getHeader("Accept")));
 		requestInfo.setRequest(request);
 		requestInfo.setResponse(response);
 
 		return requestInfo;
+	}
+
+	/**
+	 * Parses the given media type string looking for a matching MediaType.
+	 *
+	 * @param mediaTypeString the media type string
+	 * @return the matching MediaType or UNKNOWN
+	 */
+	private MediaType determineMediaType(String mediaTypeString) {
+		if (mediaTypeString != null) {
+			for (final MediaType mediaType : MediaType.values()) {
+				if (mediaTypeString.startsWith(mediaType.getTypeString())) {
+					return mediaType;
+				}
+			}
+		}
+		return MediaType.UNKNOWN;
 	}
 
 }

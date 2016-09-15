@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.relib.http.HandleRequest;
+import org.relib.http.MediaType;
 import org.relib.http.PathParam;
 import org.relib.http.RequestBean;
 import org.relib.http.RequestParam;
@@ -196,6 +197,8 @@ public class RequestDefinitionBuilder {
 			return new ResponseGeneratorForVoid();
 		} else if (returnType.isAssignableFrom(View.class)) {
 			return new ResponseGeneratorForView();
+		} else if (handleRequest.accept() == MediaType.JSON) {
+			return new ResponseGeneratorForJson();
 		}
 
 		throw new IllegalStateException("Return type of " + returnType + " is not supported");

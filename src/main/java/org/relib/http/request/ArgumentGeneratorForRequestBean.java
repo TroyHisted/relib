@@ -15,13 +15,19 @@
  */
 package org.relib.http.request;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.beanutils.BeanUtils;
+import org.relib.http.MediaType;
 import org.relib.http.RequestBean;
+import org.relib.json.JsonToParameterMap;
 import org.relib.util.Strings;
 
 /**
@@ -48,13 +54,18 @@ class ArgumentGeneratorForRequestBean implements ArgumentGenerator {
 	/**
 	 * {@inheritDoc}
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object generateArgument(RequestInfo requestInfo) {
 
 		final Map<String, String[]> matchingParameters = new HashMap<String, String[]>();
 
-		@SuppressWarnings("unchecked")
-		final Map<String, String[]> parameters = requestInfo.getRequest().getParameterMap();
+		final Map<String, String[]> parameters;
+		if (requestInfo.getContentType() == MediaType.JSON) {
+			parameters = this.generateParameterMap(requestInfo.getRequest());
+		} else {
+			parameters = requestInfo.getRequest().getParameterMap();
+		}
 		for (final Entry<String, String[]> entry : parameters.entrySet()) {
 			if (Strings.isBlank(this.prefix) || entry.getKey().startsWith(this.prefix)) {
 				if (Strings.isBlank(this.prefix)) {
@@ -76,6 +87,38 @@ class ArgumentGeneratorForRequestBean implements ArgumentGenerator {
 		} catch (final InvocationTargetException e) {
 			throw new IllegalArgumentException("Unable to set bean property", e);
 		}
+	}
+
+	/**
+	 * Reads the request body as a string of json data and converts it into a parameter map.
+	 *
+	 * @param request the http request
+	 * @return non-null map of parameters and their values
+	 */
+	private Map<String, String[]> generateParameterMap(HttpServletRequest request) {
+
+		final char[] buffer = new char[128];
+		final StringBuilder stringBuilder = new StringBuilder();
+		BufferedReader reader = null;
+		try {
+			reader = request.getReader();
+			int bytesRead = -1;
+			while ((bytesRead = reader.read(buffer)) > 0) {
+				stringBuilder.append(buffer, 0, bytesRead);
+			}
+		} catch (final IOException e) {
+			throw new IllegalStateException("Unable to read the request", e);
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (final IOException e) {
+					throw new IllegalStateException("Unable to close reader for request", e);
+				}
+			}
+		}
+
+		return JsonToParameterMap.toParameterMap(stringBuilder.toString());
 	}
 
 }

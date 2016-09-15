@@ -18,6 +18,8 @@ package org.relib.ui.field;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.Converter;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaClass;
 import org.apache.commons.beanutils.DynaProperty;
@@ -49,6 +51,15 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	private final DynaProperty valueDynaProperty;
 
 	private DynaProperty[] dynaProperties;
+
+	static {
+		ConvertUtils.register(new Converter() {
+			@Override
+			public <T> T convert(Class<T> type, Object value) {
+				return null;
+			}
+		}, Message.class);
+	}
 
 	/**
 	 * Constructs a {@link DynaField} of the specified value type.
@@ -106,6 +117,7 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public boolean contains(String name, String key) {
 		if ("value".equals(name)) {
@@ -117,6 +129,7 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object get(String name) {
 
 		if ("value".equals(name)) {
@@ -140,6 +153,7 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object get(String name, int index) {
 		return "value".equals(name) ? ((Object[]) this.getValue())[index] : null;
 	}
@@ -147,6 +161,7 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public Object get(String name, String key) {
 		return "value".equals(name) ? ((Map<String, T>) this.getValue()).get(key) : null;
@@ -155,6 +170,7 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public DynaClass getDynaClass() {
 		return this;
 	}
@@ -162,6 +178,7 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void remove(String name, String key) {
 		if ("value".equals(name)) {
@@ -172,21 +189,30 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void set(String name, Object value) {
-		this.value((T) value);
+		if ("value".equals(name)) {
+			this.value((T) value);
+		} else if ("label".equals(name)) {
+			this.label(String.valueOf(value));
+		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void set(String name, int index, Object value) {
-		((Object[]) this.getValue())[index] = value;
+		if ("value".equals(name)) {
+			((Object[]) this.getValue())[index] = value;
+		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void set(String name, String key, Object value) {
 		if ("value".equals(name)) {
@@ -197,6 +223,7 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String getName() {
 		return DynaField.class.getName();
 	}
@@ -204,6 +231,7 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public DynaProperty getDynaProperty(String name) {
 		if ("value".equals(name)) {
 			return this.valueDynaProperty;
@@ -214,6 +242,7 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public DynaProperty[] getDynaProperties() {
 		if (this.dynaProperties == null) {
 			this.dynaProperties = new DynaProperty[] { this.valueDynaProperty,
@@ -229,6 +258,7 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	 * @throws IllegalStateException
 	 *             DynaField class cannot be dynamically instantiated
 	 */
+	@Override
 	public DynaBean newInstance() throws IllegalAccessException, InstantiationException {
 		throw new IllegalStateException("DynaField class cannot be dynamically instantiated.");
 	}
