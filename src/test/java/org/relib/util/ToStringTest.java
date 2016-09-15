@@ -30,7 +30,7 @@ import org.junit.Test;
 public class ToStringTest {
 
 	/**
-	 * Verify toString works on an annonymous inner class.
+	 * Verify toString works on an anonymous inner class.
 	 */
 	@Test
 	public void testToStringOnAnnonymousInnerClass() {
@@ -249,5 +249,5 @@ public class ToStringTest {
 		};
 		Assert.assertEquals("[value=1234.56789]", testObject.toString());
 	}
-	
+
 }
