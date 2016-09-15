@@ -41,7 +41,7 @@ public class HtmlTag extends DynamicTag {
 		if (this.getDynamicAttributes().get("lang") == null) {
 			this.getDynamicAttributes().put("lang", "en");
 		}
-		out.println("<html");
+		out.print("<html");
 		this.writeAttributes(this.getDynamicAttributes(), out);
 		out.println(">");
 		this.doBody(out);

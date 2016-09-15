@@ -153,7 +153,7 @@
 		<attribute>
 			<description>Specifies the path to the js file.</description>
 			<name>src</name>
-			<required>true</required>
+			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
 		</attribute>

@@ -21,6 +21,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.JspFragment;
 
 import org.relib.ui.DynamicTag;
 import org.relib.util.Strings;
@@ -54,13 +55,23 @@ public class JsTag extends DynamicTag {
 			final ServletContext servletContext = ((PageContext) this.getJspContext()).getServletContext();
 			this.context = servletContext.getContextPath();
 		}
-		this.getDynamicAttributes().put("src", this.context + this.src);
+
+		if (this.src != null) {
+			this.getDynamicAttributes().put("src", this.context + this.src);
+		}
 
 		out.print("<script");
 		this.writeAttributes(this.getDynamicAttributes(), out);
-		out.println(">");
-		this.doBody(out);
-		out.println("</script>");
+		out.print(">");
+
+		final JspFragment body = this.getJspBody();
+		if (body != null) {
+			out.print("//<![CDATA[");
+			this.getJspBody().invoke(out);
+			out.print("//]]>");
+		}
+
+		out.print("</script>");
 	}
 
 	/**
