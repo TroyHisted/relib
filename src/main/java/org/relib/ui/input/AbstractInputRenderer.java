@@ -255,7 +255,7 @@ public abstract class AbstractInputRenderer implements InputRenderer {
 			return false;
 		} else if (aValue instanceof Object[]) {
 			for (final Object val : (Object[]) aValue) {
-				if (aOption.equals(val.toString())) {
+				if (String.valueOf(val).equals(aOption)) {
 					return true;
 				}
 			}
