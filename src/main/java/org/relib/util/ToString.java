@@ -18,19 +18,25 @@ package org.relib.util;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ServiceLoader;
 import java.util.Set;
 
+import org.apache.commons.beanutils.DynaBean;
+import org.apache.commons.beanutils.DynaClass;
+import org.apache.commons.beanutils.DynaProperty;
 import org.relib.ui.input.InputRenderer;
 import org.relib.util.tostring.CalendarToString;
 import org.relib.util.tostring.DateToString;
 
 /**
  * Handles generating string representations of objects using reflection.
- * 
+ *
  * <p>
  * The common usage is in the format:
  * <pre>
@@ -38,7 +44,7 @@ import org.relib.util.tostring.DateToString;
  * ToString.of(this).build();
  * }
  * </pre>
- * 
+ *
  * @author Troy Histed
  */
 public class ToString {
@@ -98,13 +104,300 @@ public class ToString {
 	 * @return string
 	 */
 	public String build() {
+		return this.build(this.object, null, true);
+	}
 
+	private String build(Object value, ToStringConfig config, boolean nest) {
+
+		for (final ToStringConverter converter : CONVERTER_LOADER) {
+			if (converter.supports(value)) {
+				return converter.toString(value, config);
+			}
+		}
+		for (final ToStringConverter converter : CONVERTER_CACHE) {
+			if (converter.supports(value)) {
+				return converter.toString(value, config);
+			}
+		}
+
+		if (value == null) {
+			return "null";
+		} else if (value instanceof String) {
+			return "\"" + value + "\"";
+		} else if (value instanceof Enum) {
+			return "\"" + ((Enum<?>) value).name() + "\"";
+		} else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		} else if (value instanceof Character) {
+			return "\'" + value + "\'";
+		} else if (value instanceof Object[]) {
+			return this.handleObjectArray((Object[]) value);
+		} else if (value instanceof byte[]) {
+			return this.handleByteArray((byte[]) value);
+		} else if (value instanceof short[]) {
+			return this.handleShortArray((short[]) value);
+		} else if (value instanceof int[]) {
+			return this.handleIntArray((int[]) value);
+		} else if (value instanceof long[]) {
+			return this.handleLongArray((long[]) value);
+		} else if (value instanceof float[]) {
+			return this.handleFloatArray((float[]) value);
+		} else if (value instanceof double[]) {
+			return this.handleDoubleArray((double[]) value);
+		} else if (value instanceof boolean[]) {
+			return this.handleBooleanArray((boolean[]) value);
+		} else if (value instanceof char[]) {
+			return this.handleCharArray((char[]) value);
+		} else if (value instanceof Map<?,?>) {
+			return this.handleMap((Map<?,?>) value);
+		} else if (value instanceof Collection<?>) {
+			return this.handleCollection((Collection<?>) value);
+		} else if (value instanceof Class<?>) {
+			return ((Class<?>) value).getName();
+		} else if (value instanceof DynaClass && value instanceof DynaBean) {
+			return this.handleDynaBeanClass((DynaClass) value);
+		} else {
+			if (nest) {
+				return this.handleGenericObject(value);
+			}
+			return String.valueOf(value);
+		}
+	}
+
+	/**
+	 * Handles converting an array of Objects.
+	 *
+	 * @param objects the objects to convert
+	 * @return string representation
+	 */
+	private String handleObjectArray(Object[] objects) {
+		final StringBuilder buffer = new StringBuilder("[");
+		String delim = "";
+		for (final Object item : objects) {
+			buffer.append(delim).append(this.build(item, null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting an array of bytes.
+	 *
+	 * @param objects the objects to convert
+	 * @return string representation
+	 */
+	private String handleByteArray(byte[] bytes) {
+		final StringBuilder buffer = new StringBuilder("[");
+		String delim = "";
+		for (final byte item : bytes) {
+			buffer.append(delim).append(this.build(Byte.valueOf(item), null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting an array of shorts.
+	 *
+	 * @param objects the objects to convert
+	 * @return string representation
+	 */
+	private String handleShortArray(short[] shorts) {
+		final StringBuilder buffer = new StringBuilder("[");
+		String delim = "";
+		for (final short item : shorts) {
+			buffer.append(delim).append(this.build(Short.valueOf(item), null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting an array of ints.
+	 *
+	 * @param objects the objects to convert
+	 * @return string representation
+	 */
+	private String handleIntArray(int[] ints) {
+		final StringBuilder buffer = new StringBuilder("[");
+		String delim = "";
+		for (final int item : ints) {
+			buffer.append(delim).append(this.build(Integer.valueOf(item), null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting an array of longs.
+	 *
+	 * @param objects the objects to convert
+	 * @return string representation
+	 */
+	private String handleLongArray(long[] longs) {
+		final StringBuilder buffer = new StringBuilder("[");
+		String delim = "";
+		for (final long item : longs) {
+			buffer.append(delim).append(this.build(Long.valueOf(item), null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting an array of floats.
+	 *
+	 * @param objects the objects to convert
+	 * @return string representation
+	 */
+	private String handleFloatArray(float[] floats) {
+		final StringBuilder buffer = new StringBuilder("[");
+		String delim = "";
+		for (final float item : floats) {
+			buffer.append(delim).append(this.build(Float.valueOf(item), null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting an array of doubles.
+	 *
+	 * @param objects the objects to convert
+	 * @return string representation
+	 */
+	private String handleDoubleArray(double[] doubles) {
+		final StringBuilder buffer = new StringBuilder("[");
+		String delim = "";
+		for (final double item : doubles) {
+			buffer.append(delim).append(this.build(Double.valueOf(item), null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting an array of booleans.
+	 *
+	 * @param objects the objects to convert
+	 * @return string representation
+	 */
+	private String handleBooleanArray(boolean[] booleans) {
+		final StringBuilder buffer = new StringBuilder("[");
+		String delim = "";
+		for (final boolean item : booleans) {
+			buffer.append(delim).append(this.build(Boolean.valueOf(item), null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting an array of chars.
+	 *
+	 * @param objects the objects to convert
+	 * @return string representation
+	 */
+	private String handleCharArray(char[] chars) {
+		final StringBuilder buffer = new StringBuilder("[");
+		String delim = "";
+		for (final char item : chars) {
+			buffer.append(delim).append(this.build(Character.valueOf(item), null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting a map.
+	 *
+	 * @param object the map to convert
+	 * @return string representation
+	 */
+	private String handleMap(Map<?,?> map) {
+		final StringBuilder buffer = new StringBuilder(map.getClass().getSimpleName());
+		buffer.append("[");
+		String delim = "";
+		for (final Entry<?,?> item : map.entrySet()) {
+			buffer.append(delim);
+			buffer.append(this.build(item.getKey(), null, false));
+			buffer.append(":");
+			buffer.append(this.build(item.getValue(), null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting a collection.
+	 *
+	 * @param object the collection to convert
+	 * @return string representation
+	 */
+	private String handleCollection(Collection<?> collection) {
+		final StringBuilder buffer = new StringBuilder(collection.getClass().getSimpleName());
+		buffer.append("[");
+		String delim = "";
+		for (final Object item : collection) {
+			buffer.append(delim).append(this.build(item, null, false));
+			delim = ", ";
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles the special DynaBean and DynaClass conversion to a String.
+	 *
+	 * @param dynaClass the object to convert
+	 * @return string representation
+	 */
+	private String handleDynaBeanClass(DynaClass dynaClass) {
+
+		final DynaProperty[] dynaProperties = dynaClass.getDynaProperties();
+
+		final StringBuilder buffer = new StringBuilder("[");
+		String delim = "";
+
+		for (final DynaProperty dynaProperty : dynaProperties) {
+			if (dynaProperty != null) {
+				final String propertyName = dynaProperty.getName();
+				buffer.append(delim).append(propertyName).append("=");
+				buffer.append(this.build(((DynaBean) dynaClass).get(propertyName), null, false));
+				delim = ", ";
+			}
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+
+	/**
+	 * Handles converting an object into a String.
+	 *
+	 * <p>
+	 * Reflectively inspects the object to gather all the fields of the object and their values. Replaces the
+	 * value of hidden fields with a single asterisk. If the value of a field cannot be determined a question
+	 * mark will be used in place of the value.
+	 *
+	 * @return string representation of the object
+	 */
+	private String handleGenericObject(Object object) {
 		final StringBuffer buffer = new StringBuffer();
-		buffer.append(this.object.getClass().getSimpleName());
+		buffer.append(object.getClass().getSimpleName());
 		buffer.append("[");
 		String delimiter = "";
 
-		final List<Field> fields = this.gatherAllFields(this.object);
+		final List<Field> fields = this.gatherAllFields(object);
 		fields.sort(new FieldOrder());
 		for (final Field field : fields) {
 
@@ -118,17 +411,18 @@ public class ToString {
 			}
 
 			buffer.append(delimiter);
+			delimiter = ", ";
+
 			buffer.append(field.getName()).append("=");
 			if (this.hiddenFields.contains(field.getName())) {
 				buffer.append("*");
-				delimiter = ", ";
 				continue;
 			}
 
 			Object fieldValue;
 			field.setAccessible(true);
 			try {
-				fieldValue = field.get(this.object);
+				fieldValue = field.get(object);
 			} catch (final IllegalAccessException e) {
 				buffer.append("?");
 				continue;
@@ -137,8 +431,7 @@ public class ToString {
 				continue;
 			}
 
-			buffer.append(this.generateValueDescription(fieldValue, config));
-			delimiter = ", ";
+			buffer.append(this.build(fieldValue, config, false));
 		}
 
 		buffer.append("]");
@@ -166,29 +459,14 @@ public class ToString {
 	}
 
 	/**
-	 * Builds a description for the value.
+	 * Returns the string value of the object this wraps.
 	 *
-	 * @param value the value to build the string from
-	 * @return description of the value
+	 * <p>
+	 * Equivalent to calling <code>build()</code>.
 	 */
-	private String generateValueDescription(Object value, ToStringConfig config) {
-		if (value instanceof String) {
-			return "\"" + value + "\"";
-		} else if (value instanceof Character) {
-			return "\'" + value + "\'";
-		} else {
-			for (final ToStringConverter converter : CONVERTER_LOADER) {
-				if (converter.supports(value)) {
-					return converter.toString(value, config);
-				}
-			}
-			for (final ToStringConverter converter : CONVERTER_CACHE) {
-				if (converter.supports(value)) {
-					return converter.toString(value, config);
-				}
-			}
-			return String.valueOf(value);
-		}
+	@Override
+	public String toString() {
+		return this.build();
 	}
 
 	/**

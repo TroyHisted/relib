@@ -21,6 +21,8 @@ import java.util.Date;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.relib.ui.field.DynaField;
+import org.relib.ui.field.Field;
 
 /**
  * Tests the {@link ToString} class.
@@ -103,6 +105,33 @@ public class ToStringTest {
 		public String toString() {
 			return ToString.of(this).build();
 		}
+	}
+
+	/**
+	 * Verify toString properly formats a String.
+	 */
+	@Test
+	public void testToStringWithString() {
+		final String value = "Hello World";
+		Assert.assertEquals("\"Hello World\"", ToString.of(value).build());
+	}
+
+	/**
+	 * Verify toString properly formats an Integer.
+	 */
+	@Test
+	public void testToStringWithInteger() {
+		final int value = 42;
+		Assert.assertEquals("42", ToString.of(Integer.valueOf(value)).build());
+	}
+
+	/**
+	 * Verify toString properly formats a Character.
+	 */
+	@Test
+	public void testToStringWithCharacter() {
+		final char value = 'z';
+		Assert.assertEquals("'z'", ToString.of(Character.valueOf(value)).build());
 	}
 
 	/**
@@ -248,6 +277,121 @@ public class ToStringTest {
 
 		};
 		Assert.assertEquals("[value=1234.56789]", testObject.toString());
+	}
+
+	/**
+	 * Verify toString properly formats an array of ints.
+	 */
+	@Test
+	public void testToStringWithIntArray() {
+		final Object testObject = new Object() {
+
+			@SuppressWarnings("unused")
+			private final int[] ints = new int[] {1,2,3,4};
+
+			@Override
+			public String toString() {
+				return ToString.of(this).build();
+			}
+
+		};
+		Assert.assertEquals("[ints=[1, 2, 3, 4]]", testObject.toString());
+	}
+
+	/**
+	 * Verify toString properly formats an array of chars.
+	 */
+	@Test
+	public void testToStringWithCharArray() {
+		final Object testObject = new Object() {
+
+			@SuppressWarnings("unused")
+			private final char[] chars = new char[] {'a', 'b', 'c'};
+
+			@Override
+			public String toString() {
+				return ToString.of(this).build();
+			}
+
+		};
+		Assert.assertEquals("[chars=['a', 'b', 'c']]", testObject.toString());
+	}
+
+	/**
+	 * Verify toString properly formats an array of booleans.
+	 */
+	@Test
+	public void testToStringWithBooleanArray() {
+		final Object testObject = new Object() {
+
+			@SuppressWarnings("unused")
+			private final boolean[] booleans = new boolean[] {true, false, true};
+
+			@Override
+			public String toString() {
+				return ToString.of(this).build();
+			}
+
+		};
+		Assert.assertEquals("[booleans=[true, false, true]]", testObject.toString());
+	}
+
+	/**
+	 * Verify toString properly formats an array of doubles.
+	 */
+	@Test
+	public void testToStringWithDoubleArray() {
+		final Object testObject = new Object() {
+
+			@SuppressWarnings("unused")
+			private final double[] doubles = new double[] {1.2, 2.3, 3.4};
+
+			@Override
+			public String toString() {
+				return ToString.of(this).build();
+			}
+
+		};
+		Assert.assertEquals("[doubles=[1.2, 2.3, 3.4]]", testObject.toString());
+	}
+
+	/**
+	 * Verify toString properly formats a Class.
+	 */
+	@Test
+	public void testToStringWithClass() {
+		final Object testObject = new Object() {
+
+			@SuppressWarnings("unused")
+			private final Class<?> foo = String.class;
+
+			@Override
+			public String toString() {
+				return ToString.of(this).build();
+			}
+
+		};
+		Assert.assertEquals("[foo=java.lang.String]", testObject.toString());
+	}
+
+	/**
+	 * Verify toString properly formats a DynaBean.
+	 */
+	@Test
+	public void testToStringWithDynaBean() {
+		final Object testObject = new Object() {
+
+			@SuppressWarnings("unused")
+			private final Field<String> dyna = DynaField.of("Hello World").label("Greeting");
+
+			@Override
+			public String toString() {
+				return ToString.of(this).build();
+			}
+
+		};
+		Assert.assertEquals("[dyna=[value=\"Hello World\", message=null, messageText=null, label=\"Greeting\"]]",
+			testObject.toString());
 	}
 
 }
