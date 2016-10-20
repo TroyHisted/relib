@@ -23,9 +23,14 @@ package org.relib.util;
 public class Strings {
 
 	/**
-	 * An empty string ("");
+	 * An empty string ("").
 	 */
 	public static final String EMPTY = "";
+
+	/**
+	 * A null string.
+	 */
+	public static final String NULL = null;
 
 	/**
 	 * Null safe trim.
@@ -38,6 +43,17 @@ public class Strings {
 			return string.trim();
 		}
 		return null;
+	}
+
+	/**
+	 * Null safe equals.
+	 *
+	 * @param a the first string
+	 * @param b the second string
+	 * @return <code>true</code> if both strings are not null and have the same characters
+	 */
+	public static boolean equals(String a, String b) {
+		return a != null && b != null && a.equals(b);
 	}
 
 	/**

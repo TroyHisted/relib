@@ -50,6 +50,46 @@ public class StringsTest {
 	}
 
 	/**
+	 * Verify a equals works with both null.
+	 */
+	@Test
+	public void testEqualsFalseWhenBothNull() {
+		Assert.assertFalse(Strings.equals((String) null,(String) null));
+	}
+
+	/**
+	 * Verify a equals works when the first argument is null.
+	 */
+	@Test
+	public void testEqualsFalseWhenFirstNull() {
+		Assert.assertFalse(Strings.equals((String) null, "test"));
+	}
+
+	/**
+	 * Verify a equals works when the second argument is null.
+	 */
+	@Test
+	public void testEqualsFalseWhenSecondNull() {
+		Assert.assertFalse(Strings.equals("test", (String) null));
+	}
+
+	/**
+	 * Verify a equals works when the strings don't match.
+	 */
+	@Test
+	public void testEqualsFalseWhenNotMatching() {
+		Assert.assertFalse(Strings.equals("foo", "bar"));
+	}
+
+	/**
+	 * Verify a equals works when the strings do match.
+	 */
+	@Test
+	public void testEqualsTrueWhenMatching() {
+		Assert.assertTrue(Strings.equals("foo", "foo"));
+	}
+
+	/**
 	 * Verify a trim works with a leading trims.
 	 */
 	@Test
