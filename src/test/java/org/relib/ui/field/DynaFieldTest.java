@@ -314,12 +314,44 @@ public class DynaFieldTest extends InputFieldTest {
 	}
 
 	/**
+	 * Ensure an item from an array can be set using {@link BeanUtils} when the array is null.
+	 *
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws NoSuchMethodException
+	 */
+	@Test
+	public void testSetIndexedBeanPropertyOnNull() throws NoSuchMethodException, IllegalAccessException,
+			InvocationTargetException {
+		final Field<String[]> field = this.construct(String[].class);
+		BeanUtils.setProperty(field, "value[1]", "two");
+		Assert.assertEquals("two", field.getValue()[1]);
+	}
+
+	/**
+	 * Ensure an item from an array can be set using {@link BeanUtils}.
+	 *
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws NoSuchMethodException
+	 */
+	@Test
+	public void testSetIndexedBeanPropertyIntOnNull() throws NoSuchMethodException, IllegalAccessException,
+			InvocationTargetException {
+		final Field<int[]> field = this.construct(int[].class);
+		field.value(new int[2]);
+		BeanUtils.setProperty(field, "value[1]", "3");
+		Assert.assertEquals(3, field.getValue()[1]);
+	}
+
+	/**
 	 * Ensure an item from a map can be retrieved using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
 	 * @throws IllegalAccessException
 	 * @throws NoSuchMethodException
 	 */
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testGetMappedBeanProperty() throws NoSuchMethodException, IllegalAccessException,
 			InvocationTargetException {

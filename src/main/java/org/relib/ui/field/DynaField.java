@@ -15,6 +15,7 @@
  */
 package org.relib.ui.field;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -202,10 +203,22 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void set(String name, int index, Object value) {
-		if ("value".equals(name)) {
-			((Object[]) this.getValue())[index] = value;
+		if ("value".equals(name) && this.valueDynaProperty.getType().isArray()) {
+			if (this.getValue() == null) {
+				final Class<?> componentType = this.valueDynaProperty.getType().getComponentType();
+				this.setValue((T) Array.newInstance(componentType, index + 1));
+			}
+			int length = Array.getLength(this.getValue());
+			if (length <= index) {
+				final Class<?> componentType = this.valueDynaProperty.getType().getComponentType();
+				final Object array = Array.newInstance(componentType, index + 1);
+				System.arraycopy(this.getValue(), 0, array, 0, length);
+				this.setValue((T) array);
+			}
+			Array.set(this.getValue(), index, value);
 		}
 	}
 
