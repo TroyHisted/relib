@@ -198,14 +198,13 @@ public class ArgumentGeneratorForRequestBeanTest {
 		Assert.assertTrue(argument instanceof Animal);
 		if (argument instanceof Animal) {
 			final Animal animal = (Animal) argument;
-			System.err.println(animal);
 			Assert.assertArrayEquals(
 				new Animal.Color[]{ Animal.Color.RED, Animal.Color.GREEN}, animal.getColorFields().getValue());
 		}
 	}
 
 	/**
-	 * Verify array of Field values.
+	 * Verify generating arguments with all field properties.
 	 */
 	@Test
 	public void testGenerateArgumentWithFieldProperties() {
@@ -214,7 +213,6 @@ public class ArgumentGeneratorForRequestBeanTest {
 		this.mockRequest.getParameterMap().put("nameField.label", new String[] {"testLabel"} );
 		this.mockRequest.getParameterMap().put("nameField.message", new String[] {"testMessage"} );
 		this.mockRequest.getParameterMap().put("nameField.messageText", new String[] {"testMessage"} );
-		this.mockRequest.getParameterMap().put("nameField.options", new String[] {"one", "two"} );
 
 		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean
 			= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
@@ -223,8 +221,9 @@ public class ArgumentGeneratorForRequestBeanTest {
 
 		Assert.assertTrue(argument instanceof Animal);
 		if (argument instanceof Animal) {
-			final Animal animal = (Animal) argument;
-			System.err.println(animal.getNameField());
+			final Field<String> nameField = ((Animal) argument).getNameField();
+			Assert.assertEquals("testValue", nameField.getValue());
+			Assert.assertEquals("testLabel", nameField.getLabel());
 		}
 	}
 
