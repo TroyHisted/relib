@@ -17,7 +17,6 @@ package org.relib.json;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,7 +24,7 @@ import org.junit.Test;
 import org.relib.util.ToString;
 
 /**
- * Tests the {@link Json} class.
+ * Tests the {@link JsonToParameterMap} class.
  *
  * @author Troy Histed
  */
@@ -41,6 +40,9 @@ public class JsonToParameterMapTest {
 		this.expected = new HashMap<String, String[]>();
 	}
 
+	/**
+	 * Verify conversion of an object with several properties.
+	 */
 	@Test
 	public void testToParameterMapWithString() {
 
@@ -48,10 +50,26 @@ public class JsonToParameterMapTest {
 		this.expected.put("foo", new String[] { "bar" });
 		this.expected.put("def", new String[] { "elk" });
 
-		Assert.assertEquals(this.toString(this.expected),
-			this.toString(JsonToParameterMap.toParameterMap(testString)));
+		Assert.assertEquals(ToString.of(this.expected).build(),
+			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
+	/**
+	 * Verify conversion of a string containing all the special characters.
+	 */
+	@Test
+	public void testToParameterMapWithSpecialCharacterString() {
+
+		final String testString = "{\"foo\": \"a{}[]' \\\" \"}";
+		this.expected.put("foo", new String[] { "a{}[]' \" " });
+
+		Assert.assertEquals(ToString.of(this.expected).build(),
+			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
+	}
+
+	/**
+	 * Verify conversion when a property is null.
+	 */
 	@Test
 	public void testToParameterMapWithNull() {
 
@@ -59,10 +77,13 @@ public class JsonToParameterMapTest {
 		this.expected.put("foo", new String[] { null });
 		this.expected.put("def", new String[] { "elk" });
 
-		Assert.assertEquals(this.toString(this.expected),
-			this.toString(JsonToParameterMap.toParameterMap(testString)));
+		Assert.assertEquals(ToString.of(this.expected).build(),
+			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
+	/**
+	 * Verify conversion with numeric values.
+	 */
 	@Test
 	public void testToParameterMapWithNumbers() {
 
@@ -70,20 +91,26 @@ public class JsonToParameterMapTest {
 		this.expected.put("foo", new String[] { "33" });
 		this.expected.put("bar", new String[] { "22.58" });
 
-		Assert.assertEquals(this.toString(this.expected),
-			this.toString(JsonToParameterMap.toParameterMap(testString)));
+		Assert.assertEquals(ToString.of(this.expected).build(),
+			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
+	/**
+	 * Verify conversion with a nested object.
+	 */
 	@Test
 	public void testToParameterMapWithNestedObjects() {
 
 		final String testString = "{\"foo\": { \"bar\": 15 }}";
 		this.expected.put("foo.bar", new String[] { "15" });
 
-		Assert.assertEquals(this.toString(this.expected),
-				this.toString(JsonToParameterMap.toParameterMap(testString)));
+		Assert.assertEquals(ToString.of(this.expected).build(),
+			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
+	/**
+	 * Verify conversion with multiple nested objects.
+	 */
 	@Test
 	public void testToParameterMapWithMultipleNestedObjects() {
 
@@ -92,40 +119,36 @@ public class JsonToParameterMapTest {
 		this.expected.put("cat", new String[] { "dog" });
 		this.expected.put("def.elk", new String[] { "44" });
 
-		final String actual = this.toString(JsonToParameterMap.toParameterMap(testString));
-		Assert.assertEquals(this.toString(this.expected),
-			actual);
-	}
-
-
-	@Test
-	public void testRealJson() {
-
-		final String json = "{\"age\":{\"value\":null,\"message\":null,\"messageText\":null,\"label\":\"Age\"},\"allergies\":{\"value\":null,\"message\":null,\"messageText\":null,\"label\":\"Allergies\"},\"bio\":{\"value\":null,\"message\":null,\"messageText\":null,\"label\":\"Bio\"},\"gender\":{\"value\":null,\"message\":null,\"messageText\":null,\"label\":\"Gender\"},\"name\":{\"value\":null,\"message\":null,\"messageText\":null,\"label\":\"Name\"},\"pets\":{\"value\":null,\"message\":null,\"messageText\":null,\"label\":\"Pets\"}}";
-		final String actual = this.toString(JsonToParameterMap.toParameterMap(json));
+		Assert.assertEquals(ToString.of(this.expected).build(),
+			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
 	/**
-	 * Converts the parameter map to a string.
-	 *
-	 * @param map the map to unwrap
-	 * @return the string representation
+	 * Verify conversion with an array of integers.
 	 */
-	private String toString(Map<String, String[]> map) {
-		final StringBuilder buffer = new StringBuilder();
-		buffer.append("{");
-		String delim = "";
-		for (final Entry<String, String[]> entry : map.entrySet()) {
+	@Test
+	public void testToParameterMapWithArrayOfInts() {
+		final String testString = "{\"foo\": [1,2,3,4]}";
+		this.expected.put("foo[0]", new String[] { "1" });
+		this.expected.put("foo[1]", new String[] { "2" });
+		this.expected.put("foo[2]", new String[] { "3" });
+		this.expected.put("foo[3]", new String[] { "4" });
 
-			buffer.append(delim).append(entry.getKey()).append(":");
+		Assert.assertEquals(ToString.of(this.expected).build(),
+			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
+	}
 
-			for (final Object value: entry.getValue()) {
-				buffer.append(ToString.of(value).build());
-			}
-			delim = ", ";
-		}
-		buffer.append("}");
-		return buffer.toString();
+	/**
+	 * Verify conversion with an array of objects.
+	 */
+	@Test
+	public void testToParameterMapWithArrayOfObjects() {
+		final String testString = "{\"foo\": [{bar: 11},{bar:22}]}";
+		this.expected.put("foo[0].bar", new String[] { "11" });
+		this.expected.put("foo[1].bar", new String[] { "22" });
+
+		Assert.assertEquals(ToString.of(this.expected).build(),
+			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
 }

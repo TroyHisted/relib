@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Map;
 
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaClass;
@@ -30,11 +31,18 @@ import org.relib.util.Strings;
 
 /**
  * Handles manipulating object data into JavaScript Object Notation (JSON).
- *
  * <pre>
  * {@code
- * Json.toJson(new Object());
+ * String json = Json.toJson(new Object());
  * }
+ * </pre>
+ *
+ * <p>
+ * Handles parsing a JSON string into the equivalent request parameter map
+ * <pre>
+ * <code>
+ * Map<String, String[]> map = Json.toParameterMap("{}");
+ * </code>
  * </pre>
  *
  * @author Troy Histed
@@ -54,6 +62,16 @@ public class Json {
 	 */
 	public static String toJson(Object object) {
 		return JSON.build(object);
+	}
+
+	/**
+	 * Parses a JSON string into a map of parameters.
+	 *
+	 * @param json string of json data to parse
+	 * @return non-null map containing converted json data
+	 */
+	public static Map<String, String[]> toParameterMap(String json) {
+		return JsonToParameterMap.toParameterMap(json);
 	}
 
 	/**
@@ -158,7 +176,6 @@ public class Json {
 		}
 
 		buffer.append("}");
-		//System.err.println(buffer.toString());
 		return buffer.toString();
 	}
 
