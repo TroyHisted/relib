@@ -138,7 +138,7 @@ public class Json {
 		Arrays.sort(methods, new MethodOrder());
 		for (final Method method : methods) {
 			final String methodName = method.getName();
-			if (method.getParameterCount() == 0) {
+			if (method.getParameterTypes().length == 0) {
 				String fieldName;
 				if (methodName.startsWith("get")) {
 					fieldName = Strings.unCapitalize(methodName.substring(3));

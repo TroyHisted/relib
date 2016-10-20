@@ -19,6 +19,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -398,7 +399,7 @@ public class ToString {
 		String delimiter = "";
 
 		final List<Field> fields = this.gatherAllFields(object);
-		fields.sort(new FieldOrder());
+		Collections.sort(fields,  new FieldOrder());
 		for (final Field field : fields) {
 
 			if (field.getName().equals("this$0")) {
