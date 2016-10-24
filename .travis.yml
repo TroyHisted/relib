@@ -1,19 +1,1 @@
 language: java
-
-env:
-  global:
-   - secure: "bgUBbkvPgp7hK+4sin+b8owJ4i/5JW30zkrWGPpjOm9/+QBJdigCTWjXXLJJ4F07+Gyc2x9dM2jRIDpJXLEjiHMgNk60fgm4GUlxbtX8SNIMf+Lq+p5dXfS5PEUBrSa5A+p767FnQYjn7F6wk1ANiLbzsR5wcqxPZ0K+7AYMI46ck/SL+v1a4BU8AnVhvaLEwO4S07bylm0M+VpdNZHsL4XnD6ck6CyNhprYjVO3a1rb4W2EIiDkgc1dweZe/hPm5Krsk+iOWpcJOHPOUkB2ybpRwxMweXCNmUN4Ynp7U0D9Cj0KyKOONOEHctP9HS9d6dqNnUxyqz3wyKdxIcPKIjBAkifHZ7L7sHeDWrMMw05yZc7gLF1Gcf1hsDN0iknM22lj/cWfWBtpmpi3yOJlAAei3mjKphwnc5FbR30tb0QwFUExnC90esOPQRpq8iH+7S6L1O2tZNzgfyIVWBHnr/S9SWglb/KnU8jrKr5QZYAFGLauuPWBfsVltV6EeXkAIu8D+A2lWwPgyDj5viWaMNgdaLeE+Nmc7X4uso7LCXumi4lcYH1mSju6SdoCkepi5N450whyIxps/dUo0ntKECxeo2QgGZUipms8GAiu9iiJ0bXicvzvzkPZuCFigvAPaDunMgZwIj194heHEYUXsH4lS/ioJcM5xeeq2wfPbaI="
-
-before_install:
-      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
-
-addons:
-  coverity_scan:
-    project:
-      name: "TroyHisted/relib"
-      description: "Build submitted via Travis CI"
-    notification_email: troy.histed@gmail.com
-    build_command_prepend: "mvn clean"
-    build_command:   "mvn -DskipTests=true compile"
-    branch_pattern: coverity_scan
-    
