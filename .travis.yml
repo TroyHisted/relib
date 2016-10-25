@@ -1,13 +1,15 @@
 language: java
 
+jdk:
+  - oraclejdk7
+
+script: mvn verify -B
+
 env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    #   via the "travis encrypt" command using the project repo's public key
    - secure: "3flGVUbPyBY69KK4sBrev7u8wi+b77UrbGqCIDjOZtBG7Lk53wwbGp+doAwz4WDPQqOIozlYJKo3f2q5UhpwOhyOVrynH3ml9Y1T/oCaqgcpVEFXbN2cJiHIGFf94t7HUx2yL9hwEf+/wI3ydHa225q7VevV+W/8ZKV5Ww9LnnuAr+c1mbLGHmQ/H9mQCTLu1q7bQghpTTPaNZIAlLt8mSsBRpUPc925cgN2Wi1bBYDM8oMZDD2R4wLKAyeWTCluJScyZHOcgGQVOwc5aaQYPBvwZ0PLjy6qimilZyqBfO2bQfI0AnDU1iIoPyucD4lg5PC7aIQs227EA3hLngQp63d9NhYksY1+BAn4XGdO0wlTb671k9yHv5qQAV8UXS/QP34957/qW+Pl2U0SnPNI/M9g1wXqD7ftA9TFm9UfM75XsO30SL/cDhacsZneYmcBLEWHLKgprTSQkeogzMrJ5fXv52QuCaWvIYdXL9jo8qznzUF5u+oMJvMQjM/Mkv96dWiLVkATTv3ErVT4caamA8Q3YiidTHpUYvJEQs2vRsuwTR0aJ0aEvB44sFH5hxjMPDMszsqZaIAsYdsE6cYI9xIFk6jWdIYVRugEySZmvfJSBEb09w59FYHgchw9oDXxo8pnSVpEfynFO1YBIBpSu50j1ZLjynEf/BbUpjpxxFQ="
-
-before_install:
-      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 addons:
   coverity_scan:
