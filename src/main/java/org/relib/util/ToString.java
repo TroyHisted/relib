@@ -370,12 +370,14 @@ public class ToString {
 		final StringBuilder buffer = new StringBuilder("[");
 		String delim = "";
 
-		for (final DynaProperty dynaProperty : dynaProperties) {
-			if (dynaProperty != null) {
-				final String propertyName = dynaProperty.getName();
-				buffer.append(delim).append(propertyName).append("=");
-				buffer.append(this.build(((DynaBean) dynaClass).get(propertyName), null, false));
-				delim = ", ";
+		if (dynaProperties != null) {
+			for (final DynaProperty dynaProperty : dynaProperties) {
+				if (dynaProperty != null) {
+					final String propertyName = dynaProperty.getName();
+					buffer.append(delim).append(propertyName).append("=");
+					buffer.append(this.build(((DynaBean) dynaClass).get(propertyName), null, false));
+					delim = ", ";
+				}
 			}
 		}
 		buffer.append("]");

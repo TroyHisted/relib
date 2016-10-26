@@ -18,6 +18,7 @@ package org.relib.http.request;
 import java.io.IOException;
 import java.util.Map.Entry;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,7 @@ class ResponseGeneratorForView implements ResponseGenerator {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public void generateResponse(HttpServletRequest request, HttpServletResponse response, Object value) {
 
 		if (!(value instanceof View)) { return; }
@@ -46,12 +48,17 @@ class ResponseGeneratorForView implements ResponseGenerator {
 			request.setAttribute(entry.getKey(), entry.getValue());
 		}
 
-		try {
-			request.getRequestDispatcher(view.getViewPath()).forward(request, response);
-		} catch (final ServletException e) {
-			throw new IllegalStateException("Unable to generate response using : " + value, e);
-		} catch (final IOException e) {
-			throw new IllegalStateException("Unable to generate response using : " + value, e);
+		final RequestDispatcher dispatcher = request.getRequestDispatcher(view.getViewPath());
+		if (dispatcher != null){
+			try {
+				dispatcher.forward(request, response);
+			} catch (final ServletException e) {
+				throw new IllegalStateException("Unable to generate response using : " + value, e);
+			} catch (final IOException e) {
+				throw new IllegalStateException("Unable to generate response using : " + value, e);
+			}
+		} else {
+			throw new IllegalStateException("Unable to dispatch response using: " + request);
 		}
 	}
 
