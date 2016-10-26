@@ -17,7 +17,6 @@ package org.relib.json;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -113,8 +112,6 @@ public class Json {
 			return this.handleDate((Date) object);
 		} else if (object instanceof Calendar) {
 			return this.handleCalendar((Calendar) object);
-		} else if (object instanceof BigDecimal) {
-			return this.handleBigDecimal((BigDecimal) object);
 		} else if (object instanceof DynaClass && object instanceof DynaBean) {
 			return this.handleDynaBeanClass((DynaClass) object);
 		} else {
@@ -353,16 +350,6 @@ public class Json {
 	}
 
 	/**
-	 * Handles converting a BigDecimal.
-	 *
-	 * @param bigDecimal the object to convert
-	 * @return string containing json
-	 */
-	private String handleBigDecimal(BigDecimal bigDecimal) {
-		return bigDecimal.toString();
-	}
-
-	/**
 	 * Handles the special DynaBean and DynaClass conversion to json.
 	 *
 	 * @param dynaClass the object to convert
@@ -375,13 +362,15 @@ public class Json {
 		final StringBuilder buffer = new StringBuilder("{");
 		String delim = "";
 
-		for (final DynaProperty dynaProperty : dynaProperties) {
-			if (dynaProperty != null) {
-				final String propertyName = dynaProperty.getName();
-				buffer.append(delim).append("\"").append(propertyName).append("\":");
-				final String value = this.build(((DynaBean) dynaClass).get(propertyName));
-				buffer.append(value);
-				delim = ", ";
+		if (dynaProperties != null) {
+			for (final DynaProperty dynaProperty : dynaProperties) {
+				if (dynaProperty != null) {
+					final String propertyName = dynaProperty.getName();
+					buffer.append(delim).append("\"").append(propertyName).append("\":");
+					final String value = this.build(((DynaBean) dynaClass).get(propertyName));
+					buffer.append(value);
+					delim = ", ";
+				}
 			}
 		}
 		buffer.append("}");

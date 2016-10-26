@@ -100,6 +100,7 @@ public class JsonTest {
 			public float getFloat() { return 46.1f; }
 			public double getDouble() { return 47.2d; }
 			public boolean getBoolean() { return true; }
+			public boolean isBoolean() { return true; }
 			public char getCharacter() { return 'A'; }
 		};
 		Assert.assertEquals("{"
@@ -110,7 +111,8 @@ public class JsonTest {
 				+ "\"float\":46.1, "
 				+ "\"int\":44, "
 				+ "\"long\":45, "
-				+ "\"short\":43"
+				+ "\"short\":43, "
+				+ "\"boolean\":true"
 				+ "}", Json.toJson(testObject));
 	}
 
