@@ -90,7 +90,7 @@ public abstract class AbstractInputRenderer implements InputRenderer {
 	 * @return the random field name.
 	 */
 	protected String nextRandomId() {
-		return "field_" + Math.abs(AbstractInputRenderer.random.nextInt());
+		return "field_" + AbstractInputRenderer.random.nextInt();
 	}
 
 	/**
