@@ -9,6 +9,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Java library containing simplified versions of other libraries, re-written to reduce reliance on frameworks.
+Library of simple to use objects for assisting with common web application development concerns
+	 such as handling HTTP requests and executing SQL.
 
 See the [wiki](https://github.com/TroyHisted/relib/wiki) for documentation.
