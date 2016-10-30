@@ -16,6 +16,7 @@
 package org.relib.ui.input;
 
 /**
+ * An option that will be displayed for a user to select from.
  *
  * @author Troy Histed
  */

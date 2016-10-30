@@ -78,7 +78,8 @@ public enum MediaType {
 	/**
 	 * Constructor.
 	 *
-	 * @param type the type string
+	 * @param type
+	 *            the type string
 	 */
 	MediaType(String type, String subType) {
 		this.type = type;
@@ -89,7 +90,8 @@ public enum MediaType {
 	/**
 	 * Returns the MediaType that has the specified typeString.
 	 *
-	 * @param typeString the type string to look up
+	 * @param typeString
+	 *            the type string to look up
 	 * @return the MediaType or UNKNOWN
 	 */
 	public static MediaType byTypeString(String typeString) {

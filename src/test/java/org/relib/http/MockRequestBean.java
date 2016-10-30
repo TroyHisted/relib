@@ -22,6 +22,7 @@ import java.lang.annotation.Annotation;
  *
  * @author Troy Histed
  */
+@SuppressWarnings("all")
 public class MockRequestBean implements RequestBean {
 
 	String value;

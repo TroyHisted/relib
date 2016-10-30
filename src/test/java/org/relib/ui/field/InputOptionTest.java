@@ -38,8 +38,8 @@ public class InputOptionTest {
 	}
 
 	/**
-	 * Ensure that the single arg constructor creates an option where the key and label match and the
-	 * option is enabled.
+	 * Ensure that the single arg constructor creates an option where the key and label match and the option is
+	 * enabled.
 	 */
 	@Test
 	public void testSingleArgConstructorCreatesOptionWithMatchingKeyAndLabel() {
@@ -92,7 +92,6 @@ public class InputOptionTest {
 		Assert.assertFalse(option2.isEnabled());
 		Assert.assertFalse(option3.isEnabled());
 	}
-
 
 	/**
 	 * Ensure that disabling an option doesn't cause it to lose any values.

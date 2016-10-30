@@ -15,7 +15,6 @@
  */
 package org.relib.http.request;
 
-
 /**
  * Handles creating an argument value for a request.
  *
@@ -26,7 +25,8 @@ interface ArgumentGenerator {
 	/**
 	 * Uses the given request information to generate the appropriate argument value.
 	 *
-	 * @param requestInfo the parsed request information
+	 * @param requestInfo
+	 *            the parsed request information
 	 * @return the argument value to use
 	 */
 	Object generateArgument(RequestInfo requestInfo);

@@ -34,7 +34,6 @@ public class Checkbox extends AbstractInputRenderer implements InputRenderer {
 	 *
 	 * {@inheritDoc}
 	 */
-	@Override
 	public boolean supports(String type) {
 		return "checkbox".equals(type);
 	}
@@ -44,7 +43,6 @@ public class Checkbox extends AbstractInputRenderer implements InputRenderer {
 	 *
 	 * {@inheritDoc}
 	 */
-	@Override
 	public void render(InputTag input, JspWriter out) throws JspException, IOException {
 
 		final List<RendererOption> computedOptions = this.generateOptions(input);

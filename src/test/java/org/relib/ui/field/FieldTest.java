@@ -24,7 +24,6 @@ import org.junit.Test;
 import org.relib.ui.message.ErrorMessage;
 import org.relib.ui.message.Message;
 
-
 /**
  * Tests an implementation of the {@link Field} interface to ensure it conforms to the requirements of the
  * interface.
@@ -36,7 +35,10 @@ public abstract class FieldTest {
 	/**
 	 * Constructs an instance of a Field.
 	 *
-	 * @param fieldType the type of field to construct
+	 * @param fieldType
+	 *            the type of field to construct
+	 * @param <T>
+	 *            the field class type
 	 * @return a new Field instance
 	 */
 	public abstract <T> Field<T> construct(Class<T> fieldType);

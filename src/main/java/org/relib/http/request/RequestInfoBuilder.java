@@ -32,15 +32,17 @@ class RequestInfoBuilder {
 	/**
 	 * Parses an {@link HttpServletRequest} into a {@link RequestInfo} object.
 	 *
-	 * @param request the http request
-	 * @param response the http response
+	 * @param request
+	 *            the http request
+	 * @param response
+	 *            the http response
 	 * @return request info object
 	 */
 	RequestInfo parseRequest(HttpServletRequest request, HttpServletResponse response) {
 		final RequestInfo requestInfo = new RequestInfo();
 
-		String pathUrlString = !Strings.isBlank(request.getContextPath()) ?
-			request.getRequestURI().substring(request.getContextPath().length()) : request.getRequestURI();
+		String pathUrlString = !Strings.isBlank(request.getContextPath())
+				? request.getRequestURI().substring(request.getContextPath().length()) : request.getRequestURI();
 
 		if (pathUrlString.charAt(0) == '/') {
 			pathUrlString = pathUrlString.substring(1);
@@ -59,7 +61,8 @@ class RequestInfoBuilder {
 	/**
 	 * Parses the given media type string looking for a matching MediaType.
 	 *
-	 * @param mediaTypeString the media type string
+	 * @param mediaTypeString
+	 *            the media type string
 	 * @return the matching MediaType or UNKNOWN
 	 */
 	private MediaType determineMediaType(String mediaTypeString) {

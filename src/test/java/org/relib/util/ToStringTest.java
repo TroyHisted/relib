@@ -80,7 +80,7 @@ public class ToStringTest {
 
 			private final String stringProperty = "string";
 
-			@ToStringConfig(hidden=true)
+			@ToStringConfig(hidden = true)
 			private final String secretProperty = "password";
 
 			@Override
@@ -166,8 +166,9 @@ public class ToStringTest {
 	@Test
 	public void testToStringOnSubClass() {
 		final Object testObject = new SubTestObject();
-		Assert.assertEquals("SubTestObject[character='a', stringProperty=\"string\", "
-				+ "subStringProperty=\"subString\", testObject=TestObject[stringProperty=\"string\"]]",
+		Assert.assertEquals(
+				"SubTestObject[character='a', stringProperty=\"string\", "
+						+ "subStringProperty=\"subString\", testObject=TestObject[stringProperty=\"string\"]]",
 				testObject.toString());
 	}
 
@@ -182,7 +183,7 @@ public class ToStringTest {
 			private Date value = new Date();
 			{
 				final Calendar calendar = Calendar.getInstance();
-				calendar.set(2000,  0,  1 , 0, 0, 0);
+				calendar.set(2000, 0, 1, 0, 0, 0);
 				this.value = calendar.getTime();
 			}
 
@@ -206,7 +207,7 @@ public class ToStringTest {
 			private Date value = new Date();
 			{
 				final Calendar calendar = Calendar.getInstance();
-				calendar.set(2000,  0,  1 , 12, 15, 45);
+				calendar.set(2000, 0, 1, 12, 15, 45);
 				this.value = calendar.getTime();
 			}
 
@@ -218,6 +219,7 @@ public class ToStringTest {
 		};
 		Assert.assertEquals("[value=\"01/01/2000 12:15:45\"]", testObject.toString());
 	}
+
 	/**
 	 * Verify toString properly formats a calendar.
 	 */
@@ -227,7 +229,7 @@ public class ToStringTest {
 
 			private final Calendar value = Calendar.getInstance();
 			{
-				this.value.set(2000,  0,  1 , 0, 0, 0);
+				this.value.set(2000, 0, 1, 0, 0, 0);
 			}
 
 			@Override
@@ -248,7 +250,7 @@ public class ToStringTest {
 
 			private final Calendar value = Calendar.getInstance();
 			{
-				this.value.set(2000,  0,  1 , 12, 15, 45);
+				this.value.set(2000, 0, 1, 12, 15, 45);
 			}
 
 			@Override
@@ -287,7 +289,7 @@ public class ToStringTest {
 		final Object testObject = new Object() {
 
 			@SuppressWarnings("unused")
-			private final int[] ints = new int[] {1,2,3,4};
+			private final int[] ints = new int[] { 1, 2, 3, 4 };
 
 			@Override
 			public String toString() {
@@ -306,7 +308,7 @@ public class ToStringTest {
 		final Object testObject = new Object() {
 
 			@SuppressWarnings("unused")
-			private final char[] chars = new char[] {'a', 'b', 'c'};
+			private final char[] chars = new char[] { 'a', 'b', 'c' };
 
 			@Override
 			public String toString() {
@@ -325,7 +327,7 @@ public class ToStringTest {
 		final Object testObject = new Object() {
 
 			@SuppressWarnings("unused")
-			private final boolean[] booleans = new boolean[] {true, false, true};
+			private final boolean[] booleans = new boolean[] { true, false, true };
 
 			@Override
 			public String toString() {
@@ -344,7 +346,7 @@ public class ToStringTest {
 		final Object testObject = new Object() {
 
 			@SuppressWarnings("unused")
-			private final double[] doubles = new double[] {1.2, 2.3, 3.4};
+			private final double[] doubles = new double[] { 1.2, 2.3, 3.4 };
 
 			@Override
 			public String toString() {
@@ -391,7 +393,7 @@ public class ToStringTest {
 
 		};
 		Assert.assertEquals("[dyna=[value=\"Hello World\", message=null, messageText=null, label=\"Greeting\"]]",
-			testObject.toString());
+				testObject.toString());
 	}
 
 }

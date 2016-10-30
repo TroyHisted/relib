@@ -38,9 +38,7 @@ public class MockPreparedStatement implements PreparedStatement {
 	int batchCount = 0;
 
 	/**
-	 * --------------------------
-	 * Mocked methods
-	 * --------------------------
+	 * -------------------------- Mocked methods --------------------------
 	 */
 
 	/**
@@ -78,7 +76,8 @@ public class MockPreparedStatement implements PreparedStatement {
 	}
 
 	/**
-	 * @param resultSet the resultSet to set
+	 * @param resultSet
+	 *            the resultSet to set
 	 */
 	public void setResultSet(MockResultSet resultSet) {
 		this.resultSet = resultSet;
@@ -89,9 +88,7 @@ public class MockPreparedStatement implements PreparedStatement {
 	}
 
 	/**
-	 * --------------------------
-	 * Mocked setter methods
-	 * --------------------------
+	 * -------------------------- Mocked setter methods --------------------------
 	 */
 
 	public void setNull(int parameterIndex, int sqlType) throws SQLException {
@@ -183,9 +180,7 @@ public class MockPreparedStatement implements PreparedStatement {
 	}
 
 	/**
-	 * --------------------------
-	 * Unimplemented methods
-	 * --------------------------
+	 * -------------------------- Unimplemented methods --------------------------
 	 */
 
 	public boolean execute() throws SQLException {

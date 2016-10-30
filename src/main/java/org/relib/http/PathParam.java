@@ -25,12 +25,18 @@ import java.lang.annotation.Target;
  *
  * <p>
  * Parameters are mapped using the path from the HandleRequest annotation.
- * <pre> @HandleRequest("/users/{userId}")</pre>
+ *
+ * <pre>
+ *  &#64;HandleRequest("/users/{userId}")
+ * </pre>
  *
  * <p>
- * Parameters are annotated with PathParam and specify the specific path variable by using the same
- * value as the path.
- * <pre> @PathParam("{userId}")</pre>
+ * Parameters are annotated with PathParam and specify the specific path variable by using the same value as the
+ * path.
+ *
+ * <pre>
+ *  &#64;PathParam("{userId}")
+ * </pre>
  *
  * @author Troy Histed
  */

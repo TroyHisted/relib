@@ -35,7 +35,8 @@ public class Strings {
 	/**
 	 * Null safe trim.
 	 *
-	 * @param string the string to trim
+	 * @param string
+	 *            the string to trim
 	 * @return the trimmed string or null if the passed in string was null
 	 */
 	public static String trim(String string) {
@@ -48,8 +49,10 @@ public class Strings {
 	/**
 	 * Null safe equals.
 	 *
-	 * @param a the first string
-	 * @param b the second string
+	 * @param a
+	 *            the first string
+	 * @param b
+	 *            the second string
 	 * @return <code>true</code> if both strings are not null and have the same characters
 	 */
 	public static boolean equals(String a, String b) {
@@ -60,11 +63,13 @@ public class Strings {
 	 * Null safe trim.
 	 *
 	 * <p>
-	 * Specify the characters to trim. All characters in the string that match the specified characters
-	 * will be removed from the start and end of the string.
+	 * Specify the characters to trim. All characters in the string that match the specified characters will be
+	 * removed from the start and end of the string.
 	 *
-	 * @param string the string to trim
-	 * @param characters the characters to remove
+	 * @param string
+	 *            the string to trim
+	 * @param characters
+	 *            the characters to remove
 	 * @return trimmed string or null if the original string was null
 	 */
 	public static String trim(String string, char... characters) {
@@ -77,8 +82,7 @@ public class Strings {
 
 		final char[] stringChars = string.toCharArray();
 		int startIndex = 0;
-		nextCharacter:
-		while (startIndex < stringChars.length) {
+		nextCharacter: while (startIndex < stringChars.length) {
 			for (final char character : characters) {
 				if (stringChars[startIndex] == character) {
 					startIndex++;
@@ -89,8 +93,7 @@ public class Strings {
 		}
 
 		int endIndex = stringChars.length - 1;
-		previousCharacter:
-		while (endIndex > startIndex) {
+		previousCharacter: while (endIndex > startIndex) {
 			for (final char character : characters) {
 				if (stringChars[endIndex] == character) {
 					endIndex--;
@@ -115,7 +118,8 @@ public class Strings {
 	 * <li>Whitespace returns true
 	 * </ul>
 	 *
-	 * @param string the string to test
+	 * @param string
+	 *            the string to test
 	 * @return <code>true</code> if the string contains any text
 	 */
 	public static boolean isBlank(String string) {
@@ -128,7 +132,8 @@ public class Strings {
 	 * <p>
 	 * An empty string is considered numeric. Decimal points are not numeric characters. Null returns false.
 	 *
-	 * @param string the string to test
+	 * @param string
+	 *            the string to test
 	 * @return <code>true</code> if the specified string is numeric
 	 */
 	public static boolean isNumeric(String string) {
@@ -148,11 +153,15 @@ public class Strings {
 	 * Null safe substring.
 	 *
 	 * <p>
+	 *
 	 * @see String#substring(int, int)
 	 *
-	 * @param string the string to substring
-	 * @param start the starting index
-	 * @param end the ending index
+	 * @param string
+	 *            the string to substring
+	 * @param start
+	 *            the starting index
+	 * @param end
+	 *            the ending index
 	 * @return either null or the substring
 	 */
 	public static String subString(String string, int start, int end) {
@@ -162,7 +171,8 @@ public class Strings {
 	/**
 	 * Capitalizes the first character of the specified string.
 	 *
-	 * @param string the string to capitalize
+	 * @param string
+	 *            the string to capitalize
 	 * @return the capitalized string or null if the input was null
 	 */
 	public static String capitalize(String string) {
@@ -177,7 +187,8 @@ public class Strings {
 	/**
 	 * Changes the first character of the specified string to lower case.
 	 *
-	 * @param string the string to manipulate
+	 * @param string
+	 *            the string to manipulate
 	 * @return the manipulated string or null if the input was null
 	 */
 	public static String unCapitalize(String string) {
@@ -192,7 +203,8 @@ public class Strings {
 	/**
 	 * Sanitizes the string to avoid null pointer exceptions.
 	 *
-	 * @param string the string to sanitize
+	 * @param string
+	 *            the string to sanitize
 	 * @return the string argument or Strings.EMPTY if the argument is null
 	 */
 	public static String defaultString(String string) {

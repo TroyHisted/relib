@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.json;
+package org.relib.http.json;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +21,7 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.relib.http.json.JsonToParameterMap;
 import org.relib.util.ToString;
 
 /**
@@ -51,7 +52,7 @@ public class JsonToParameterMapTest {
 		this.expected.put("def", new String[] { "elk" });
 
 		Assert.assertEquals(ToString.of(this.expected).build(),
-			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
+				ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
 	/**
@@ -64,7 +65,7 @@ public class JsonToParameterMapTest {
 		this.expected.put("foo", new String[] { "a{}[]' \" " });
 
 		Assert.assertEquals(ToString.of(this.expected).build(),
-			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
+				ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
 	/**
@@ -78,7 +79,7 @@ public class JsonToParameterMapTest {
 		this.expected.put("def", new String[] { "elk" });
 
 		Assert.assertEquals(ToString.of(this.expected).build(),
-			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
+				ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
 	/**
@@ -92,7 +93,7 @@ public class JsonToParameterMapTest {
 		this.expected.put("bar", new String[] { "22.58" });
 
 		Assert.assertEquals(ToString.of(this.expected).build(),
-			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
+				ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
 	/**
@@ -105,7 +106,7 @@ public class JsonToParameterMapTest {
 		this.expected.put("foo.bar", new String[] { "15" });
 
 		Assert.assertEquals(ToString.of(this.expected).build(),
-			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
+				ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
 	/**
@@ -120,7 +121,7 @@ public class JsonToParameterMapTest {
 		this.expected.put("def.elk", new String[] { "44" });
 
 		Assert.assertEquals(ToString.of(this.expected).build(),
-			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
+				ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class JsonToParameterMapTest {
 		this.expected.put("foo[3]", new String[] { "4" });
 
 		Assert.assertEquals(ToString.of(this.expected).build(),
-			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
+				ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
 	/**
@@ -148,7 +149,7 @@ public class JsonToParameterMapTest {
 		this.expected.put("foo[1].bar", new String[] { "22" });
 
 		Assert.assertEquals(ToString.of(this.expected).build(),
-			ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
+				ToString.of(JsonToParameterMap.toParameterMap(testString)).build());
 	}
 
 }

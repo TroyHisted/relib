@@ -45,7 +45,8 @@ public class RequestHandler {
 	/**
 	 * Constructor that handles initializing the controller mappings.
 	 *
-	 * @param controller the controller to handle requests for.
+	 * @param controller
+	 *            the controller to handle requests for.
 	 */
 	public RequestHandler(Object controller) {
 		this.requestDefinitions = new ArrayList<RequestDefinition>();
@@ -55,9 +56,8 @@ public class RequestHandler {
 		while (clazz != null) {
 			for (final Method method : clazz.getMethods()) {
 				if (method.isAnnotationPresent(HandleRequest.class)) {
-					this.requestDefinitions.add(
-						this.requestDefinitionBuilder.parseHandler(
-								method.getAnnotation(HandleRequest.class), method));
+					this.requestDefinitions.add(this.requestDefinitionBuilder
+							.parseHandler(method.getAnnotation(HandleRequest.class), method));
 				}
 			}
 			clazz = clazz.getSuperclass();
@@ -69,10 +69,14 @@ public class RequestHandler {
 	/**
 	 * Handles all request types.
 	 *
-	 * @param req the http servlet request
-	 * @param resp the http servlet response
-	 * @throws ServletException exception
-	 * @throws IOException exception
+	 * @param req
+	 *            the http servlet request
+	 * @param resp
+	 *            the http servlet response
+	 * @throws ServletException
+	 *             exception
+	 * @throws IOException
+	 *             exception
 	 */
 	public void handleRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -110,8 +114,10 @@ public class RequestHandler {
 	/**
 	 * Determines if a RequestDefinition is capable of handling the RequestInfo.
 	 *
-	 * @param requestInfo the servlet request information
-	 * @param requestDefinition the annotated method definition for handling a request
+	 * @param requestInfo
+	 *            the servlet request information
+	 * @param requestDefinition
+	 *            the annotated method definition for handling a request
 	 * @return true if the request definition can handle the request info
 	 */
 	private boolean requestMatchesDefinition(RequestInfo requestInfo, RequestDefinition requestDefinition) {
@@ -121,12 +127,12 @@ public class RequestHandler {
 
 		// Verify the path length, http method, accept header, and response header match
 		if (requestPathParts.length == pathDefinitions.length
-			&& (requestDefinition.getHttpMethod() == HttpMethod.UNKNOWN
-				|| requestDefinition.getHttpMethod() == requestInfo.getMethod())
-			&& (requestDefinition.getAccept() == MediaType.UNKNOWN
-				|| requestDefinition.getAccept() == requestInfo.getAccept())
-			&& (requestDefinition.getContentType() == MediaType.UNKNOWN
-				|| requestDefinition.getContentType() == requestInfo.getContentType())) {
+				&& (requestDefinition.getHttpMethod() == HttpMethod.UNKNOWN
+						|| requestDefinition.getHttpMethod() == requestInfo.getMethod())
+				&& (requestDefinition.getAccept() == MediaType.UNKNOWN
+						|| requestDefinition.getAccept() == requestInfo.getAccept())
+				&& (requestDefinition.getContentType() == MediaType.UNKNOWN
+						|| requestDefinition.getContentType() == requestInfo.getContentType())) {
 
 			// Verify the individual path parts match
 			for (int i = 0; i < requestPathParts.length; i++) {
@@ -144,12 +150,13 @@ public class RequestHandler {
 	/**
 	 * Builds the method arguments by using the requestDefinitions argument generators.
 	 *
-	 * @param requestInfo the current request information
-	 * @param requestDefinition the method handler definition
+	 * @param requestInfo
+	 *            the current request information
+	 * @param requestDefinition
+	 *            the method handler definition
 	 * @return an array of arguments
 	 */
-	private Object[] generateMethodArguments(
-			RequestInfo requestInfo, RequestDefinition requestDefinition) {
+	private Object[] generateMethodArguments(RequestInfo requestInfo, RequestDefinition requestDefinition) {
 
 		final ArgumentGenerator[] argumentGenerators = requestDefinition.getArgumentGenerators();
 

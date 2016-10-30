@@ -22,6 +22,7 @@ import java.lang.annotation.Annotation;
  *
  * @author Troy Histed
  */
+@SuppressWarnings("all")
 public class MockHandleRequest implements HandleRequest {
 
 	private String value;
@@ -48,7 +49,8 @@ public class MockHandleRequest implements HandleRequest {
 	}
 
 	/**
-	 * @param value the value to set
+	 * @param value
+	 *            the value to set
 	 */
 	public void setValue(String value) {
 		this.value = value;
@@ -69,7 +71,8 @@ public class MockHandleRequest implements HandleRequest {
 	}
 
 	/**
-	 * @param method the method to set
+	 * @param method
+	 *            the method to set
 	 */
 	public void setMethod(HttpMethod method) {
 		this.method = method;
@@ -90,7 +93,8 @@ public class MockHandleRequest implements HandleRequest {
 	}
 
 	/**
-	 * @param contentType the contentType to set
+	 * @param contentType
+	 *            the contentType to set
 	 */
 	public void setContentType(MediaType contentType) {
 		this.contentType = contentType;
@@ -111,7 +115,8 @@ public class MockHandleRequest implements HandleRequest {
 	}
 
 	/**
-	 * @param accept the accept to set
+	 * @param accept
+	 *            the accept to set
 	 */
 	public void setAccept(MediaType accept) {
 		this.accept = accept;

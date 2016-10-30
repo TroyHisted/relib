@@ -33,8 +33,10 @@ class RequestDefinitionComparator implements Comparator<RequestDefinition> {
 	/**
 	 * The more specific an item is, the lower number it will have.
 	 *
-	 * @param thisDef the definition being compared
-	 * @param otherDef the definition to compare against
+	 * @param thisDef
+	 *            the definition being compared
+	 * @param otherDef
+	 *            the definition to compare against
 	 * @return -1 if thisDef has greater priority, 1 if it has less, or 0 if they have equal priority
 	 */
 	public int compare(RequestDefinition thisDef, RequestDefinition otherDef) {
@@ -54,8 +56,10 @@ class RequestDefinitionComparator implements Comparator<RequestDefinition> {
 	/**
 	 * Compares the HttpMethod value.
 	 *
-	 * @param thisDef the definition being compared
-	 * @param otherDef the definition to compare against
+	 * @param thisDef
+	 *            the definition being compared
+	 * @param otherDef
+	 *            the definition to compare against
 	 * @return -1 if thisDef has greater priority, 1 if it has less, or 0 if they have equal priority
 	 */
 	private int compareMethod(RequestDefinition thisDef, RequestDefinition otherDef) {
@@ -68,8 +72,10 @@ class RequestDefinitionComparator implements Comparator<RequestDefinition> {
 	/**
 	 * Compares the ContentType value.
 	 *
-	 * @param thisDef the definition being compared
-	 * @param otherDef the definition to compare against
+	 * @param thisDef
+	 *            the definition being compared
+	 * @param otherDef
+	 *            the definition to compare against
 	 * @return -1 if thisDef has greater priority, 1 if it has less, or 0 if they have equal priority
 	 */
 	private int compareContentType(RequestDefinition thisDef, RequestDefinition otherDef) {
@@ -82,8 +88,10 @@ class RequestDefinitionComparator implements Comparator<RequestDefinition> {
 	/**
 	 * Compares the Accept value.
 	 *
-	 * @param thisDef the definition being compared
-	 * @param otherDef the definition to compare against
+	 * @param thisDef
+	 *            the definition being compared
+	 * @param otherDef
+	 *            the definition to compare against
 	 * @return -1 if thisDef has greater priority, 1 if it has less, or 0 if they have equal priority
 	 */
 	private int compareAccept(RequestDefinition thisDef, RequestDefinition otherDef) {
@@ -97,11 +105,13 @@ class RequestDefinitionComparator implements Comparator<RequestDefinition> {
 	 * Compares the URL path value.
 	 *
 	 * <p>
-	 * Longer paths are given a higher priority. If both paths are the same length then the path with the
-	 * first path that's not a wild card is given priority.
+	 * Longer paths are given a higher priority. If both paths are the same length then the path with the first
+	 * path that's not a wild card is given priority.
 	 *
-	 * @param thisDef the definition being compared
-	 * @param otherDef the definition to compare against
+	 * @param thisDef
+	 *            the definition being compared
+	 * @param otherDef
+	 *            the definition to compare against
 	 * @return -1 if thisDef has greater priority, 1 if it has less, or 0 if they have equal priority
 	 */
 	private int comparePath(RequestDefinition thisDef, RequestDefinition otherDef) {

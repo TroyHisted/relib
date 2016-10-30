@@ -25,16 +25,18 @@ import java.lang.annotation.Target;
  *
  * <p>
  * Parameters are annotated with RequestBean and may specify a prefix for the bean parameters.
- * <pre> @RequestBean("{parameterPrefix}")</pre>
+ *
+ * <pre>
+ *  &#64;RequestBean("{parameterPrefix}")
+ * </pre>
  *
  * <p>
- * This prefix will be used to filter the request attributes and then removed when setting the property
- * value on the bean.
+ * This prefix will be used to filter the request attributes and then removed when setting the property value on
+ * the bean.
  *
  * <p>
- * For example, given the request parameters <code>?type=1&cat.name=Sam&cat.age=3</code>, setting the
- * parameter prefix to "cat." will result in the <i>name</i> and <i>age</i> properties being set on the
- * annotated object.
+ * For example, given the request parameters <code>?type=1&amp;cat.name=Sam&amp;cat.age=3</code>, setting the parameter
+ * prefix to "cat." will result in the <i>name</i> and <i>age</i> properties being set on the annotated object.
  *
  * @author Troy Histed
  */

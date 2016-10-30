@@ -31,13 +31,13 @@ public class NamedStatementParserStrategy {
 	 * marker "?". The named parameters will be inserted into a list in the order of appearance in the original
 	 * statement.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the statement to prepare for use as a named prepared statement
 	 * @return the parsed named statement
 	 */
-	ParsedNamedStatement prepareNamedStatement(String aStatement) {
+	ParsedNamedStatement prepareNamedStatement(String sqlStatement) {
 
-		final char[] statement = aStatement.toCharArray();
+		final char[] statement = sqlStatement.toCharArray();
 		final char[] parsedStatement = new char[statement.length];
 		final List<String> parameters = new ArrayList<String>();
 
@@ -71,8 +71,8 @@ public class NamedStatementParserStrategy {
 				parsedStatement[j++] = '?'; // replace with a prepared statement marker
 				i++;
 				int lengthOfParameterName = 0;
-				while (i < statement.length
-						&& statement[i] != ' ' && statement[i] != ')' && statement[i] != ',') {
+				while (i < statement.length && statement[i] != ' ' && statement[i] != ')'
+						&& statement[i] != ',') {
 					lengthOfParameterName++;
 					i++;
 				}

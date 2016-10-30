@@ -31,13 +31,12 @@ public class CalendarToString implements ToStringConverter {
 
 	/**
 	 * Formats a {@link Calendar} as just the date and time.
-	 * 
+	 *
 	 * <p>
 	 * If the time is midnight, only the date will be used.
-	 * 
+	 *
 	 * {@inheritDoc}
 	 */
-	@Override
 	public String toString(Object object, ToStringConfig config) {
 		final StringBuilder buffer = new StringBuilder();
 		if (object instanceof Calendar) {
@@ -57,7 +56,6 @@ public class CalendarToString implements ToStringConverter {
 		return buffer.toString();
 	}
 
-	@Override
 	public boolean supports(Object object) {
 		return object instanceof Calendar;
 	}

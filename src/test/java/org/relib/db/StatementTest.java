@@ -16,7 +16,7 @@ import org.junit.Test;
 public class StatementTest {
 
 	MockStatement statement;
-	Map<Integer,Object> expected;
+	Map<Integer, Object> expected;
 
 	/**
 	 * Resets the instance members to new instances.

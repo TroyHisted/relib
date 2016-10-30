@@ -23,8 +23,8 @@ import java.util.Date;
  * Utility method for writing messages to the system out.
  *
  * <p>
- * Adds information about the location of the log call and returns the object being logged
- * to make it more convenient to log return values.
+ * Adds information about the location of the log call and returns the object being logged to make it more
+ * convenient to log return values.
  *
  * @author Troy Histed
  */
@@ -35,7 +35,10 @@ public class Console {
 	/**
 	 * Writes the object to the System.err output.
 	 *
-	 * @param object the object to log
+	 * @param object
+	 *            the object to log
+	 * @param <T>
+	 *            the object type to log and return
 	 * @return the passed object
 	 */
 	public static <T> T err(T object) {
@@ -45,17 +48,22 @@ public class Console {
 	/**
 	 * Writes the object to the System.err output.
 	 *
-	 * @param object the primary object to log
-	 * @param objects any additional objects to log
+	 * @param object
+	 *            the primary object to log
+	 * @param objects
+	 *            any additional objects to log
 	 */
-	public static void err(String object, Object ...objects) {
+	public static void err(String object, Object... objects) {
 		writeMessage(System.err, object, objects);
 	}
 
 	/**
 	 * Writes the object to the System.out output.
 	 *
-	 * @param object the object to log
+	 * @param object
+	 *            the object to log
+	 * @param <T>
+	 *            the object type to log and return
 	 * @return the passed object
 	 */
 	public static <T> T log(T object) {
@@ -65,19 +73,24 @@ public class Console {
 	/**
 	 * Writes the message and the objects to the System.out output.
 	 *
-	 * @param object the primary object to log
-	 * @param objects any additional objects to log
+	 * @param object
+	 *            the primary object to log
+	 * @param objects
+	 *            any additional objects to log
 	 */
-	public static void log(String object, Object ...objects) {
+	public static void log(String object, Object... objects) {
 		writeMessage(System.out, object, objects);
 	}
 
 	/**
 	 * Constructs the console messages as a String.
 	 *
-	 * @param printStream the stream to write to
-	 * @param object the primary object to log
-	 * @param objects any additional objects to log
+	 * @param printStream
+	 *            the stream to write to
+	 * @param object
+	 *            the primary object to log
+	 * @param objects
+	 *            any additional objects to log
 	 * @return the passed object
 	 */
 	private static <T> T writeMessage(PrintStream printStream, T object, Object[] objects) {

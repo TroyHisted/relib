@@ -56,6 +56,8 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	 *
 	 * @param listType
 	 *            the type of object the list will hold
+	 * @param <T>
+	 *            the list type
 	 * @return new DynaList
 	 */
 	public static <T> DynaList<T> create(Class<? extends T> listType) {
@@ -69,6 +71,8 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	 *            the generic type of the list
 	 * @param items
 	 *            the elements to initialize the list with
+	 * @param <T>
+	 *            the list type
 	 * @return new DynaList
 	 */
 	public static <T> DynaList<T> of(Class<? extends T> listType, T... items) {
@@ -98,13 +102,13 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	 * <p>
 	 * An indication on whether the add was successful can be retrieved via {@link #wasSuccessful()}.
 	 *
-	 * @param aItem
+	 * @param item
 	 *            the item to add
 	 * @return the item that was added to the list
 	 */
-	public T addItem(T aItem) {
-		this.successful = super.add(aItem);
-		return aItem;
+	public T addItem(T item) {
+		this.successful = super.add(item);
+		return item;
 	}
 
 	/**
@@ -116,13 +120,13 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	 * <p>
 	 * An indication on whether the add was successful can be retrieved via {@link #wasSuccessful()}.
 	 *
-	 * @param aItems
+	 * @param items
 	 *            the items to add
 	 * @return the items that were added to the list
 	 */
-	public Collection<? extends T> addAllItems(Collection<? extends T> aItems) {
-		this.successful = this.addAll(aItems);
-		return aItems;
+	public Collection<? extends T> addAllItems(Collection<? extends T> items) {
+		this.successful = this.addAll(items);
+		return items;
 	}
 
 	/**
@@ -196,7 +200,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public boolean contains(String name, String key) {
 		throw new UnsupportedOperationException("Map operations are not supported on a list.");
 	}
@@ -204,7 +207,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public Object get(String name) {
 		throw new UnsupportedOperationException("A List has no properties.");
 	}
@@ -212,7 +214,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public Object get(String name, int index) {
 		throw new UnsupportedOperationException("A List has no properties.");
 	}
@@ -220,7 +221,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public Object get(String name, String key) {
 		throw new UnsupportedOperationException("Map operations are not supported on a list.");
 	}
@@ -228,7 +228,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public DynaClass getDynaClass() {
 		return this;
 	}
@@ -236,7 +235,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public void remove(String name, String key) {
 		throw new UnsupportedOperationException("Map operations are not supported on a list.");
 	}
@@ -244,7 +242,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public void set(String name, Object value) {
 		throw new UnsupportedOperationException("Map operations are not supported on a list.");
 	}
@@ -252,7 +249,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public void set(String name, int index, Object value) {
 		throw new UnsupportedOperationException("A List has no properties.");
 	}
@@ -260,7 +256,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public void set(String name, String key, Object value) {
 		throw new UnsupportedOperationException("Map operations are not supported on a list.");
 	}
@@ -268,7 +263,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public String getName() {
 		return null;
 	}
@@ -276,7 +270,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public DynaProperty getDynaProperty(String name) {
 		return this.listDynaProperty;
 	}
@@ -284,7 +277,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public DynaProperty[] getDynaProperties() {
 		return null;
 	}
@@ -293,7 +285,6 @@ public class DynaList<T> extends ArrayList<T> implements DynaClass, DynaBean {
 	 * @throws IllegalStateException
 	 *             DynaList class cannot be dynamically instantiated
 	 */
-	@Override
 	public DynaBean newInstance() throws IllegalAccessException, InstantiationException {
 		throw new IllegalStateException("DynaList class cannot be dynamically instantiated.");
 	}

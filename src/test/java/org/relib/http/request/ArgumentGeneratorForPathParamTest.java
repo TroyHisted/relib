@@ -53,8 +53,8 @@ public class ArgumentGeneratorForPathParamTest {
 		this.pathParam.setValue("b");
 		this.requestInfo.setPathParts(new String[] { "a", "target", "c" });
 
-		final ArgumentGeneratorForPathParam argumentGeneratorForPathParam
-			= new ArgumentGeneratorForPathParam(this.pathParam, this.handleRequest, String.class);
+		final ArgumentGeneratorForPathParam argumentGeneratorForPathParam =
+				new ArgumentGeneratorForPathParam(this.pathParam, this.handleRequest, String.class);
 
 		Assert.assertEquals("target", argumentGeneratorForPathParam.generateArgument(this.requestInfo));
 	}
@@ -69,25 +69,25 @@ public class ArgumentGeneratorForPathParamTest {
 		this.pathParam.setValue("a");
 		this.requestInfo.setPathParts(new String[] { "1", "2", "target" });
 
-		final ArgumentGeneratorForPathParam argumentGeneratorForPathParam
-			= new ArgumentGeneratorForPathParam(this.pathParam, this.handleRequest, String.class);
+		final ArgumentGeneratorForPathParam argumentGeneratorForPathParam =
+				new ArgumentGeneratorForPathParam(this.pathParam, this.handleRequest, String.class);
 
 		Assert.assertEquals("target", argumentGeneratorForPathParam.generateArgument(this.requestInfo));
 	}
 
 	/**
-	 * Verify that when the mapped url doesn't contain the path param annotated value that
-	 * an exception is thrown.
+	 * Verify that when the mapped url doesn't contain the path param annotated value that an exception is
+	 * thrown.
 	 */
-	@Test(expected=InvalidPathParamException.class)
+	@Test(expected = InvalidPathParamException.class)
 	public void testGenerateArgumentNoMatch() {
 
 		this.handleRequest.setValue("/a/b/c/");
 		this.pathParam.setValue("d");
 		this.requestInfo.setPathParts(new String[] { "a", "target", "c" });
 
-		final ArgumentGeneratorForPathParam argumentGeneratorForPathParam
-				= new ArgumentGeneratorForPathParam(this.pathParam, this.handleRequest, String.class);
+		final ArgumentGeneratorForPathParam argumentGeneratorForPathParam =
+				new ArgumentGeneratorForPathParam(this.pathParam, this.handleRequest, String.class);
 
 		argumentGeneratorForPathParam.generateArgument(this.requestInfo);
 	}

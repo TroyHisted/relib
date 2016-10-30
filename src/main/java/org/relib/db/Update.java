@@ -38,37 +38,37 @@ public class Update extends Statement {
 	/**
 	 * Constructs an update statement and performs initialization.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the statement to be executed
 	 */
-	public Update(String aStatement) {
-		this(aStatement, (String) null);
+	public Update(String statement) {
+		this(statement, (String) null);
 	}
 
 	/**
 	 * Constructs an update statement and performs initialization.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the statement to be executed
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the name of the connection to use
 	 */
-	public Update(String aStatement, String aConnectionName) {
+	public Update(String statement, String connectionName) {
 
-		this.statement = aStatement;
+		this.statement = statement;
 
-		final ParsedNamedStatement preparedStatement = Update.STATEMENT_PARSER.prepareNamedStatement(aStatement);
+		final ParsedNamedStatement preparedStatement = Update.STATEMENT_PARSER.prepareNamedStatement(statement);
 		this.parameters = preparedStatement.getParameters();
 
 		try {
-			this.connection = this.connect(aConnectionName);
-			this.preparedStatement = this.connection.prepareStatementWithGeneratedKeys(preparedStatement
-					.getStatement());
+			this.connection = this.connect(connectionName);
+			this.preparedStatement = this.connection
+					.prepareStatementWithGeneratedKeys(preparedStatement.getStatement());
 		} catch (final SQLException e) {
 			if (this.connection != null) {
 				this.connection.cleanUp();
 			}
-			throw new DaoException("Error creating connection and preparing statement: " + aStatement, e);
+			throw new DaoException("Error creating connection and preparing statement: " + statement, e);
 		} catch (final RuntimeException e) {
 			if (this.connection != null) {
 				this.connection.cleanUp();
@@ -80,40 +80,40 @@ public class Update extends Statement {
 	/**
 	 * Constructs an update statement and performs initialization.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the statement to be executed
 	 * @param aConnection
 	 *            the connection to use
 	 */
-	public Update(String aStatement, Connection aConnection) {
+	public Update(String statement, Connection aConnection) {
 
-		this.statement = aStatement;
+		this.statement = statement;
 		this.connection = new JdbcConnection(aConnection);
 
-		final ParsedNamedStatement preparedStatement = Update.STATEMENT_PARSER.prepareNamedStatement(aStatement);
+		final ParsedNamedStatement preparedStatement = Update.STATEMENT_PARSER.prepareNamedStatement(statement);
 		this.parameters = preparedStatement.getParameters();
 
 		try {
-			this.preparedStatement = this.connection.prepareStatementWithGeneratedKeys(preparedStatement
-					.getStatement());
+			this.preparedStatement = this.connection
+					.prepareStatementWithGeneratedKeys(preparedStatement.getStatement());
 		} catch (final SQLException e) {
 			if (this.connection != null) {
 				this.connection.cleanUp();
 			}
-			throw new DaoException("Error preparing statement: " + aStatement, e);
+			throw new DaoException("Error preparing statement: " + statement, e);
 		}
 	}
 
 	/**
 	 * Gets a connection.
 	 *
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the connection name to use
 	 * @return a connection
-	 * @throws SQLException
+	 * @throws SQLException error connecting
 	 */
-	protected JdbcConnection connect(String aConnectionName) throws SQLException {
-		return JdbcConnection.connect(aConnectionName);
+	protected JdbcConnection connect(String connectionName) throws SQLException {
+		return JdbcConnection.connect(connectionName);
 	}
 
 	/**
@@ -215,88 +215,88 @@ public class Update extends Statement {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update set(String aName, String aValue) {
-		return (Update) super.set(aName, aValue);
+	public Update set(String name, String value) {
+		return (Update) super.set(name, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update set(String aName, int aValue) {
-		return (Update) super.set(aName, aValue);
+	public Update set(String name, int value) {
+		return (Update) super.set(name, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update set(String aName, long aValue) {
-		return (Update) super.set(aName, aValue);
+	public Update set(String name, long value) {
+		return (Update) super.set(name, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update set(String aName, short aValue) {
-		return (Update) super.set(aName, aValue);
+	public Update set(String name, short value) {
+		return (Update) super.set(name, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update set(String aName, float aValue) {
-		return (Update) super.set(aName, aValue);
+	public Update set(String name, float value) {
+		return (Update) super.set(name, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update set(String aName, double aValue) {
-		return (Update) super.set(aName, aValue);
+	public Update set(String name, double value) {
+		return (Update) super.set(name, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update set(String aName, boolean aValue) {
-		return (Update) super.set(aName, aValue);
+	public Update set(String name, boolean value) {
+		return (Update) super.set(name, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update set(String aName, java.util.Date aValue) {
-		return (Update) super.set(aName, aValue);
+	public Update set(String name, java.util.Date value) {
+		return (Update) super.set(name, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update setNull(String aName, int aSqlType) {
-		return (Update) super.set(aName, aSqlType);
+	public Update setNull(String name, int sqlType) {
+		return (Update) super.set(name, sqlType);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update setObject(String aName, Object aValue) {
-		return (Update) super.setObject(aName, aValue);
+	public Update setObject(String name, Object value) {
+		return (Update) super.setObject(name, value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Update setObject(String aName, Object aValue, int aSqlType) {
-		return (Update) super.setObject(aName, aValue, aSqlType);
+	public Update setObject(String name, Object value, int sqlType) {
+		return (Update) super.setObject(name, value, sqlType);
 	}
 
 	/**
@@ -336,7 +336,7 @@ public class Update extends Statement {
 	 */
 	@Override
 	public String toString() {
-		return "Update [statement=" + this.statement + ", connection=" + this.connection
-				+ ", preparedStatement=" + this.preparedStatement + ", parameters=" + this.parameters + "]";
+		return "Update [statement=" + this.statement + ", connection=" + this.connection + ", preparedStatement="
+				+ this.preparedStatement + ", parameters=" + this.parameters + "]";
 	}
 }

@@ -50,8 +50,10 @@ public class RequestInfoBuilderTest {
 	/**
 	 * Test basic mapping with method, content-type, accepts, and path.
 	 *
-	 * @throws ServletException exception
-	 * @throws IOException exception
+	 * @throws ServletException
+	 *             exception
+	 * @throws IOException
+	 *             exception
 	 */
 	@Test
 	public void testRequestPathBuilder() throws ServletException, IOException {
@@ -73,8 +75,10 @@ public class RequestInfoBuilderTest {
 	/**
 	 * Test basic mapping with method, content-type, accepts, and path.
 	 *
-	 * @throws ServletException exception
-	 * @throws IOException exception
+	 * @throws ServletException
+	 *             exception
+	 * @throws IOException
+	 *             exception
 	 */
 	@Test
 	public void testRequestPathBuilderNoAccept() throws ServletException, IOException {
@@ -96,8 +100,10 @@ public class RequestInfoBuilderTest {
 	/**
 	 * Test basic mapping with method, content-type, accepts, and path.
 	 *
-	 * @throws ServletException exception
-	 * @throws IOException exception
+	 * @throws ServletException
+	 *             exception
+	 * @throws IOException
+	 *             exception
 	 */
 	@Test
 	public void testRequestPathWithTrailingSlash() throws ServletException, IOException {

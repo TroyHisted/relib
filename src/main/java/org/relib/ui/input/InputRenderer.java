@@ -37,17 +37,20 @@ public interface InputRenderer {
 	/**
 	 * Writes the HTML for the specified input.
 	 *
-	 * @param input the input tag information
-	 * @param out the writer to write to
-	 * @throws JspException
-	 * @throws IOException
+	 * @param input
+	 *            the input tag information
+	 * @param out
+	 *            the writer to write to
+	 * @throws JspException exception generating jsp
+	 * @throws IOException exception writing response
 	 */
 	void render(InputTag input, JspWriter out) throws JspException, IOException;
 
 	/**
 	 * Declares that this renderer is or is not capable of rendering the specified input type.
 	 *
-	 * @param type type of HTML input in all lower-case ("text", "select", etc...)
+	 * @param type
+	 *            type of HTML input in all lower-case ("text", "select", etc...)
 	 * @return <code>true</code> if this renderer supports rendering the specified type
 	 */
 	boolean supports(String type);

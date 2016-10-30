@@ -54,7 +54,7 @@ public class StringsTest {
 	 */
 	@Test
 	public void testEqualsFalseWhenBothNull() {
-		Assert.assertFalse(Strings.equals((String) null,(String) null));
+		Assert.assertFalse(Strings.equals((String) null, (String) null));
 	}
 
 	/**
@@ -304,7 +304,6 @@ public class StringsTest {
 	public void testUnCapitalizeNumber() {
 		Assert.assertEquals("5 string", Strings.unCapitalize("5 string"));
 	}
-
 
 	/**
 	 * Verify default string handles null.

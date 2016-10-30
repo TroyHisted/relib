@@ -25,8 +25,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.relib.http.HttpMethod;
 import org.relib.http.MediaType;
-import org.relib.http.request.RequestDefinition;
-import org.relib.http.request.RequestDefinitionComparator;
 
 /**
  * Tests the {@link RequestDefinitionComparator} to ensure sorting is working as expected.
@@ -34,7 +32,6 @@ import org.relib.http.request.RequestDefinitionComparator;
  * @author Troy Histed
  */
 public class RequestDefinitionComparatorTest {
-
 
 	private final RequestDefinitionComparator comparator = new RequestDefinitionComparator();
 	private List<RequestDefinition> requestDefinitions;
@@ -70,10 +67,8 @@ public class RequestDefinitionComparatorTest {
 		this.requestDefinitions.get(1).setHttpMethod(HttpMethod.GET);
 		this.requestDefinitions.get(2).setHttpMethod(HttpMethod.UNKNOWN);
 
-		final List<RequestDefinition> expected = Arrays.asList(
-				this.requestDefinitions.get(1),
-				this.requestDefinitions.get(0),
-				this.requestDefinitions.get(2));
+		final List<RequestDefinition> expected = Arrays.asList(this.requestDefinitions.get(1),
+				this.requestDefinitions.get(0), this.requestDefinitions.get(2));
 
 		Collections.sort(this.requestDefinitions, this.comparator);
 		Assert.assertEquals(expected, this.requestDefinitions);
@@ -94,10 +89,8 @@ public class RequestDefinitionComparatorTest {
 		this.requestDefinitions.get(2).setHttpMethod(HttpMethod.UNKNOWN);
 		this.requestDefinitions.get(2).setAccept(MediaType.HTML);
 
-		final List<RequestDefinition> expected = Arrays.asList(
-				this.requestDefinitions.get(1),
-				this.requestDefinitions.get(0),
-				this.requestDefinitions.get(2));
+		final List<RequestDefinition> expected = Arrays.asList(this.requestDefinitions.get(1),
+				this.requestDefinitions.get(0), this.requestDefinitions.get(2));
 
 		Collections.sort(this.requestDefinitions, this.comparator);
 		Assert.assertEquals(expected, this.requestDefinitions);
@@ -121,10 +114,8 @@ public class RequestDefinitionComparatorTest {
 		this.requestDefinitions.get(2).setContentType(MediaType.UNKNOWN);
 		this.requestDefinitions.get(2).setAccept(MediaType.UNKNOWN);
 
-		final List<RequestDefinition> expected = Arrays.asList(
-				this.requestDefinitions.get(2),
-				this.requestDefinitions.get(1),
-				this.requestDefinitions.get(0));
+		final List<RequestDefinition> expected = Arrays.asList(this.requestDefinitions.get(2),
+				this.requestDefinitions.get(1), this.requestDefinitions.get(0));
 
 		Collections.sort(this.requestDefinitions, this.comparator);
 		Assert.assertEquals(expected, this.requestDefinitions);
@@ -140,10 +131,8 @@ public class RequestDefinitionComparatorTest {
 		this.requestDefinitions.get(1).setPathParts(new PathDefinition[3]);
 		this.requestDefinitions.get(2).setPathParts(new PathDefinition[2]);
 
-		final List<RequestDefinition> expected = Arrays.asList(
-				this.requestDefinitions.get(1),
-				this.requestDefinitions.get(2),
-				this.requestDefinitions.get(0));
+		final List<RequestDefinition> expected = Arrays.asList(this.requestDefinitions.get(1),
+				this.requestDefinitions.get(2), this.requestDefinitions.get(0));
 
 		Collections.sort(this.requestDefinitions, this.comparator);
 		Assert.assertEquals(expected, this.requestDefinitions);
@@ -173,10 +162,8 @@ public class RequestDefinitionComparatorTest {
 		this.requestDefinitions.get(2).getPathParts()[1] = new PathDefinition();
 		this.requestDefinitions.get(2).getPathParts()[1].setValue("a");
 
-		final List<RequestDefinition> expected = Arrays.asList(
-				this.requestDefinitions.get(1),
-				this.requestDefinitions.get(0),
-				this.requestDefinitions.get(2));
+		final List<RequestDefinition> expected = Arrays.asList(this.requestDefinitions.get(1),
+				this.requestDefinitions.get(0), this.requestDefinitions.get(2));
 
 		Collections.sort(this.requestDefinitions, this.comparator);
 		Assert.assertEquals(expected, this.requestDefinitions);

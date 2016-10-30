@@ -44,8 +44,7 @@ public abstract class Controller extends HttpServlet {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.requestHandler.handleRequest(req, resp);
 	}
 
@@ -62,8 +61,7 @@ public abstract class Controller extends HttpServlet {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.requestHandler.handleRequest(req, resp);
 	}
 

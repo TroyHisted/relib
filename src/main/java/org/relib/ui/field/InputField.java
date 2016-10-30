@@ -40,6 +40,7 @@ public class InputField<T> implements Field<T> {
 	/**
 	 * Convenience constructor for a field.
 	 *
+	 * @param <T> the wrapped field type
 	 * @return a new field
 	 */
 	public static <T> InputField<T> create() {
@@ -92,8 +93,8 @@ public class InputField<T> implements Field<T> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public InputField<T> value(T aValue) {
-		this.value = aValue;
+	public InputField<T> value(T value) {
+		this.value = value;
 		return this;
 	}
 
@@ -107,8 +108,8 @@ public class InputField<T> implements Field<T> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void setValue(T aValue) {
-		this.value = aValue;
+	public void setValue(T value) {
+		this.value = value;
 	}
 
 	/**

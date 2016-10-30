@@ -34,20 +34,25 @@ public class ParsedNamedStatement {
 	public String getStatement() {
 		return this.statement;
 	}
+
 	/**
-	 * @param statement the statement to set
+	 * @param statement
+	 *            the statement to set
 	 */
 	public void setStatement(String statement) {
 		this.statement = statement;
 	}
+
 	/**
 	 * @return the parameters
 	 */
 	public List<String> getParameters() {
 		return this.parameters;
 	}
+
 	/**
-	 * @param parameters the parameters to set
+	 * @param parameters
+	 *            the parameters to set
 	 */
 	public void setParameters(List<String> parameters) {
 		this.parameters = parameters;

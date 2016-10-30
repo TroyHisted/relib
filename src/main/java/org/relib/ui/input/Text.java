@@ -138,7 +138,7 @@ public class Text extends AbstractInputRenderer {
 	 * <p>
 	 * Only the value of the option will be used.
 	 *
-	 * @param aOption
+	 * @param option
 	 *            the option to write out
 	 * @param input
 	 *            the input field information
@@ -146,17 +146,16 @@ public class Text extends AbstractInputRenderer {
 	 *            the writer to use
 	 * @throws IOException
 	 */
-	void writeOption(final Object aOption, InputTag input, JspWriter out) throws IOException {
+	void writeOption(final Object option, InputTag input, JspWriter out) throws IOException {
 
 		String optionValue = null;
 
-		if (aOption instanceof Option) {
-			final Option option = (Option) aOption;
-			optionValue = option.getValue();
+		if (option instanceof Option) {
+			optionValue = ((Option) option).getValue();
 		} else {
 			if (input.getValueProperty() != null) {
 				try {
-					optionValue = BeanUtils.getProperty(aOption, input.getValueProperty());
+					optionValue = BeanUtils.getProperty(option, input.getValueProperty());
 				} catch (final IllegalAccessException e) {
 					throw new IllegalArgumentException("Option has no property " + input.getValueProperty(), e);
 				} catch (final InvocationTargetException e) {
@@ -164,8 +163,8 @@ public class Text extends AbstractInputRenderer {
 				} catch (final NoSuchMethodException e) {
 					throw new IllegalArgumentException("Option has no property " + input.getValueProperty(), e);
 				}
-			} else if (aOption != null) {
-				optionValue = String.valueOf(aOption);
+			} else if (option != null) {
+				optionValue = String.valueOf(option);
 			}
 		}
 

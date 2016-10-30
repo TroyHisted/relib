@@ -49,11 +49,11 @@ public class ArgumentGeneratorForRequestParamTest {
 	@Test
 	public void testGenerateArgumentString() {
 
-		this.mockHttpServletRequest.getParameterMap().put("b", new String[] {"target"});
+		this.mockHttpServletRequest.getParameterMap().put("b", new String[] { "target" });
 		this.requestParam.setValue("b");
 
-		final ArgumentGeneratorForRequestParam argumentGeneratorForRequestParam
-			= new ArgumentGeneratorForRequestParam(this.requestParam, String.class);
+		final ArgumentGeneratorForRequestParam argumentGeneratorForRequestParam =
+				new ArgumentGeneratorForRequestParam(this.requestParam, String.class);
 
 		Assert.assertEquals("target", argumentGeneratorForRequestParam.generateArgument(this.requestInfo));
 	}
@@ -64,11 +64,11 @@ public class ArgumentGeneratorForRequestParamTest {
 	@Test
 	public void testGenerateArgumentInteger() {
 
-		this.mockHttpServletRequest.getParameterMap().put("b", new String[] {"8"});
+		this.mockHttpServletRequest.getParameterMap().put("b", new String[] { "8" });
 		this.requestParam.setValue("b");
 
-		final ArgumentGeneratorForRequestParam argumentGeneratorForRequestParam
-			= new ArgumentGeneratorForRequestParam(this.requestParam, Integer.class);
+		final ArgumentGeneratorForRequestParam argumentGeneratorForRequestParam =
+				new ArgumentGeneratorForRequestParam(this.requestParam, Integer.class);
 
 		Assert.assertEquals(Integer.valueOf(8),
 				argumentGeneratorForRequestParam.generateArgument(this.requestInfo));
@@ -82,8 +82,8 @@ public class ArgumentGeneratorForRequestParamTest {
 
 		this.requestParam.setValue("b");
 
-		final ArgumentGeneratorForRequestParam argumentGeneratorForRequestParam
-			= new ArgumentGeneratorForRequestParam(this.requestParam, Integer.class);
+		final ArgumentGeneratorForRequestParam argumentGeneratorForRequestParam =
+				new ArgumentGeneratorForRequestParam(this.requestParam, Integer.class);
 
 		Assert.assertNull(argumentGeneratorForRequestParam.generateArgument(this.requestInfo));
 	}

@@ -48,7 +48,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	private int serverPort;
 	private String remoteAddr;
 	private Locale locale;
-	private Enumeration locales;
+	private Enumeration<?> locales;
 	private boolean secure;
 	private int remotePort;
 	private String localName;
@@ -83,6 +83,10 @@ public class MockHttpServletRequest implements HttpServletRequest {
 		return this.attributes.get(name);
 	}
 
+	/**
+	 * @param name header name
+	 * @param value header value
+	 */
 	public void setHeader(String name, String value) {
 		this.headers.put(name, value);
 	}
@@ -101,7 +105,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
 	/******** Unimplemented *******/
 
-	public Enumeration getAttributeNames() {
+	public Enumeration<?> getAttributeNames() {
 		throw new UnsupportedOperationException("unimplemented");
 	}
 
@@ -109,7 +113,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 		throw new UnsupportedOperationException("unimplemented");
 	}
 
-	public Enumeration getParameterNames() {
+	public Enumeration<?> getParameterNames() {
 		throw new UnsupportedOperationException("unimplemented");
 	}
 
@@ -137,11 +141,11 @@ public class MockHttpServletRequest implements HttpServletRequest {
 		throw new UnsupportedOperationException("unimplemented");
 	}
 
-	public Enumeration getHeaders(String name) {
+	public Enumeration<?> getHeaders(String name) {
 		throw new UnsupportedOperationException("unimplemented");
 	}
 
-	public Enumeration getHeaderNames() {
+	public Enumeration<?> getHeaderNames() {
 		throw new UnsupportedOperationException("unimplemented");
 	}
 
@@ -287,7 +291,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	/**
 	 * @return the locales
 	 */
-	public Enumeration getLocales() {
+	public Enumeration<?> getLocales() {
 		return this.locales;
 	}
 
@@ -295,7 +299,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	 * @param locales
 	 *            the locales to set
 	 */
-	public void setLocales(Enumeration locales) {
+	public void setLocales(Enumeration<?> locales) {
 		this.locales = locales;
 	}
 
@@ -652,7 +656,8 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	}
 
 	/**
-	 * @param characterEncoding the characterEncoding to set
+	 * @param characterEncoding
+	 *            the characterEncoding to set
 	 */
 	public void setCharacterEncoding(String characterEncoding) {
 		this.characterEncoding = characterEncoding;

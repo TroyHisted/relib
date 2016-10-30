@@ -15,7 +15,6 @@
  */
 package org.relib.http.request;
 
-
 /**
  * Handles creating an argument value for a request parameter type of HttpServletRequest.
  *

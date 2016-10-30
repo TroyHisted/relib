@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.json;
+package org.relib.http.json;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,17 +30,20 @@ import org.relib.util.Strings;
 
 /**
  * Handles manipulating object data into JavaScript Object Notation (JSON).
+ *
  * <pre>
- * {@code
- * String json = Json.toJson(new Object());
+ * {
+ * 	&#64;code
+ * 	String json = Json.toJson(new Object());
  * }
  * </pre>
  *
  * <p>
  * Handles parsing a JSON string into the equivalent request parameter map
+ *
  * <pre>
  * <code>
- * Map<String, String[]> map = Json.toParameterMap("{}");
+ * Map&lt;String, String[]&gt; map = Json.toParameterMap("{}");
  * </code>
  * </pre>
  *
@@ -56,7 +59,8 @@ public class Json {
 	 * <p>
 	 * Uses reflection to traverse the object tree.
 	 *
-	 * @param object the object to convert to a json string
+	 * @param object
+	 *            the object to convert to a json string
 	 * @return non-null string containing json
 	 */
 	public static String toJson(Object object) {
@@ -66,7 +70,8 @@ public class Json {
 	/**
 	 * Parses a JSON string into a map of parameters.
 	 *
-	 * @param json string of json data to parse
+	 * @param json
+	 *            string of json data to parse
 	 * @return non-null map containing converted json data
 	 */
 	public static Map<String, String[]> toParameterMap(String json) {
@@ -76,7 +81,8 @@ public class Json {
 	/**
 	 * Builds the string representation.
 	 *
-	 * @param object the object to build json with
+	 * @param object
+	 *            the object to build json with
 	 * @return string
 	 */
 	public String build(Object object) {
@@ -122,7 +128,8 @@ public class Json {
 	/**
 	 * Handles generating json from any other object type.
 	 *
-	 * @param object the object to convert
+	 * @param object
+	 *            the object to convert
 	 * @return string containing json
 	 */
 	private String handleOtherObject(Object object) {
@@ -179,7 +186,8 @@ public class Json {
 	/**
 	 * Handles converting an array of Objects.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string containing json
 	 */
 	private String handleObjectArray(Object[] objects) {
@@ -196,7 +204,8 @@ public class Json {
 	/**
 	 * Handles converting an array of bytes.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string containing json
 	 */
 	private String handleByteArray(byte[] bytes) {
@@ -213,7 +222,8 @@ public class Json {
 	/**
 	 * Handles converting an array of shorts.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string containing json
 	 */
 	private String handleShortArray(short[] shorts) {
@@ -230,7 +240,8 @@ public class Json {
 	/**
 	 * Handles converting an array of ints.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string containing json
 	 */
 	private String handleIntArray(int[] ints) {
@@ -247,7 +258,8 @@ public class Json {
 	/**
 	 * Handles converting an array of longs.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string containing json
 	 */
 	private String handleLongArray(long[] longs) {
@@ -264,7 +276,8 @@ public class Json {
 	/**
 	 * Handles converting an array of floats.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string containing json
 	 */
 	private String handleFloatArray(float[] floats) {
@@ -281,7 +294,8 @@ public class Json {
 	/**
 	 * Handles converting an array of doubles.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string containing json
 	 */
 	private String handleDoubleArray(double[] doubles) {
@@ -298,7 +312,8 @@ public class Json {
 	/**
 	 * Handles converting an array of booleans.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string containing json
 	 */
 	private String handleBooleanArray(boolean[] booleans) {
@@ -315,7 +330,8 @@ public class Json {
 	/**
 	 * Handles converting an array of chars.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string containing json
 	 */
 	private String handleCharArray(char[] chars) {
@@ -332,7 +348,8 @@ public class Json {
 	/**
 	 * Handles converting a Date.
 	 *
-	 * @param date the object to convert
+	 * @param date
+	 *            the object to convert
 	 * @return string containing json
 	 */
 	private String handleDate(Date date) {
@@ -342,7 +359,8 @@ public class Json {
 	/**
 	 * Handles converting a Calendar.
 	 *
-	 * @param calendar the object to convert
+	 * @param calendar
+	 *            the object to convert
 	 * @return string containing json
 	 */
 	private String handleCalendar(Calendar calendar) {
@@ -352,7 +370,8 @@ public class Json {
 	/**
 	 * Handles the special DynaBean and DynaClass conversion to json.
 	 *
-	 * @param dynaClass the object to convert
+	 * @param dynaClass
+	 *            the object to convert
 	 * @return string containing json
 	 */
 	private String handleDynaBeanClass(DynaClass dynaClass) {
@@ -383,8 +402,6 @@ public class Json {
 	 * @author Troy Histed
 	 */
 	private static class MethodOrder implements Comparator<Method> {
-
-		@Override
 		public int compare(Method method1, Method method2) {
 			return method1.getName().compareTo(method2.getName());
 		}

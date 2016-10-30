@@ -44,7 +44,8 @@ class RequestDefinition {
 	}
 
 	/**
-	 * @param argumentGenerators the argumentGenerators to set
+	 * @param argumentGenerators
+	 *            the argumentGenerators to set
 	 */
 	public void setArgumentGenerators(ArgumentGenerator[] argumentGenerators) {
 		this.argumentGenerators = argumentGenerators;
@@ -58,7 +59,8 @@ class RequestDefinition {
 	}
 
 	/**
-	 * @param responseGenerator the responseGenerator to set
+	 * @param responseGenerator
+	 *            the responseGenerator to set
 	 */
 	public void setResponseGenerator(ResponseGenerator responseGenerator) {
 		this.responseGenerator = responseGenerator;

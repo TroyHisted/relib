@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.BeanUtils;
 import org.relib.http.MediaType;
 import org.relib.http.RequestBean;
-import org.relib.json.JsonToParameterMap;
+import org.relib.http.json.JsonToParameterMap;
 import org.relib.util.Strings;
 
 /**
@@ -43,8 +43,10 @@ class ArgumentGeneratorForRequestBean implements ArgumentGenerator {
 	/**
 	 * Constructor.
 	 *
-	 * @param requestParam the request param annotation
-	 * @param type return type to build the generator for
+	 * @param requestParam
+	 *            the request param annotation
+	 * @param type
+	 *            return type to build the generator for
 	 */
 	ArgumentGeneratorForRequestBean(RequestBean requestBean, Class<?> type) {
 		this.type = type;
@@ -55,7 +57,6 @@ class ArgumentGeneratorForRequestBean implements ArgumentGenerator {
 	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public Object generateArgument(RequestInfo requestInfo) {
 
 		final Map<String, String[]> matchingParameters = new HashMap<String, String[]>();
@@ -92,7 +93,8 @@ class ArgumentGeneratorForRequestBean implements ArgumentGenerator {
 	/**
 	 * Reads the request body as a string of json data and converts it into a parameter map.
 	 *
-	 * @param request the http request
+	 * @param request
+	 *            the http request
 	 * @return non-null map of parameters and their values
 	 */
 	private Map<String, String[]> generateParameterMap(HttpServletRequest request) {

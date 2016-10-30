@@ -31,7 +31,8 @@ public class View {
 	/**
 	 * Constructs a new view using the specified view path.
 	 *
-	 * @param viewPath the file path to the JSP
+	 * @param viewPath
+	 *            the file path to the JSP
 	 */
 	public View(String viewPath) {
 		this.viewPath = viewPath;
@@ -40,18 +41,21 @@ public class View {
 	/**
 	 * Returns a new View, constructed with the specified view path.
 	 *
-	 * @param viewPath the file path to the JSP
+	 * @param viewPath
+	 *            the file path to the JSP
 	 * @return a new view using the specified path
 	 */
-	public static View of (String viewPath) {
+	public static View of(String viewPath) {
 		return new View(viewPath);
 	}
 
 	/**
 	 * Adds the object to the view using the given name.
 	 *
-	 * @param name the name to use when referencing the value
-	 * @param value the value to store
+	 * @param name
+	 *            the name to use when referencing the value
+	 * @param value
+	 *            the value to store
 	 * @return this view
 	 */
 	public View put(String name, Object value) {

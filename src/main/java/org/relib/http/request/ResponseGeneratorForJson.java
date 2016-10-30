@@ -22,8 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.relib.http.MediaType;
-import org.relib.json.Json;
-
+import org.relib.http.json.Json;
 
 /**
  * Handles building the response for MediaType.JSON.
@@ -35,7 +34,7 @@ class ResponseGeneratorForJson implements ResponseGenerator {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
+	@SuppressWarnings("resource")
 	public void generateResponse(HttpServletRequest request, HttpServletResponse response, Object value) {
 
 		response.setContentType(MediaType.JSON.getTypeString());
@@ -45,8 +44,7 @@ class ResponseGeneratorForJson implements ResponseGenerator {
 			writer = response.getWriter();
 			writer.print(Json.toJson(value));
 		} catch (final IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalStateException("Unable to convert object to json " + value, e);
 		}
 
 	}

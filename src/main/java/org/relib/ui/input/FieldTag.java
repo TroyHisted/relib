@@ -45,8 +45,7 @@ public class FieldTag extends InputTag {
 		final Map<String, Object> dynamicAttributes = this.getDynamicAttributes();
 		final Map<String, Object> fieldAttributes = new HashMap<String, Object>();
 
-		final Iterator<Entry<String, Object>> dynamicAttributeIterator =
-				dynamicAttributes.entrySet().iterator();
+		final Iterator<Entry<String, Object>> dynamicAttributeIterator = dynamicAttributes.entrySet().iterator();
 		while (dynamicAttributeIterator.hasNext()) {
 			final Entry<String, Object> attribute = dynamicAttributeIterator.next();
 			if (attribute.getKey().startsWith("field-")) {
@@ -137,7 +136,8 @@ public class FieldTag extends InputTag {
 	}
 
 	/**
-	 * @param field the field to set
+	 * @param field
+	 *            the field to set
 	 */
 	public void setField(Field<?> field) {
 		this.field = field;

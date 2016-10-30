@@ -27,18 +27,18 @@ public class ConnectorServiceLoader {
 	private static ServiceLoader<JdbcConnector> CONNECTION_LOADER = ServiceLoader.load(JdbcConnector.class);
 
 	/**
-	 * Returns the first DaoConnector that is available through the Service
-	 * Provider Interface.
-	 * @param aConnectionName
+	 * Returns the first DaoConnector that is available through the Service Provider Interface.
 	 *
+	 * @param connectionName
+	 *            the name given to a connection that corresponds to {@link JdbcConnector#getName()}
 	 * @return connection loader
 	 */
-	public static JdbcConnector getConnector(String aConnectionName) {
+	public static JdbcConnector getConnector(String connectionName) {
 		for (final JdbcConnector connector : ConnectorServiceLoader.CONNECTION_LOADER) {
-			if (aConnectionName == null || aConnectionName.equals(connector.getName())) {
+			if (connectionName == null || connectionName.equals(connector.getName())) {
 				return connector;
 			}
 		}
-		throw new IllegalStateException("No DaoConnector defined as a provided service. " + aConnectionName);
+		throw new IllegalStateException("No DaoConnector defined as a provided service. " + connectionName);
 	}
 }

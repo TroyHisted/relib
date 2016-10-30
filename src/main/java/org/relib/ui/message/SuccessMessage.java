@@ -28,8 +28,10 @@ public class SuccessMessage extends AbstractMessage {
 	 * <p>
 	 * See {@link AbstractMessage#AbstractMessage(String, String...)}.
 	 *
-	 * @param aMessage the message text
-	 * @param args message variables
+	 * @param aMessage
+	 *            the message text
+	 * @param args
+	 *            message variables
 	 */
 	public SuccessMessage(String aMessage, String... args) {
 		super(aMessage, args);

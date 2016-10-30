@@ -48,22 +48,22 @@ public abstract class Statement {
 	/**
 	 * Sets a string into the prepared statement using the specified parameter name.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aValue
+	 * @param value
 	 *            the value to set
 	 * @return the statement (for method chaining)
 	 */
-	public Statement set(String aName, String aValue) {
+	public Statement set(String name, String value) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setString(i + 1, aValue);
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setString(i + 1, value);
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " to " + aValue, e);
+			throw new DaoException("Error setting " + name + " to " + value, e);
 		}
 		return this;
 	}
@@ -72,22 +72,22 @@ public abstract class Statement {
 	 * <p>
 	 * Sets an int into the prepared statement using the specified parameter name.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aValue
+	 * @param value
 	 *            the value to set
 	 * @return the statement (for method chaining)
 	 */
-	public Statement set(String aName, int aValue) {
+	public Statement set(String name, int value) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setInt(i + 1, aValue);
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setInt(i + 1, value);
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " to " + aValue, e);
+			throw new DaoException("Error setting " + name + " to " + value, e);
 		}
 		return this;
 	}
@@ -95,22 +95,22 @@ public abstract class Statement {
 	/**
 	 * Sets a long into the prepared statement using the specified parameter name.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aValue
-	 *            the aValue to set
+	 * @param value
+	 *            the value to set
 	 * @return the statement (for method chaining)
 	 */
-	public Statement set(String aName, long aValue) {
+	public Statement set(String name, long value) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setLong(i + 1, aValue);
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setLong(i + 1, value);
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " to " + aValue, e);
+			throw new DaoException("Error setting " + name + " to " + value, e);
 		}
 		return this;
 	}
@@ -118,22 +118,22 @@ public abstract class Statement {
 	/**
 	 * Sets a short into the prepared statement using the specified parameter name.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aValue
+	 * @param value
 	 *            the value to set
 	 * @return the statement (for method chaining)
 	 */
-	public Statement set(String aName, short aValue) {
+	public Statement set(String name, short value) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setShort(i + 1, aValue);
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setShort(i + 1, value);
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " to " + aValue, e);
+			throw new DaoException("Error setting " + name + " to " + value, e);
 		}
 		return this;
 	}
@@ -141,22 +141,22 @@ public abstract class Statement {
 	/**
 	 * Sets a float into the prepared statement using the specified parameter name.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aValue
+	 * @param value
 	 *            the value to set
 	 * @return the statement (for method chaining)
 	 */
-	public Statement set(String aName, float aValue) {
+	public Statement set(String name, float value) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setFloat(i + 1, aValue);
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setFloat(i + 1, value);
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " to " + aValue, e);
+			throw new DaoException("Error setting " + name + " to " + value, e);
 		}
 		return this;
 	}
@@ -164,22 +164,22 @@ public abstract class Statement {
 	/**
 	 * Sets a double into the prepared statement using the specified parameter name.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aValue
+	 * @param value
 	 *            the value to set
 	 * @return the statement (for method chaining)
 	 */
-	public Statement set(String aName, double aValue) {
+	public Statement set(String name, double value) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setDouble(i + 1, aValue);
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setDouble(i + 1, value);
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " to " + aValue, e);
+			throw new DaoException("Error setting " + name + " to " + value, e);
 		}
 		return this;
 	}
@@ -187,22 +187,22 @@ public abstract class Statement {
 	/**
 	 * Sets a boolean into the prepared statement using the specified parameter name.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aValue
+	 * @param value
 	 *            the value to set
 	 * @return the statement (for method chaining)
 	 */
-	public Statement set(String aName, boolean aValue) {
+	public Statement set(String name, boolean value) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setBoolean(i + 1, aValue);
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setBoolean(i + 1, value);
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " to " + aValue, e);
+			throw new DaoException("Error setting " + name + " to " + value, e);
 		}
 		return this;
 	}
@@ -210,22 +210,22 @@ public abstract class Statement {
 	/**
 	 * Sets a Date into the prepared statement, as a Timestamp, using the specified parameter name.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aValue
+	 * @param value
 	 *            the value to set
 	 * @return the statement (for method chaining)
 	 */
-	public Statement set(String aName, java.util.Date aValue) {
+	public Statement set(String name, java.util.Date value) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setTimestamp(i + 1, new Timestamp(aValue.getTime()));
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setTimestamp(i + 1, new Timestamp(value.getTime()));
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " to " + aValue, e);
+			throw new DaoException("Error setting " + name + " to " + value, e);
 		}
 		return this;
 	}
@@ -233,22 +233,22 @@ public abstract class Statement {
 	/**
 	 * Sets the specified parameter name to give a null value.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aSqlType
+	 * @param sqlType
 	 *            the java.sql.Type of the column to set to null
 	 * @return the statement (for method chaining)
 	 */
-	public Statement setNull(String aName, int aSqlType) {
+	public Statement setNull(String name, int sqlType) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setNull(i + 1, aSqlType);
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setNull(i + 1, sqlType);
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " of type " + aSqlType + " to null", e);
+			throw new DaoException("Error setting " + name + " of type " + sqlType + " to null", e);
 		}
 		return this;
 	}
@@ -256,22 +256,22 @@ public abstract class Statement {
 	/**
 	 * Sets an Object into the prepared statement using the specified parameter name.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aValue
+	 * @param value
 	 *            the value to set
 	 * @return the statement (for method chaining)
 	 */
-	public Statement setObject(String aName, Object aValue) {
+	public Statement setObject(String name, Object value) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setObject(i + 1, aValue);
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setObject(i + 1, value);
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " to " + aValue, e);
+			throw new DaoException("Error setting " + name + " to " + value, e);
 		}
 		return this;
 	}
@@ -279,24 +279,24 @@ public abstract class Statement {
 	/**
 	 * Sets an Object into the prepared statement as the specified type using the specified parameter name.
 	 *
-	 * @param aName
+	 * @param name
 	 *            the name of the parameter to set
-	 * @param aValue
+	 * @param value
 	 *            the value to set
-	 * @param aSqlType
+	 * @param sqlType
 	 *            the java.sql.Type of the object to set
 	 * @return the statement (for method chaining)
 	 */
-	public Statement setObject(String aName, Object aValue, int aSqlType) {
+	public Statement setObject(String name, Object value, int sqlType) {
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (this.getParameters().get(i).equals(aName)) {
-					this.getPreparedStatement().setObject(i + 1, aValue, aSqlType);
+				if (this.getParameters().get(i).equals(name)) {
+					this.getPreparedStatement().setObject(i + 1, value, sqlType);
 				}
 			}
 		} catch (final SQLException e) {
 			this.getConnection().cleanUp();
-			throw new DaoException("Error setting " + aName + " to " + aValue, e);
+			throw new DaoException("Error setting " + name + " to " + value, e);
 		}
 		return this;
 	}
@@ -305,18 +305,18 @@ public abstract class Statement {
 	 * Sets all of the bean properties into the prepared statement using the bean property name as the parameter
 	 * name.
 	 *
-	 * @param aJavaBean
+	 * @param javaBean
 	 *            the java bean to use
 	 * @return the statement (for method chaining)
 	 */
-	public Statement setBean(Object aJavaBean) {
+	public Statement setBean(Object javaBean) {
 
 		final PropertyUtilsBean propertyUtils = new PropertyUtilsBean();
 
 		try {
 			for (int i = 0; i < this.getParameters().size(); i++) {
-				if (propertyUtils.isReadable(aJavaBean, this.getParameters().get(i))) {
-					final Object value = propertyUtils.getNestedProperty(aJavaBean, this.getParameters().get(i));
+				if (propertyUtils.isReadable(javaBean, this.getParameters().get(i))) {
+					final Object value = propertyUtils.getNestedProperty(javaBean, this.getParameters().get(i));
 					this.getPreparedStatement().setObject(i + 1, value);
 				}
 			}
@@ -324,11 +324,11 @@ public abstract class Statement {
 			this.getConnection().cleanUp();
 			throw new DaoException("Error", e);
 		} catch (final IllegalAccessException e) {
-			throw new DaoException("Error getting bean properties from " + aJavaBean, e);
+			throw new DaoException("Error getting bean properties from " + javaBean, e);
 		} catch (final InvocationTargetException e) {
-			throw new DaoException("Error getting bean properties from " + aJavaBean, e);
+			throw new DaoException("Error getting bean properties from " + javaBean, e);
 		} catch (final NoSuchMethodException e) {
-			throw new DaoException("Error getting bean properties from " + aJavaBean, e);
+			throw new DaoException("Error getting bean properties from " + javaBean, e);
 		}
 		return this;
 	}

@@ -25,21 +25,30 @@ import java.lang.annotation.Target;
  *
  * <p>
  * Handler may designate the path (relative to the servlet mapping) using the value attribute.
- * <pre> @HandleRequest("/home")</pre>
+ *
+ * <pre>
+ *  &#64;HandleRequest("/home")
+ * </pre>
  *
  * <p>
- * Additionally, the handler may specify any combination of accept and contentType values. If not specified
- * the path will default to "/".
+ * Additionally, the handler may specify any combination of accept and contentType values. If not specified the
+ * path will default to "/".
  *
  * <p>
- * Accept specifies the format of data returned by the method (the source of the http request
- * will accept a response in the specified format).
- * <pre> @HandleRequest(accept=MediaType.JSON)</pre>
+ * Accept specifies the format of data returned by the method (the source of the http request will accept a
+ * response in the specified format).
+ *
+ * <pre>
+ *  &#64;HandleRequest(accept=MediaType.JSON)
+ * </pre>
  *
  * <p>
- * Content-Type specifies the format of the data coming into the method (the contents of the request
- * are in the specified format).
- * <pre> @HanleRequest(contentType=MediaType.JSON)</pre>
+ * Content-Type specifies the format of the data coming into the method (the contents of the request are in the
+ * specified format).
+ *
+ * <pre>
+ *  &#64;HanleRequest(contentType=MediaType.JSON)
+ * </pre>
  *
  * <p>
  * The method may return any of the following:

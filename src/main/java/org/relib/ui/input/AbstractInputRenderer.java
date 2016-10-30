@@ -87,7 +87,7 @@ public abstract class AbstractInputRenderer implements InputRenderer {
 	 *
 	 * The id will be prefixed with "input_" and followed by a 5 digit number.
 	 *
-	 * @return
+	 * @return the random field name.
 	 */
 	protected String nextRandomId() {
 		return "field_" + Math.abs(AbstractInputRenderer.random.nextInt());
@@ -244,35 +244,35 @@ public abstract class AbstractInputRenderer implements InputRenderer {
 	 * list). All options and values are converted to strings via their toString and then compared to determine
 	 * equivalence.
 	 *
-	 * @param aOption
+	 * @param option
 	 *            the option to test
-	 * @param aValue
+	 * @param value
 	 *            the value of the input which is used to determine which item(s) to pre-select.
 	 * @return <code>true</code> if the option should be considered <em>selected</em>
 	 */
-	boolean isSelected(String aOption, Object aValue) {
-		if (aValue == null || aOption == null) {
+	boolean isSelected(String option, Object value) {
+		if (value == null || option == null) {
 			return false;
-		} else if (aValue instanceof Object[]) {
-			for (final Object val : (Object[]) aValue) {
-				if (String.valueOf(val).equals(aOption)) {
+		} else if (value instanceof Object[]) {
+			for (final Object val : (Object[]) value) {
+				if (String.valueOf(val).equals(option)) {
 					return true;
 				}
 			}
 			return false;
-		} else if (aValue instanceof Collection<?>) {
-			for (final Object val : (Collection<?>) aValue) {
+		} else if (value instanceof Collection<?>) {
+			for (final Object val : (Collection<?>) value) {
 				// if (aOption.equals(val.toString())) {
-				if (String.valueOf(aOption).equals(String.valueOf(val))) {
+				if (String.valueOf(option).equals(String.valueOf(val))) {
 					return true;
 				}
 			}
 			return false;
-		} else if (aValue instanceof Map<?, ?>) {
+		} else if (value instanceof Map<?, ?>) {
 			throw new UnsupportedOperationException("Maps not supported");
 		} else {
 			// return aOption.equals(aValue.toString());
-			return aOption.toString().equals(String.valueOf(aValue));
+			return option.toString().equals(String.valueOf(value));
 		}
 	}
 }

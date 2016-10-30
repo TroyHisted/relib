@@ -44,34 +44,34 @@ public class Select<T> extends Statement {
 	/**
 	 * Constructs a select and performs initialization.
 	 *
-	 * @param aSelect
+	 * @param select
 	 *            the select to be executed
-	 * @param aRowMapper
+	 * @param rowMapper
 	 *            the row mapping to use
 	 */
-	public Select(String aSelect, RowMapper<T> aRowMapper) {
-		this(aSelect, aRowMapper, (String) null);
+	public Select(String select, RowMapper<T> rowMapper) {
+		this(select, rowMapper, (String) null);
 	}
 
 	/**
 	 * Constructs a select and performs initialization.
 	 *
-	 * @param aSelect
+	 * @param select
 	 *            the select to be executed
-	 * @param aRowMapper
+	 * @param rowMapper
 	 *            the row mapping to use
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the name of the connection to use
 	 */
-	public Select(String aSelect, RowMapper<T> aRowMapper, String aConnectionName) {
+	public Select(String select, RowMapper<T> rowMapper, String connectionName) {
 
-		this.statement = aSelect;
-		this.rowMapper = aRowMapper;
-		final ParsedNamedStatement preparedSelect = Select.STATEMENT_PARSER.prepareNamedStatement(aSelect);
+		this.statement = select;
+		this.rowMapper = rowMapper;
+		final ParsedNamedStatement preparedSelect = Select.STATEMENT_PARSER.prepareNamedStatement(select);
 		this.parameters = preparedSelect.getParameters();
 
 		try {
-			this.connection = this.connect(aConnectionName);
+			this.connection = this.connect(connectionName);
 			this.preparedStatement = this.connection.prepareStatement(preparedSelect.getStatement());
 		} catch (final SQLException e) {
 			if (this.connection != null) {
@@ -89,40 +89,40 @@ public class Select<T> extends Statement {
 	/**
 	 * Constructs a select and performs initialization.
 	 *
-	 * @param aSelect
+	 * @param select
 	 *            the select to be executed
-	 * @param aRowMapper
+	 * @param rowMapper
 	 *            the row mapping to use
-	 * @param aConnection
+	 * @param connection
 	 *            the connection to use
 	 */
-	public Select(String aSelect, RowMapper<T> aRowMapper, Connection aConnection) {
+	public Select(String select, RowMapper<T> rowMapper, Connection connection) {
 
-		this.statement = aSelect;
-		this.rowMapper = aRowMapper;
-		this.connection = new JdbcConnection(aConnection);
+		this.statement = select;
+		this.rowMapper = rowMapper;
+		this.connection = new JdbcConnection(connection);
 
-		final ParsedNamedStatement preparedSelect = Select.STATEMENT_PARSER.prepareNamedStatement(aSelect);
+		final ParsedNamedStatement preparedSelect = Select.STATEMENT_PARSER.prepareNamedStatement(select);
 		this.parameters = preparedSelect.getParameters();
 
 		try {
 			this.preparedStatement = this.connection.prepareStatement(preparedSelect.getStatement());
 		} catch (final SQLException e) {
 			this.connection.cleanUp();
-			throw new DaoException("Error occured while preparing statement: " + aSelect, e);
+			throw new DaoException("Error occured while preparing statement: " + select, e);
 		}
 	}
 
 	/**
 	 * Gets a connection.
 	 *
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the connection name to use
 	 * @return a connection
-	 * @throws SQLException
+	 * @throws SQLException exception connecting
 	 */
-	protected JdbcConnection connect(String aConnectionName) throws SQLException {
-		return JdbcConnection.connect(aConnectionName);
+	protected JdbcConnection connect(String connectionName) throws SQLException {
+		return JdbcConnection.connect(connectionName);
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class Select<T> extends Statement {
 	/**
 	 * Executes the select with or without moving the cursor before delegating to the RowMappers mapRow.
 	 *
-	 * @param aMoveCursor
+	 * @param moveCursor
 	 *            indicates whether the cursor of the result set should be moved, <code>true</code> will cause
 	 *            next() to be invoked on the ResultSet before calling mapRow. When passed <code>false</code> the
 	 *            ResultSet will be passed to mapRow without calling next() and it will be up to the mapRow
@@ -145,13 +145,13 @@ public class Select<T> extends Statement {
 	 * @return a mapped object or the defaultWhenNull or null
 	 */
 	@SuppressWarnings("resource")
-	public T execute(boolean aMoveCursor) {
+	public T execute(boolean moveCursor) {
 		T t = null;
 		ResultSet resultSet = null;
 
 		try {
 			resultSet = this.preparedStatement.executeQuery();
-			if (!aMoveCursor || resultSet.next()) {
+			if (!moveCursor || resultSet.next()) {
 				t = this.rowMapper.mapRow(resultSet);
 			}
 		} catch (final SQLException e) {
@@ -180,7 +180,7 @@ public class Select<T> extends Statement {
 	 * Executes the select and maps the result to a list of new instances of the specified class using the
 	 * specified row mapper.
 	 *
-	 * @param aMoveCursor
+	 * @param moveCursor
 	 *            indicates whether the cursor of the result set should be moved, <code>true</code> will cause
 	 *            next() to be invoked on the ResultSet before calling mapRow. When passed <code>false</code> the
 	 *            ResultSet will be passed to mapRow without calling next() and it will be up to the mapRow
@@ -189,13 +189,13 @@ public class Select<T> extends Statement {
 	 * @return a non-null list containing instances of the specified class.
 	 */
 	@SuppressWarnings("resource")
-	public List<T> executeForAll(boolean aMoveCursor) {
+	public List<T> executeForAll(boolean moveCursor) {
 		final List<T> list = new ArrayList<T>();
 		ResultSet resultSet = null;
 
 		try {
 			resultSet = this.preparedStatement.executeQuery();
-			if (aMoveCursor) {
+			if (moveCursor) {
 				while (resultSet.next()) {
 					list.add(this.rowMapper.mapRow(resultSet));
 				}
@@ -230,8 +230,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> set(String aName, String aValue) {
-		return (Select<T>) super.set(aName, aValue);
+	public Select<T> set(String name, String value) {
+		return (Select<T>) super.set(name, value);
 	}
 
 	/**
@@ -239,8 +239,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> set(String aName, int aValue) {
-		return (Select<T>) super.set(aName, aValue);
+	public Select<T> set(String name, int value) {
+		return (Select<T>) super.set(name, value);
 	}
 
 	/**
@@ -248,8 +248,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> set(String aName, long aValue) {
-		return (Select<T>) super.set(aName, aValue);
+	public Select<T> set(String name, long value) {
+		return (Select<T>) super.set(name, value);
 	}
 
 	/**
@@ -257,8 +257,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> set(String aName, short aValue) {
-		return (Select<T>) super.set(aName, aValue);
+	public Select<T> set(String name, short value) {
+		return (Select<T>) super.set(name, value);
 	}
 
 	/**
@@ -266,8 +266,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> set(String aName, float aValue) {
-		return (Select<T>) super.set(aName, aValue);
+	public Select<T> set(String name, float value) {
+		return (Select<T>) super.set(name, value);
 	}
 
 	/**
@@ -275,8 +275,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> set(String aName, double aValue) {
-		return (Select<T>) super.set(aName, aValue);
+	public Select<T> set(String name, double value) {
+		return (Select<T>) super.set(name, value);
 	}
 
 	/**
@@ -284,8 +284,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> set(String aName, boolean aValue) {
-		return (Select<T>) super.set(aName, aValue);
+	public Select<T> set(String name, boolean value) {
+		return (Select<T>) super.set(name, value);
 	}
 
 	/**
@@ -293,8 +293,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> set(String aName, java.util.Date aValue) {
-		return (Select<T>) super.set(aName, aValue);
+	public Select<T> set(String name, java.util.Date value) {
+		return (Select<T>) super.set(name, value);
 	}
 
 	/**
@@ -302,8 +302,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> setNull(String aName, int aSqlType) {
-		return (Select<T>) super.set(aName, aSqlType);
+	public Select<T> setNull(String name, int sqlType) {
+		return (Select<T>) super.set(name, sqlType);
 	}
 
 	/**
@@ -311,8 +311,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> setObject(String aName, Object aValue) {
-		return (Select<T>) super.setObject(aName, aValue);
+	public Select<T> setObject(String name, Object value) {
+		return (Select<T>) super.setObject(name, value);
 	}
 
 	/**
@@ -320,8 +320,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> setObject(String aName, Object aValue, int aSqlType) {
-		return (Select<T>) super.setObject(aName, aValue, aSqlType);
+	public Select<T> setObject(String name, Object value, int sqlType) {
+		return (Select<T>) super.setObject(name, value, sqlType);
 	}
 
 	/**
@@ -329,8 +329,8 @@ public class Select<T> extends Statement {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Select<T> setBean(Object aJavaBean) {
-		return (Select<T>) super.setBean(aJavaBean);
+	public Select<T> setBean(Object javaBean) {
+		return (Select<T>) super.setBean(javaBean);
 	}
 
 	/**
@@ -362,9 +362,9 @@ public class Select<T> extends Statement {
 	 */
 	@Override
 	public String toString() {
-		return "Select [statement=" + this.statement + ", connection=" + this.connection
-				+ ", preparedStatement=" + this.preparedStatement + ", rowMapper=" + this.rowMapper
-				+ ", defaultWhenNull=" + this.defaultWhenNull + ", parameters=" + this.parameters + "]";
+		return "Select [statement=" + this.statement + ", connection=" + this.connection + ", preparedStatement="
+				+ this.preparedStatement + ", rowMapper=" + this.rowMapper + ", defaultWhenNull="
+				+ this.defaultWhenNull + ", parameters=" + this.parameters + "]";
 	}
 
 }

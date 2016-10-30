@@ -15,7 +15,6 @@
  */
 package org.relib.db;
 
-
 /**
  * Utility class for generating SQL statements.
  *
@@ -26,177 +25,184 @@ public final class Query {
 	/**
 	 * Static constructor for an Update.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the statement to execute
 	 * @return the Update
 	 */
-	public static Update update(String aStatement) {
-		return new Update(aStatement);
+	public static Update update(String statement) {
+		return new Update(statement);
 	}
 
 	/**
 	 * Static constructor for an Update.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the statement to execute
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the connection name to use
 	 * @return the Update
 	 */
-	public static Update update(String aStatement, String aConnectionName) {
-		return new Update(aStatement, aConnectionName);
+	public static Update update(String statement, String connectionName) {
+		return new Update(statement, connectionName);
 	}
 
 	/**
 	 * Static constructor for building a select for an Object.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
-	 * @param aRowMapper
+	 * @param rowMapper
 	 *            the row mapping to use
+	 * @param <T>
+	 *            the object type
 	 * @return the Select
 	 */
-	public static <T> Select<T> forObject(String aStatement, RowMapper<T> aRowMapper) {
-		return new Select<T>(aStatement, aRowMapper);
+	public static <T> Select<T> forObject(String statement, RowMapper<T> rowMapper) {
+		return new Select<T>(statement, rowMapper);
 	}
 
 	/**
 	 * Static constructor for building a select for an Object.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
-	 * @param aRowMapper
+	 * @param rowMapper
 	 *            the row mapping to use
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the connection name to use
+	 * @param <T>
+	 *            the object type
 	 * @return the Select
 	 */
-	public static <T> Select<T> forObject(String aStatement, RowMapper<T> aRowMapper, String aConnectionName) {
-		return new Select<T>(aStatement, aRowMapper, aConnectionName);
+	public static <T> Select<T> forObject(String statement, RowMapper<T> rowMapper, String connectionName) {
+		return new Select<T>(statement, rowMapper, connectionName);
 	}
 
 	/**
 	 * Static constructor for building a select for a java bean.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
-	 * @param aBeanClass
+	 * @param beanClass
 	 *            the bean class to map to
+	 * @param <T>
+	 *            the object type
 	 * @return the Select
 	 */
-	public static <T> Select<T> forBean(String aStatement, Class<T> aBeanClass) {
-		return new Select<T>(aStatement, BeanRowMapper.forClass(aBeanClass));
+	public static <T> Select<T> forBean(String statement, Class<T> beanClass) {
+		return new Select<T>(statement, BeanRowMapper.forClass(beanClass));
 	}
 
 	/**
 	 * Static constructor for building a select for a java bean.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
-	 * @param aBeanClass
+	 * @param beanClass
 	 *            the bean class to map to
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the connection name to use
+	 * @param <T>
+	 *            the object type
 	 * @return the Select
 	 */
-	public static <T> Select<T> forBean(String aStatement, Class<T> aBeanClass,
-			String aConnectionName) {
-		return new Select<T>(aStatement, BeanRowMapper.forClass(aBeanClass), aConnectionName);
+	public static <T> Select<T> forBean(String statement, Class<T> beanClass, String connectionName) {
+		return new Select<T>(statement, BeanRowMapper.forClass(beanClass), connectionName);
 	}
 
 	/**
 	 * Static constructor for building a select for an Integer.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
 	 * @return the Select
 	 */
-	public static Select<Integer> forInteger(String aStatement) {
-		return new Select<Integer>(aStatement, RowMappers.INTEGER_MAPPER);
+	public static Select<Integer> forInteger(String statement) {
+		return new Select<Integer>(statement, RowMappers.INTEGER_MAPPER);
 	}
 
 	/**
 	 * Static constructor for building a select for an Integer.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the connection name to use
 	 * @return the Select
 	 */
-	public static Select<Integer> forInteger(String aStatement, String aConnectionName) {
-		return new Select<Integer>(aStatement, RowMappers.INTEGER_MAPPER, aConnectionName);
+	public static Select<Integer> forInteger(String statement, String connectionName) {
+		return new Select<Integer>(statement, RowMappers.INTEGER_MAPPER, connectionName);
 	}
 
 	/**
 	 * Static constructor for building a select for a Long.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
 	 * @return the Select
 	 */
-	public static Select<Long> forLong(String aStatement) {
-		return new Select<Long>(aStatement, RowMappers.LONG_MAPPER);
+	public static Select<Long> forLong(String statement) {
+		return new Select<Long>(statement, RowMappers.LONG_MAPPER);
 	}
 
 	/**
 	 * Static constructor for building a select for a Long.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the connection name to use
 	 * @return the Select
 	 */
-	public static Select<Long> forLong(String aStatement, String aConnectionName) {
-		return new Select<Long>(aStatement, RowMappers.LONG_MAPPER, aConnectionName);
+	public static Select<Long> forLong(String statement, String connectionName) {
+		return new Select<Long>(statement, RowMappers.LONG_MAPPER, connectionName);
 	}
 
 	/**
 	 * Static constructor for building a select for a Double.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
 	 * @return the Select
 	 */
-	public static Select<Double> forDouble(String aStatement) {
-		return new Select<Double>(aStatement, RowMappers.DOUBLE_MAPPER);
+	public static Select<Double> forDouble(String statement) {
+		return new Select<Double>(statement, RowMappers.DOUBLE_MAPPER);
 	}
 
 	/**
 	 * Static constructor for building a select for a Double.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the connection name to use
 	 * @return the Select
 	 */
-	public static Select<Double> forDouble(String aStatement, String aConnectionName) {
-		return new Select<Double>(aStatement, RowMappers.DOUBLE_MAPPER, aConnectionName);
+	public static Select<Double> forDouble(String statement, String connectionName) {
+		return new Select<Double>(statement, RowMappers.DOUBLE_MAPPER, connectionName);
 	}
 
 	/**
 	 * Static constructor for building a select for a String.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
 	 * @return the Select
 	 */
-	public static Select<String> forString(String aStatement) {
-		return new Select<String>(aStatement, RowMappers.STRING_MAPPER);
+	public static Select<String> forString(String statement) {
+		return new Select<String>(statement, RowMappers.STRING_MAPPER);
 	}
 
 	/**
 	 * Static constructor for building a select for a String.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the select statement to execute
-	 * @param aConnectionName
+	 * @param connectionName
 	 *            the connection name to use
 	 * @return the Select
 	 */
-	public static Select<String> forString(String aStatement, String aConnectionName) {
-		return new Select<String>(aStatement, RowMappers.STRING_MAPPER, aConnectionName);
+	public static Select<String> forString(String statement, String connectionName) {
+		return new Select<String>(statement, RowMappers.STRING_MAPPER, connectionName);
 	}
 }

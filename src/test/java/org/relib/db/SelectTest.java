@@ -30,12 +30,13 @@ public class SelectTest {
 		this.connection = new MockConnection();
 		this.rowMapper = new RowMapper<String>() {
 			@Override
-			protected String mapRow(ResultSet aResultSet) throws SQLException {
-				return aResultSet.getString("col1");
-			}};
+			protected String mapRow(ResultSet resultSet) throws SQLException {
+				return resultSet.getString("col1");
+			}
+		};
 
-		this.select = new MockSelect<String>(
-				"Select 'test' from table where something = :param1", this.rowMapper, this.connection);
+		this.select = new MockSelect<String>("Select 'test' from table where something = :param1",
+				this.rowMapper, this.connection);
 
 		this.resultSet = new MockResultSet();
 		final LinkedHashMap<String, Object> row = new LinkedHashMap<String, Object>();
@@ -48,6 +49,7 @@ public class SelectTest {
 	 * Verify the execute method works and closes all resources.
 	 *
 	 * @throws SQLException
+	 *             exception
 	 */
 	@Test
 	public void testExecute() throws SQLException {
@@ -62,6 +64,7 @@ public class SelectTest {
 	 * Verify the executeForAll method works and closes all resources.
 	 *
 	 * @throws SQLException
+	 *             exception
 	 */
 	@Test
 	public void testExecuteForAll() throws SQLException {
@@ -76,9 +79,10 @@ public class SelectTest {
 	 * Verify that when prepareStatement throws an exception that all the resources still get closed.
 	 *
 	 * @throws SQLException
+	 *             exception
 	 */
 	@SuppressWarnings("resource")
-	@Test(expected=DaoException.class)
+	@Test(expected = DaoException.class)
 	public void testSQLExceptionPreparingStatement() throws SQLException {
 
 		final MockConnection badConnection = new MockConnection() {
@@ -99,9 +103,10 @@ public class SelectTest {
 	 * Verify that when prepareStatement throws an exception that all the resources still get closed.
 	 *
 	 * @throws SQLException
+	 *             exception
 	 */
 	@SuppressWarnings("resource")
-	@Test(expected=NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void testNPExceptionPreparingStatement() throws SQLException {
 
 		final MockConnection badConnection = new MockConnection() {
@@ -122,13 +127,14 @@ public class SelectTest {
 	 * Verify that when a setXXX method throws an exception that all the resources still get closed.
 	 *
 	 * @throws SQLException
+	 *             exception
 	 */
-	@Test(expected=NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void testExceptionSettingValue() throws SQLException {
 
 		this.select = new MockSelect<String>("Select...", this.rowMapper, this.connection) {
 			@Override
-			public Select<String> set(String aName, String aValue) {
+			public Select<String> set(String name, String value) {
 				throw new NullPointerException();
 			}
 		};
@@ -144,14 +150,15 @@ public class SelectTest {
 	 * Verify that when the JdbcConnection can't connect, a DaoException is thrown.
 	 *
 	 * @throws SQLException
+	 *             exception
 	 */
-	@Test(expected=DaoException.class)
+	@Test(expected = DaoException.class)
 	public void testExceptionConnecting() throws SQLException {
 
-		final Select<String> select = new Select<String>(
-				"Select 'test' from table where something = :param1", this.rowMapper) {
+		final Select<String> select = new Select<String>("Select 'test' from table where something = :param1",
+				this.rowMapper) {
 			@Override
-			protected JdbcConnection connect(String aConnectionName) throws SQLException {
+			protected JdbcConnection connect(String connectionName) throws SQLException {
 				throw new SQLException("Mocking failed db connection");
 			}
 		};
@@ -163,8 +170,9 @@ public class SelectTest {
 	 * Verify that when a connection is null that a DaoException is thrown.
 	 *
 	 * @throws SQLException
+	 *             exception
 	 */
-	@Test(expected=DaoException.class)
+	@Test(expected = DaoException.class)
 	public void testNullConnection() throws SQLException {
 
 		@SuppressWarnings("unused")

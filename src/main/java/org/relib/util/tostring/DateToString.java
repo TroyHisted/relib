@@ -27,16 +27,15 @@ import org.relib.util.ToStringConverter;
  * @author Troy Histed
  */
 public class DateToString implements ToStringConverter {
-	
+
 	/**
 	 * Formats a {@link Date} as just the date and time.
-	 * 
+	 *
 	 * <p>
 	 * If the time is midnight, only the date will be used.
-	 * 
+	 *
 	 * {@inheritDoc}
 	 */
-	@Override
 	public String toString(Object object, ToStringConfig config) {
 		final StringBuilder buffer = new StringBuilder();
 		if (object instanceof Date) {
@@ -56,7 +55,6 @@ public class DateToString implements ToStringConverter {
 		return buffer.toString();
 	}
 
-	@Override
 	public boolean supports(Object object) {
 		return object instanceof Date;
 	}

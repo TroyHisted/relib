@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.relib.http.HandleRequest;
 import org.relib.http.View;
 
-
 /**
  * Handles building the response for a {@link View} {@link HandleRequest} return value.
  *
@@ -37,10 +36,11 @@ class ResponseGeneratorForView implements ResponseGenerator {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public void generateResponse(HttpServletRequest request, HttpServletResponse response, Object value) {
 
-		if (!(value instanceof View)) { return; }
+		if (!(value instanceof View)) {
+			return;
+		}
 
 		final View view = (View) value;
 
@@ -49,7 +49,7 @@ class ResponseGeneratorForView implements ResponseGenerator {
 		}
 
 		final RequestDispatcher dispatcher = request.getRequestDispatcher(view.getViewPath());
-		if (dispatcher != null){
+		if (dispatcher != null) {
 			try {
 				dispatcher.forward(request, response);
 			} catch (final ServletException e) {

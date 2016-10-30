@@ -44,7 +44,9 @@ public abstract class DynamicTag extends SimpleTagSupport implements DynamicAttr
 	 * @param out
 	 *            the writer to write the out to
 	 * @throws JspException
+	 *             exception processing the jsp
 	 * @throws IOException
+	 *             exception writing the response
 	 */
 	public void doBody(Writer out) throws JspException, IOException {
 		final JspFragment body = this.getJspBody();
@@ -79,7 +81,6 @@ public abstract class DynamicTag extends SimpleTagSupport implements DynamicAttr
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
 		this.dynamicAttributes.put(localName, value);
 	}

@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.relib.http.HandleRequest;
 
-
 /**
  * Handles building the response for a void {@link HandleRequest} return value.
  *

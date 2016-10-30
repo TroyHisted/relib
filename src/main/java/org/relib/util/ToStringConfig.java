@@ -31,11 +31,15 @@ public @interface ToStringConfig {
 
 	/**
 	 * Configuration for the specific object type.
+	 *
+	 * @return the config value
 	 */
 	String value() default Strings.EMPTY;
 
 	/**
 	 * Indicates that the value of this property should be hidden from the generated toString.
+	 *
+	 * @return <code>true</code> if the field value should not be included in the toString.
 	 */
 	boolean hidden() default false;
 

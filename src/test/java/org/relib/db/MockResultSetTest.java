@@ -27,7 +27,7 @@ public class MockResultSetTest {
 	/**
 	 * Verify next can be called once and subsequently isAfterLast is true.
 	 *
-	 * @throws SQLException
+	 * @throws SQLException exception
 	 */
 	@Test
 	public void testEmptyResultSet() throws SQLException {
@@ -38,7 +38,7 @@ public class MockResultSetTest {
 	/**
 	 * Verify that when a result set has one row that next can be called once and isAfterLast will be false.
 	 *
-	 * @throws SQLException
+	 * @throws SQLException exception
 	 */
 	@Test
 	public void testOneResult() throws SQLException {
@@ -50,9 +50,9 @@ public class MockResultSetTest {
 	/**
 	 * Verify that calling next() when past the end of the result set will cause an SQLException.
 	 *
-	 * @throws SQLException
+	 * @throws SQLException exception
 	 */
-	@Test(expected=SQLException.class)
+	@Test(expected = SQLException.class)
 	public void testPastOneResult() throws SQLException {
 		this.resultSet.getValues().add(new LinkedHashMap<String, Object>());
 		Assert.assertTrue(this.resultSet.next());
@@ -63,7 +63,7 @@ public class MockResultSetTest {
 	/**
 	 * Verify that a ResultSet is open by default.
 	 *
-	 * @throws SQLException
+	 * @throws SQLException exception
 	 */
 	@Test
 	public void testOpen() throws SQLException {
@@ -73,7 +73,7 @@ public class MockResultSetTest {
 	/**
 	 * Verify that after a result set is closed the isClosed method returns true;
 	 *
-	 * @throws SQLException
+	 * @throws SQLException exception
 	 */
 	@Test
 	public void testClosed() throws SQLException {
@@ -84,7 +84,7 @@ public class MockResultSetTest {
 	/**
 	 * Verify that the getRow() method keeps track of the current row index.
 	 *
-	 * @throws SQLException
+	 * @throws SQLException exception
 	 */
 	@Test
 	public void testRow() throws SQLException {
@@ -96,11 +96,10 @@ public class MockResultSetTest {
 		Assert.assertEquals(2, this.resultSet.getRow());
 	}
 
-
 	/**
 	 * Verify that the getString method will actually return the test string that was added to the result set.
 	 *
-	 * @throws SQLException
+	 * @throws SQLException exception
 	 */
 	@Test
 	public void testGetString() throws SQLException {
@@ -115,7 +114,7 @@ public class MockResultSetTest {
 	/**
 	 * Verify that wasNull returns true if getString returned null.
 	 *
-	 * @throws SQLException
+	 * @throws SQLException exception
 	 */
 	@Test
 	public void testWasNull() throws SQLException {

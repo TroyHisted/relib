@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.relib.http.HandleRequest;
 
-
 /**
  * Handles populating the HTTP response based on the returned information from a {@link HandleRequest}.
  *
@@ -31,9 +30,12 @@ interface ResponseGenerator {
 	/**
 	 * Populates the response based on the information provided in the value.
 	 *
-	 * @param request the {@link HttpServletRequest} object to populate
-	 * @param response the {@link HttpServletResponse} object to populate
-	 * @param value the information to populate the response with
+	 * @param request
+	 *            the {@link HttpServletRequest} object to populate
+	 * @param response
+	 *            the {@link HttpServletResponse} object to populate
+	 * @param value
+	 *            the information to populate the response with
 	 */
 	void generateResponse(HttpServletRequest request, HttpServletResponse response, Object value);
 

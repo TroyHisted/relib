@@ -32,7 +32,6 @@ public class Textarea extends AbstractInputRenderer {
 	 *
 	 * {@inheritDoc}
 	 */
-	@Override
 	public boolean supports(String type) {
 		return "textarea".equals(type);
 	}
@@ -45,7 +44,6 @@ public class Textarea extends AbstractInputRenderer {
 	 *
 	 * {@inheritDoc}
 	 */
-	@Override
 	public void render(InputTag input, JspWriter out) throws JspException, IOException {
 		out.print("<textarea");
 		this.writeAttributes(input.getDynamicAttributes(), out);

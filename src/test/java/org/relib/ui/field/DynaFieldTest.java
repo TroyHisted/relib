@@ -52,7 +52,6 @@ public class DynaFieldTest extends InputFieldTest {
 	 */
 	static {
 		ConvertUtils.register(new Converter() {
-			@Override
 			@SuppressWarnings("unchecked")
 			public <T> T convert(Class<T> type, Object value) {
 				return value == null ? null : (T) Direction.valueOf(String.valueOf(value));
@@ -73,6 +72,8 @@ public class DynaFieldTest extends InputFieldTest {
 	 *
 	 * @param value
 	 *            the value to initialize to (must not be null)
+	 * @param <T>
+	 *            the class type
 	 * @return the new {@link DynaField}
 	 */
 	public <T> Field<T> initialize(T value) {
@@ -83,7 +84,9 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure a String property can be set using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 */
 	@Test
 	public void testSetBeanStringProperty() throws IllegalAccessException, InvocationTargetException {
@@ -96,12 +99,15 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure a String property can be retrieved using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testGetBeanStringProperty() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
+	public void testGetBeanStringProperty()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		final Field<String> field = this.construct(String.class);
 		field.value("sample");
 		Assert.assertEquals("sample", BeanUtils.getProperty(field, "value"));
@@ -111,7 +117,9 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure a BigDecimal property can be set using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 */
 	@Test
 	public void testSetBeanBigDecimalProperty() throws IllegalAccessException, InvocationTargetException {
@@ -124,12 +132,15 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure a BigDecimal property can be retrieved using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testGetBeanBigDecimalProperty() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
+	public void testGetBeanBigDecimalProperty()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		final Field<BigDecimal> field = this.construct(BigDecimal.class);
 		field.value(new BigDecimal("12.34"));
 		Assert.assertEquals("12.34", BeanUtils.getProperty(field, "value"));
@@ -140,7 +151,9 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure a String property can be set using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 */
 	@Test
 	public void testSetBeanEnumPropertyNull() throws IllegalAccessException, InvocationTargetException {
@@ -153,7 +166,9 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure an enum property can be set using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 */
 	@Test
 	public void testSetBeanEnumProperty() throws IllegalAccessException, InvocationTargetException {
@@ -166,7 +181,9 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure an enum property can be set using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 */
 	@Test
 	public void testSetBeanEnumPropertyFromString() throws IllegalAccessException, InvocationTargetException {
@@ -179,15 +196,17 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure an enum array property can be set using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 */
 	@Test
-	public void testSetBeanEnumArrayPropertyFromStringArray() throws IllegalAccessException,
-			InvocationTargetException {
+	public void testSetBeanEnumArrayPropertyFromStringArray()
+			throws IllegalAccessException, InvocationTargetException {
 
 		final Direction[] directions = new Direction[] { Direction.North, Direction.South };
 		final Field<Direction[]> field = this.construct(Direction[].class);
-		BeanUtils.setProperty(field, "value", new String [] {"North", "South"});
+		BeanUtils.setProperty(field, "value", new String[] { "North", "South" });
 		Assert.assertArrayEquals(directions, field.getValue());
 	}
 
@@ -195,50 +214,55 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure an enum array property can be set using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 */
 	@Test
-	public void testSetBeanPopulateEnumArrayPropertyFromStringArray() throws IllegalAccessException,
-			InvocationTargetException {
+	public void testSetBeanPopulateEnumArrayPropertyFromStringArray()
+			throws IllegalAccessException, InvocationTargetException {
 
 		final Direction[] directions = new Direction[] { Direction.North, Direction.South };
 		final Field<Direction[]> field = this.construct(Direction[].class);
 		final Map<String, Object> properties = new HashMap<String, Object>();
-		properties.put("value", new String [] {"North", "South" });
+		properties.put("value", new String[] { "North", "South" });
 		BeanUtils.populate(field, properties);
 		Assert.assertArrayEquals(directions, field.getValue());
 	}
 
-//	/**
-//	 * Ensure an enum array property can be set using {@link BeanUtils}.
-//	 *
-//	 * @throws InvocationTargetException
-//	 * @throws IllegalAccessException
-//	 */
-//	@Test
-//	public void testSetBeanPopulateEnumListPropertyFromStringArray() throws IllegalAccessException,
-//			InvocationTargetException {
-//
-//		final List<Direction> directions = Arrays.asList(Direction.North, Direction.South);
-//		final Field<? extends List<Direction>> directionsField = DynaField.of(DynaList.of(Direction.class));
-//
-//		final Map<String, Object> properties = new HashMap<String, Object>();
-//		properties.put("value", new String [] {"North", "South" });
-//
-//		BeanUtils.populate(directionsField, properties);
-//		Assert.assertEquals(directions, directionsField.getValue());
-//	}
+	// /**
+	// * Ensure an enum array property can be set using {@link BeanUtils}.
+	// *
+	// * @throws InvocationTargetException
+	// * @throws IllegalAccessException
+	// */
+	// @Test
+	// public void testSetBeanPopulateEnumListPropertyFromStringArray() throws IllegalAccessException,
+	// InvocationTargetException {
+	//
+	// final List<Direction> directions = Arrays.asList(Direction.North, Direction.South);
+	// final Field<? extends List<Direction>> directionsField = DynaField.of(DynaList.of(Direction.class));
+	//
+	// final Map<String, Object> properties = new HashMap<String, Object>();
+	// properties.put("value", new String [] {"North", "South" });
+	//
+	// BeanUtils.populate(directionsField, properties);
+	// Assert.assertEquals(directions, directionsField.getValue());
+	// }
 
 	/**
 	 * Ensure an enum property can be retrieved using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testGetBeanEnumProperty() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
+	public void testGetBeanEnumProperty()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		final Field<Direction> field = this.construct(Direction.class);
 		field.value(Direction.North);
 		Assert.assertEquals(Direction.North.name(), BeanUtils.getProperty(field, "value"));
@@ -249,12 +273,15 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure all properties can be retrieved using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testGetAllBeanProperties() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
+	public void testGetAllBeanProperties()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		final Field<String> field = this.construct(String.class);
 		final String value = "value";
 		final String label = "label";
@@ -272,12 +299,15 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure all properties can be retrieved using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test(expected = NoSuchMethodException.class)
-	public void testGetNoSuchMethodBeanProperty() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
+	public void testGetNoSuchMethodBeanProperty()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		final Field<String> field = this.construct(String.class);
 		BeanUtils.getProperty(field, "methodThatDoesntExist");
 	}
@@ -286,12 +316,15 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure an item from an array can be retrieved using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testGetIndexedBeanProperty() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
+	public void testGetIndexedBeanProperty()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		final Field<String[]> field = this.construct(String[].class);
 		field.value(new String[] { "one", "two" });
 		Assert.assertEquals("two", BeanUtils.getProperty(field, "value[1]"));
@@ -301,12 +334,15 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure an item from an array can be set using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testSetIndexedBeanProperty() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
+	public void testSetIndexedBeanProperty()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		final Field<String[]> field = this.construct(String[].class);
 		field.value(new String[2]);
 		BeanUtils.setProperty(field, "value[1]", "two");
@@ -317,12 +353,15 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure an item from an array can be set using {@link BeanUtils} when the array is null.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testSetIndexedBeanPropertyOnNull() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
+	public void testSetIndexedBeanPropertyOnNull()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		final Field<String[]> field = this.construct(String[].class);
 		BeanUtils.setProperty(field, "value[1]", "two");
 		Assert.assertEquals("two", field.getValue()[1]);
@@ -332,12 +371,15 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure an item from an array can be set using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testSetIndexedBeanPropertyIntOnNull() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
+	public void testSetIndexedBeanPropertyIntOnNull()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		final Field<int[]> field = this.construct(int[].class);
 		field.value(new int[2]);
 		BeanUtils.setProperty(field, "value[1]", "3");
@@ -348,15 +390,18 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure an item from a map can be retrieved using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testGetMappedBeanProperty() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
-		final Field<Map<String, String>> field = this
-				.construct((Class<Map<String, String>>) (Class<?>) Map.class);
+	public void testGetMappedBeanProperty()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+		final Field<Map<String, String>> field =
+				this.construct((Class<Map<String, String>>) (Class<?>) Map.class);
 		field.value(new HashMap<String, String>());
 		field.getValue().put("one", "sample");
 		Assert.assertEquals("sample", BeanUtils.getProperty(field, "value(one)"));
@@ -366,12 +411,15 @@ public class DynaFieldTest extends InputFieldTest {
 	 * Ensure an item from a map can be set using {@link BeanUtils}.
 	 *
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testSetMappedBeanProperty() throws NoSuchMethodException, IllegalAccessException,
-			InvocationTargetException {
+	public void testSetMappedBeanProperty()
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		final Field<? extends Map<String, String>> field = this.initialize(new HashMap<String, String>());
 		BeanUtils.setProperty(field, "value(one)", "sample");
 		Assert.assertEquals("sample", field.getValue().get("one"));

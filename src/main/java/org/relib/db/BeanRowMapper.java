@@ -33,8 +33,8 @@ public abstract class BeanRowMapper<T> extends RowMapper<T> {
 
 	protected Class<T> beanClass;
 
-	private BeanRowMapper(Class<T> aBeanClass) {
-		this.beanClass = aBeanClass;
+	private BeanRowMapper(Class<T> beanClass) {
+		this.beanClass = beanClass;
 	}
 
 	/**
@@ -50,11 +50,14 @@ public abstract class BeanRowMapper<T> extends RowMapper<T> {
 	 * <p>
 	 * The class must have a no-arg constructor.
 	 *
-	 * @param aBeanClass
+	 * @param beanClass
+	 *            the class of the bean
+	 * @param <T>
+	 *            The class type of the bean
 	 * @return a BeanRowMapper for the specified bean
 	 */
-	public static <T> BeanRowMapper<T> forClass(Class<T> aBeanClass) {
-		return new BeanRowMapper<T>(aBeanClass) {
+	public static <T> BeanRowMapper<T> forClass(Class<T> beanClass) {
+		return new BeanRowMapper<T>(beanClass) {
 			@Override
 			protected T newBeanInstance() {
 				try {
@@ -78,27 +81,27 @@ public abstract class BeanRowMapper<T> extends RowMapper<T> {
 	/**
 	 * Maps a single result set record to an instance of the query type.
 	 *
-	 * @param aResultSet
+	 * @param resultSet
 	 *            the result set record to process
 	 * @return the mapped row
 	 * @throws SQLException
 	 *             the sql exception
 	 */
 	@Override
-	protected T mapRow(ResultSet aResultSet) throws SQLException {
+	protected T mapRow(ResultSet resultSet) throws SQLException {
 		int i = 1;
 		try {
 			final T bean = this.newBeanInstance();
-			for (i = 1; i <= aResultSet.getMetaData().getColumnCount(); i++) {
-				BeanUtils.setProperty(bean, aResultSet.getMetaData().getColumnLabel(i), aResultSet.getObject(i));
+			for (i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+				BeanUtils.setProperty(bean, resultSet.getMetaData().getColumnLabel(i), resultSet.getObject(i));
 			}
 			return bean;
 		} catch (final IllegalAccessException e) {
 			throw new DaoException("Error occurred setting bean property "
-					+ aResultSet.getMetaData().getColumnLabel(i) + " with value " + aResultSet.getObject(i), e);
+					+ resultSet.getMetaData().getColumnLabel(i) + " with value " + resultSet.getObject(i), e);
 		} catch (final InvocationTargetException e) {
 			throw new DaoException("Error occurred setting bean property "
-					+ aResultSet.getMetaData().getColumnLabel(i) + " with value " + aResultSet.getObject(i), e);
+					+ resultSet.getMetaData().getColumnLabel(i) + " with value " + resultSet.getObject(i), e);
 		}
 	}
 }

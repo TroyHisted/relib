@@ -20,8 +20,8 @@ package org.relib.ui.message;
  *
  * <p>
  * A message has a level which indicates the significance of the message. There are several default levels which
- * range from debug to error. The implementor may use or expand upon these default levels, or may choose to
- * use their own scheme.
+ * range from debug to error. The implementor may use or expand upon these default levels, or may choose to use
+ * their own scheme.
  *
  * @author Troy Histed
  */

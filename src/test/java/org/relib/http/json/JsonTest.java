@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.json;
+package org.relib.http.json;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -21,6 +21,7 @@ import java.util.Date;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.relib.http.json.Json;
 import org.relib.ui.field.DynaField;
 import org.relib.ui.field.Field;
 import org.relib.ui.field.InputField;
@@ -41,7 +42,9 @@ public class JsonTest {
 		Assert.assertEquals("\"hello world\"", Json.toJson(testObject));
 	}
 
-	private enum Direction { NORTH, SOUTH, EAST, WEST };
+	private enum Direction {
+		NORTH, SOUTH, EAST, WEST
+	};
 
 	/**
 	 * Verifies an enum is converted by name.
@@ -61,8 +64,13 @@ public class JsonTest {
 			private final String name = "foo";
 			private final int age = 10;
 
-			public String getName() { return this.name; }
-			public int getAge() { return this.age; }
+			public String getName() {
+				return this.name;
+			}
+
+			public int getAge() {
+				return this.age;
+			}
 		};
 		Assert.assertEquals("{\"age\":10, \"name\":\"foo\"}", Json.toJson(testObject));
 	}
@@ -77,11 +85,19 @@ public class JsonTest {
 			private final String name = "foo";
 			private final Object object = new Object() {
 				private final int age = 10;
-				public int getAge() { return this.age; }
+
+				public int getAge() {
+					return this.age;
+				}
 			};
 
-			public String getName() { return this.name; }
-			public Object getObject() { return this.object; }
+			public String getName() {
+				return this.name;
+			}
+
+			public Object getObject() {
+				return this.object;
+			}
 		};
 		Assert.assertEquals("{\"name\":\"foo\", \"object\":{\"age\":10}}", Json.toJson(testObject));
 	}
@@ -93,27 +109,45 @@ public class JsonTest {
 	public void testToJsonWithPrimitives() {
 		@SuppressWarnings("unused")
 		final Object testObject = new Object() {
-			public byte getByte() { return 42; }
-			public short getShort() { return 43; }
-			public int getInt() { return 44; }
-			public long getLong() { return 45l; }
-			public float getFloat() { return 46.1f; }
-			public double getDouble() { return 47.2d; }
-			public boolean getBoolean() { return true; }
-			public boolean isBoolean() { return true; }
-			public char getCharacter() { return 'A'; }
+			public byte getByte() {
+				return 42;
+			}
+
+			public short getShort() {
+				return 43;
+			}
+
+			public int getInt() {
+				return 44;
+			}
+
+			public long getLong() {
+				return 45l;
+			}
+
+			public float getFloat() {
+				return 46.1f;
+			}
+
+			public double getDouble() {
+				return 47.2d;
+			}
+
+			public boolean getBoolean() {
+				return true;
+			}
+
+			public boolean isBoolean() {
+				return true;
+			}
+
+			public char getCharacter() {
+				return 'A';
+			}
 		};
-		Assert.assertEquals("{"
-				+ "\"boolean\":true, "
-				+ "\"byte\":42, "
-				+ "\"character\":'A', "
-				+ "\"double\":47.2, "
-				+ "\"float\":46.1, "
-				+ "\"int\":44, "
-				+ "\"long\":45, "
-				+ "\"short\":43, "
-				+ "\"boolean\":true"
-				+ "}", Json.toJson(testObject));
+		Assert.assertEquals("{" + "\"boolean\":true, " + "\"byte\":42, " + "\"character\":'A', "
+				+ "\"double\":47.2, " + "\"float\":46.1, " + "\"int\":44, " + "\"long\":45, " + "\"short\":43, "
+				+ "\"boolean\":true" + "}", Json.toJson(testObject));
 	}
 
 	/**
@@ -123,25 +157,42 @@ public class JsonTest {
 	public void testToJsonWithWrappers() {
 		@SuppressWarnings("unused")
 		final Object testObject = new Object() {
-			public Byte getByte() { return Byte.valueOf((byte) 42); }
-			public Short getShort() { return Short.valueOf((short) 43); }
-			public Integer getInt() { return Integer.valueOf(44); }
-			public Long getLong() { return Long.valueOf(45l); }
-			public Float getFloat() { return Float.valueOf(46.1f); }
-			public Double getDouble() { return Double.valueOf(47.2d); }
-			public Boolean getBoolean() { return Boolean.TRUE; }
-			public Character getCharacter() { return Character.valueOf('A'); }
+			public Byte getByte() {
+				return Byte.valueOf((byte) 42);
+			}
+
+			public Short getShort() {
+				return Short.valueOf((short) 43);
+			}
+
+			public Integer getInt() {
+				return Integer.valueOf(44);
+			}
+
+			public Long getLong() {
+				return Long.valueOf(45l);
+			}
+
+			public Float getFloat() {
+				return Float.valueOf(46.1f);
+			}
+
+			public Double getDouble() {
+				return Double.valueOf(47.2d);
+			}
+
+			public Boolean getBoolean() {
+				return Boolean.TRUE;
+			}
+
+			public Character getCharacter() {
+				return Character.valueOf('A');
+			}
 		};
-		Assert.assertEquals("{"
-				+ "\"boolean\":true, "
-				+ "\"byte\":42, "
-				+ "\"character\":'A', "
-				+ "\"double\":47.2, "
-				+ "\"float\":46.1, "
-				+ "\"int\":44, "
-				+ "\"long\":45, "
-				+ "\"short\":43"
-				+ "}", Json.toJson(testObject));
+		Assert.assertEquals(
+				"{" + "\"boolean\":true, " + "\"byte\":42, " + "\"character\":'A', " + "\"double\":47.2, "
+						+ "\"float\":46.1, " + "\"int\":44, " + "\"long\":45, " + "\"short\":43" + "}",
+				Json.toJson(testObject));
 	}
 
 	/**
@@ -149,7 +200,7 @@ public class JsonTest {
 	 */
 	@Test
 	public void testToJsonWithStringArray() {
-		Assert.assertEquals("[\"one\", \"two\"]", Json.toJson(new String[] {"one", "two"}));
+		Assert.assertEquals("[\"one\", \"two\"]", Json.toJson(new String[] { "one", "two" }));
 	}
 
 	/**
@@ -157,7 +208,7 @@ public class JsonTest {
 	 */
 	@Test
 	public void testToJsonWithByteArray() {
-		Assert.assertEquals("[1, 2, 3]", Json.toJson(new byte[] {1,2,3}));
+		Assert.assertEquals("[1, 2, 3]", Json.toJson(new byte[] { 1, 2, 3 }));
 	}
 
 	/**
@@ -165,7 +216,7 @@ public class JsonTest {
 	 */
 	@Test
 	public void testToJsonWithShortArray() {
-		Assert.assertEquals("[1, 2, 3]", Json.toJson(new short[] {1,2,3}));
+		Assert.assertEquals("[1, 2, 3]", Json.toJson(new short[] { 1, 2, 3 }));
 	}
 
 	/**
@@ -173,7 +224,7 @@ public class JsonTest {
 	 */
 	@Test
 	public void testToJsonWithIntArray() {
-		Assert.assertEquals("[1, 2, 3]", Json.toJson(new int[] {1,2,3}));
+		Assert.assertEquals("[1, 2, 3]", Json.toJson(new int[] { 1, 2, 3 }));
 	}
 
 	/**
@@ -181,7 +232,7 @@ public class JsonTest {
 	 */
 	@Test
 	public void testToJsonWithLongArray() {
-		Assert.assertEquals("[1, 2, 3]", Json.toJson(new long[] {1,2,3}));
+		Assert.assertEquals("[1, 2, 3]", Json.toJson(new long[] { 1, 2, 3 }));
 	}
 
 	/**
@@ -189,7 +240,7 @@ public class JsonTest {
 	 */
 	@Test
 	public void testToJsonWithFloatArray() {
-		Assert.assertEquals("[1.1, 2.2, 3.3]", Json.toJson(new float[] {1.1f,2.2f,3.3f}));
+		Assert.assertEquals("[1.1, 2.2, 3.3]", Json.toJson(new float[] { 1.1f, 2.2f, 3.3f }));
 	}
 
 	/**
@@ -197,7 +248,7 @@ public class JsonTest {
 	 */
 	@Test
 	public void testToJsonWithDoubleArray() {
-		Assert.assertEquals("[1.1, 2.2, 3.3]", Json.toJson(new double[] {1.1,2.2,3.3}));
+		Assert.assertEquals("[1.1, 2.2, 3.3]", Json.toJson(new double[] { 1.1, 2.2, 3.3 }));
 	}
 
 	/**
@@ -205,7 +256,7 @@ public class JsonTest {
 	 */
 	@Test
 	public void testToJsonWithBooleanArray() {
-		Assert.assertEquals("[true, false, true]", Json.toJson(new boolean[] {true,false,true}));
+		Assert.assertEquals("[true, false, true]", Json.toJson(new boolean[] { true, false, true }));
 	}
 
 	/**
@@ -213,7 +264,7 @@ public class JsonTest {
 	 */
 	@Test
 	public void testToJsonWithCharArray() {
-		Assert.assertEquals("['a', 'b', 'c']", Json.toJson(new char[] {'a','b','c'}));
+		Assert.assertEquals("['a', 'b', 'c']", Json.toJson(new char[] { 'a', 'b', 'c' }));
 	}
 
 	/**
@@ -250,8 +301,8 @@ public class JsonTest {
 		final Field<Integer> field = InputField.create();
 		field.label("name").value(Integer.valueOf(1));
 		Assert.assertEquals(
-			"{\"label\":\"name\", \"message\":null, \"messageText\":null, \"options\":null, \"value\":1}",
-			Json.toJson(field));
+				"{\"label\":\"name\", \"message\":null, \"messageText\":null, \"options\":null, \"value\":1}",
+				Json.toJson(field));
 	}
 
 	/**
@@ -260,8 +311,7 @@ public class JsonTest {
 	@Test
 	public void testToJsonWithDynaField() {
 		final Field<Integer> field = DynaField.of(Integer.valueOf(1));
-		Assert.assertEquals(
-			"{\"value\":1, \"message\":null, \"messageText\":null, \"label\":null}",
-			Json.toJson(field));
+		Assert.assertEquals("{\"value\":1, \"message\":null, \"messageText\":null, \"label\":null}",
+				Json.toJson(field));
 	}
 }

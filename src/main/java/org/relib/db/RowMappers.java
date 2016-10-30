@@ -27,16 +27,16 @@ public class RowMappers {
 
 	static RowMapper<String> STRING_MAPPER = new RowMapper<String>() {
 		@Override
-		protected String mapRow(ResultSet aResultSet) throws SQLException {
-			return aResultSet.getString(1);
+		protected String mapRow(ResultSet resultSet) throws SQLException {
+			return resultSet.getString(1);
 		}
 	};
 
 	static RowMapper<Integer> INTEGER_MAPPER = new RowMapper<Integer>() {
 		@Override
-		protected Integer mapRow(ResultSet aResultSet) throws SQLException {
-			final int value = aResultSet.getInt(1);
-			if (aResultSet.wasNull()) {
+		protected Integer mapRow(ResultSet resultSet) throws SQLException {
+			final int value = resultSet.getInt(1);
+			if (resultSet.wasNull()) {
 				return null;
 			}
 			return Integer.valueOf(value);
@@ -45,9 +45,9 @@ public class RowMappers {
 
 	static RowMapper<Long> LONG_MAPPER = new RowMapper<Long>() {
 		@Override
-		protected Long mapRow(ResultSet aResultSet) throws SQLException {
-			final long value = aResultSet.getLong(1);
-			if (aResultSet.wasNull()) {
+		protected Long mapRow(ResultSet resultSet) throws SQLException {
+			final long value = resultSet.getLong(1);
+			if (resultSet.wasNull()) {
 				return null;
 			}
 			return Long.valueOf(value);
@@ -56,9 +56,9 @@ public class RowMappers {
 
 	static RowMapper<Double> DOUBLE_MAPPER = new RowMapper<Double>() {
 		@Override
-		protected Double mapRow(ResultSet aResultSet) throws SQLException {
-			final double value = aResultSet.getDouble(1);
-			if (aResultSet.wasNull()) {
+		protected Double mapRow(ResultSet resultSet) throws SQLException {
+			final double value = resultSet.getDouble(1);
+			if (resultSet.wasNull()) {
 				return null;
 			}
 			return Double.valueOf(value);

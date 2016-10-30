@@ -31,7 +31,8 @@ public class NamedStatementParserStrategyTest {
 	/**
 	 * Prepares the statement and assigns the parsed statement members to the instance members.
 	 *
-	 * @param statement the statement to prepare
+	 * @param statement
+	 *            the statement to prepare
 	 */
 	public void prepareStatement(String statement) {
 		final ParsedNamedStatement parsedStatement = this.parser.prepareNamedStatement(statement);
@@ -42,8 +43,10 @@ public class NamedStatementParserStrategyTest {
 	/**
 	 * Verifies that the instance members match the passed in expected values.
 	 *
-	 * @param preparedStatement the expected statement
-	 * @param preparedParams the expected parameter list
+	 * @param preparedStatement
+	 *            the expected statement
+	 * @param preparedParams
+	 *            the expected parameter list
 	 */
 	public void testPreparedStatement(String preparedStatement, List<String> preparedParams) {
 		Assert.assertEquals(preparedStatement, this.statement.trim());

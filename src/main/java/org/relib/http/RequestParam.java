@@ -25,7 +25,10 @@ import java.lang.annotation.Target;
  *
  * <p>
  * Parameters are annotated with RequestParam and specify the specific request variable by name.
- * <pre> @RequestParam("{parameterName}")</pre>
+ *
+ * <pre>
+ *  &#64;RequestParam("{parameterName}")
+ * </pre>
  *
  * @author Troy Histed
  */

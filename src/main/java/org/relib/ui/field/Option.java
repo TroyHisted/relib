@@ -21,13 +21,13 @@ package org.relib.ui.field;
  * <p>
  * The value property is the value that is submitted when the particular option is selected by the user.
  * Depending on the input control used, this may also be the value that is displayed to the user. Certain
- * controls like a text input with a datalist do not allow the value and label to differ. As such, the label
- * will be ignored and the value will be used both as the displayed text and as the submitted value.
+ * controls like a text input with a datalist do not allow the value and label to differ. As such, the label will
+ * be ignored and the value will be used both as the displayed text and as the submitted value.
  *
  * <p>
  * The label is the description of the option that is presented to the user. It is from this value that the user
- * must determine if the option is their desired option. Some controls do not allow the label to differ from
- * the value, in those cases, the value will be used instead of the label.
+ * must determine if the option is their desired option. Some controls do not allow the label to differ from the
+ * value, in those cases, the value will be used instead of the label.
  *
  * <p>
  * The group is a seldom used aspect of an option. Most notably associated with a select control where the group
@@ -37,9 +37,9 @@ package org.relib.ui.field;
  * encountered a new group label is displayed.
  *
  * <p>
- * Some controls provide the ability to prevent a particular option from being chosen. When an option is used
- * for one of those controls the enabled property can be used to specify whether a user is allowed or disallowed
- * from selecting the option.
+ * Some controls provide the ability to prevent a particular option from being chosen. When an option is used for
+ * one of those controls the enabled property can be used to specify whether a user is allowed or disallowed from
+ * selecting the option.
  *
  * @author Troy Histed
  */

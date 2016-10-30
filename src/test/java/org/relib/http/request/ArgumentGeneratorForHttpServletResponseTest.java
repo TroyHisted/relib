@@ -46,8 +46,8 @@ public class ArgumentGeneratorForHttpServletResponseTest {
 	@Test
 	public void testGenerateForResponseObject() {
 
-		final ArgumentGeneratorForHttpServletResponse argumentGeneratorForHttpServletResponse
-			= new ArgumentGeneratorForHttpServletResponse();
+		final ArgumentGeneratorForHttpServletResponse argumentGeneratorForHttpServletResponse =
+				new ArgumentGeneratorForHttpServletResponse();
 
 		Assert.assertEquals(this.mockHttpServletResponse,
 				argumentGeneratorForHttpServletResponse.generateArgument(this.requestInfo));

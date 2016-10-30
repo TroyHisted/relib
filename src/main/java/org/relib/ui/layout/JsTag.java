@@ -27,8 +27,7 @@ import org.relib.ui.DynamicTag;
 import org.relib.util.Strings;
 
 /**
- * Tag designed to write out a script tag using the application context path as the default
- * context root.
+ * Tag designed to write out a script tag using the application context path as the default context root.
  *
  * @author Troy Histed
  */
@@ -82,7 +81,8 @@ public class JsTag extends DynamicTag {
 	}
 
 	/**
-	 * @param src the src to set
+	 * @param src
+	 *            the src to set
 	 */
 	public void setSrc(String src) {
 		this.src = src;
@@ -96,7 +96,8 @@ public class JsTag extends DynamicTag {
 	}
 
 	/**
-	 * @param context the context to set
+	 * @param context
+	 *            the context to set
 	 */
 	public void setContext(String context) {
 		this.context = context;

@@ -52,8 +52,10 @@ public class ControllerTest {
 	/**
 	 * Verify the controller maps the request path parameters.
 	 *
-	 * @throws ServletException exception
-	 * @throws IOException exception
+	 * @throws ServletException
+	 *             exception
+	 * @throws IOException
+	 *             exception
 	 */
 	@Test
 	public void testControllerDoGetWithPathParam() throws ServletException, IOException {
@@ -75,11 +77,13 @@ public class ControllerTest {
 	}
 
 	/**
-	 * Verify that a GET request will cause a method mapped using GET to be invoked over those that
-	 * do not specify a method and those that specify other method types.
+	 * Verify that a GET request will cause a method mapped using GET to be invoked over those that do not
+	 * specify a method and those that specify other method types.
 	 *
-	 * @throws ServletException exception
-	 * @throws IOException exception
+	 * @throws ServletException
+	 *             exception
+	 * @throws IOException
+	 *             exception
 	 */
 	@Test
 	public void testControllerDoGet() throws ServletException, IOException {
@@ -91,10 +95,12 @@ public class ControllerTest {
 			public void allMethod() {
 				ControllerTest.this.testString = "mockMethod";
 			}
+
 			@HandleRequest(value = "/a", method = HttpMethod.GET)
 			public void getMethod() {
 				ControllerTest.this.testString = "mockGetMethod";
 			}
+
 			@HandleRequest(value = "/a", method = HttpMethod.POST)
 			public void postMethod() {
 				ControllerTest.this.testString = "mockPostMethod";
@@ -106,11 +112,13 @@ public class ControllerTest {
 	}
 
 	/**
-	 * Verify that a POST request will cause a method mapped using POST to be invoked over those that
-	 * do not specify a method and those that specify other method types.
+	 * Verify that a POST request will cause a method mapped using POST to be invoked over those that do not
+	 * specify a method and those that specify other method types.
 	 *
-	 * @throws ServletException exception
-	 * @throws IOException exception
+	 * @throws ServletException
+	 *             exception
+	 * @throws IOException
+	 *             exception
 	 */
 	@Test
 	public void testControllerDoPost() throws ServletException, IOException {
@@ -122,10 +130,12 @@ public class ControllerTest {
 			public void allMethod() {
 				ControllerTest.this.testString = "mockMethod";
 			}
+
 			@HandleRequest(value = "/a", method = HttpMethod.GET)
 			public void getMethod() {
 				ControllerTest.this.testString = "mockGetMethod";
 			}
+
 			@HandleRequest(value = "/a", method = HttpMethod.POST)
 			public void postMethod() {
 				ControllerTest.this.testString = "mockPostMethod";
@@ -140,8 +150,10 @@ public class ControllerTest {
 	 * Verify that if the request and/or response are specified as parameter arguments that they will be injected
 	 * into the method invocation.
 	 *
-	 * @throws ServletException exception
-	 * @throws IOException exception
+	 * @throws ServletException
+	 *             exception
+	 * @throws IOException
+	 *             exception
 	 */
 	@Test
 	public void testControllerInjectRequestObject() throws ServletException, IOException {
@@ -164,8 +176,10 @@ public class ControllerTest {
 	/**
 	 * Verify that mappings work with super classes.
 	 *
-	 * @throws ServletException exception
-	 * @throws IOException exception
+	 * @throws ServletException
+	 *             exception
+	 * @throws IOException
+	 *             exception
 	 */
 	@Test
 	public void testControllerWithSuperclass() throws ServletException, IOException {
@@ -177,14 +191,16 @@ public class ControllerTest {
 			public void mockSuperMethod() {
 				ControllerTest.this.testString = "superclass";
 			}
-		};
+		}
+		;
 
 		class MockSubclassController extends MockSuperController {
-			@HandleRequest(value = "/a" )
+			@HandleRequest(value = "/a")
 			public void mockSubMethod() {
 				ControllerTest.this.testString = "subclass";
 			}
-		};
+		}
+		;
 
 		final Controller controller = new MockSubclassController();
 
@@ -195,8 +211,10 @@ public class ControllerTest {
 	/**
 	 * Verify that mappings work with super classes and overridden methods.
 	 *
-	 * @throws ServletException exception
-	 * @throws IOException exception
+	 * @throws ServletException
+	 *             exception
+	 * @throws IOException
+	 *             exception
 	 */
 	@Test
 	public void testControllerWithSuperclassAndOverriddenMethod() throws ServletException, IOException {
@@ -208,14 +226,16 @@ public class ControllerTest {
 			public void mockMethod() {
 				ControllerTest.this.testString = "superclass";
 			}
-		};
+		}
+		;
 
 		class MockSubclassController extends MockSuperController {
 			@Override
 			public void mockMethod() {
 				ControllerTest.this.testString = "subclass";
 			}
-		};
+		}
+		;
 
 		final Controller controller = new MockSubclassController();
 

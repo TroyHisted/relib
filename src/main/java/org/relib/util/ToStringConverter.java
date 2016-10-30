@@ -31,8 +31,11 @@ public interface ToStringConverter {
 
 	/**
 	 * Converts the specified object into the string equivalent.
-	 * @param object the object to convert
-	 * @param config the ToStringConfig information
+	 *
+	 * @param object
+	 *            the object to convert
+	 * @param config
+	 *            the ToStringConfig information
 	 * @return the string representation.
 	 */
 	String toString(Object object, ToStringConfig config);
@@ -40,9 +43,10 @@ public interface ToStringConverter {
 	/**
 	 * Declares that this converter is or is not capable of converting the specified object.
 	 *
-	 * @param object the object to convert
+	 * @param object
+	 *            the object to convert
 	 * @return <code>true</code> if this converter supports converting the specified object
 	 */
 	boolean supports(Object object);
-	
+
 }

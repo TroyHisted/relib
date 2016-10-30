@@ -77,11 +77,11 @@ public interface Field<T> {
 	/**
 	 * Set the value of the field.
 	 *
-	 * @param aValue
+	 * @param value
 	 *            the value to set
 	 * @return the field
 	 */
-	Field<T> value(T aValue);
+	Field<T> value(T value);
 
 	/**
 	 * Returns the value of the field.
@@ -93,10 +93,10 @@ public interface Field<T> {
 	/**
 	 * Set the value of the field.
 	 *
-	 * @param aValue
+	 * @param value
 	 *            the value to set
 	 */
-	void setValue(T aValue);
+	void setValue(T value);
 
 	/**
 	 * Sets the message for the field.

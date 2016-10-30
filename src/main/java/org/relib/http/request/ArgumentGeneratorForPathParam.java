@@ -34,9 +34,12 @@ class ArgumentGeneratorForPathParam implements ArgumentGenerator {
 	/**
 	 * Constructs an argument generator for a path param.
 	 *
-	 * @param pathParam the path param annotation
-	 * @param handleRequest the handle request annotation
-	 * @param type return type to build the generator for
+	 * @param pathParam
+	 *            the path param annotation
+	 * @param handleRequest
+	 *            the handle request annotation
+	 * @param type
+	 *            return type to build the generator for
 	 */
 	public ArgumentGeneratorForPathParam(PathParam pathParam, HandleRequest handleRequest, Class<?> type) {
 
@@ -44,13 +47,13 @@ class ArgumentGeneratorForPathParam implements ArgumentGenerator {
 
 		final String requestPathParts[] = Strings.trim(handleRequest.value(), '/').split("/");
 		for (int i = 0; i < requestPathParts.length; i++) {
-			if (requestPathParts[i].equals(pathParam.value())){
+			if (requestPathParts[i].equals(pathParam.value())) {
 				this.pathIndex = i;
 				return;
 			}
 		}
-		throw new InvalidPathParamException("The string " + pathParam.value()
-			+ " doesn't exist in the mappe url " + handleRequest.value());
+		throw new InvalidPathParamException(
+				"The string " + pathParam.value() + " doesn't exist in the mappe url " + handleRequest.value());
 	}
 
 	/**

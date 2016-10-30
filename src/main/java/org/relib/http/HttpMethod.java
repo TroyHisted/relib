@@ -78,7 +78,8 @@ public enum HttpMethod {
 	/**
 	 * Returns the Method that has the specified name.
 	 *
-	 * @param name the method name (in all uppercase)
+	 * @param name
+	 *            the method name (in all uppercase)
 	 * @return the Method or UNKNOWN
 	 */
 	public static HttpMethod byName(String name) {

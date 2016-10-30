@@ -39,9 +39,7 @@ public class MockResultSet implements ResultSet {
 	private boolean wasNull = false;
 
 	/**
-	 * --------------------------
-	 * Mocked methods
-	 * --------------------------
+	 * -------------------------- Mocked methods --------------------------
 	 */
 
 	public void close() throws SQLException {
@@ -68,7 +66,6 @@ public class MockResultSet implements ResultSet {
 		return true;
 	}
 
-
 	public boolean wasNull() throws SQLException {
 		return this.wasNull;
 	}
@@ -78,9 +75,7 @@ public class MockResultSet implements ResultSet {
 	}
 
 	/**
-	 * --------------------------
-	 * Custom methods
-	 * --------------------------
+	 * -------------------------- Custom methods --------------------------
 	 */
 
 	/**
@@ -91,9 +86,7 @@ public class MockResultSet implements ResultSet {
 	}
 
 	/**
-	 * --------------------------
-	 * Mocked getter methods
-	 * --------------------------
+	 * -------------------------- Mocked getter methods --------------------------
 	 */
 
 	public String getString(String columnLabel) throws SQLException {
@@ -115,9 +108,7 @@ public class MockResultSet implements ResultSet {
 	}
 
 	/**
-	 * --------------------------
-	 * Unimplemented methods
-	 * --------------------------
+	 * -------------------------- Unimplemented methods --------------------------
 	 */
 
 	public String getString(int columnIndex) throws SQLException {
@@ -231,7 +222,6 @@ public class MockResultSet implements ResultSet {
 	public InputStream getBinaryStream(int columnIndex) throws SQLException {
 		throw new IllegalStateException("This is a mock class");
 	}
-
 
 	public InputStream getAsciiStream(String columnLabel) throws SQLException {
 		throw new IllegalStateException("This is a mock class");

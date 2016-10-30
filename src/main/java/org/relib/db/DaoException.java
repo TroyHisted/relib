@@ -27,22 +27,22 @@ public class DaoException extends RuntimeException {
 	/**
 	 * Creates a DaoException.
 	 *
-	 * @param aDescription
+	 * @param description
 	 *            Description of the exception
 	 */
-	public DaoException(String aDescription) {
-		super(aDescription);
+	public DaoException(String description) {
+		super(description);
 	}
 
 	/**
 	 * Creates a DaoException.
 	 *
-	 * @param aDescription
+	 * @param description
 	 *            Description of the exception
-	 * @param aException
+	 * @param exception
 	 *            original exception
 	 */
-	public DaoException(String aDescription, Exception aException) {
-		super(aDescription, aException);
+	public DaoException(String description, Throwable exception) {
+		super(description, exception);
 	}
 }

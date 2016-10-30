@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.relib.json;
+package org.relib.http.json;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +32,8 @@ public class JsonToParameterMap {
 	/**
 	 * Converts a json string into a parameter map.
 	 *
-	 * @param string the json string
+	 * @param string
+	 *            the json string
 	 * @return non-null map
 	 */
 	public static Map<String, String[]> toParameterMap(String string) {
@@ -103,24 +104,30 @@ public class JsonToParameterMap {
 	 * <p>
 	 * Handles treating the string "null" as an actual null value when it's not used in a string.
 	 *
-	 * @param inString <code>true</code> if the specified value was contained within a string (quotes).
-	 * @param value the value to interpret
+	 * @param inString
+	 *            <code>true</code> if the specified value was contained within a string (quotes).
+	 * @param value
+	 *            the value to interpret
 	 * @return non-null array containing the value as the first index
 	 */
 	private static String[] generateValue(boolean inString, String value) {
 		if (!inString && "null".equalsIgnoreCase(value)) {
 			return new String[] { null };
 		}
-		return new String[] {value};
+		return new String[] { value };
 	}
 
 	/**
 	 * Generates the key as a string for the specified depth.
 	 *
-	 * @param depth the current depth in the json object
-	 * @param keys the keys from all depths that should be used to generate the key
-	 * @param indexed array of booleans indicating which items in the keys are indexed based on their depth
-	 * @param index array holding the current index of a key at various depths
+	 * @param depth
+	 *            the current depth in the json object
+	 * @param keys
+	 *            the keys from all depths that should be used to generate the key
+	 * @param indexed
+	 *            array of booleans indicating which items in the keys are indexed based on their depth
+	 * @param index
+	 *            array holding the current index of a key at various depths
 	 * @return non-null String of the key
 	 */
 	private static String generateKey(int depth, final String[] keys, boolean[] indexed, int[] index) {
@@ -128,7 +135,7 @@ public class JsonToParameterMap {
 		if (indexed[0]) {
 			fullKey += "[" + index[0] + "]";
 		}
-		for (int i = 1 ; i <= depth; i++) {
+		for (int i = 1; i <= depth; i++) {
 			fullKey += "." + keys[i];
 			if (indexed[i]) {
 				fullKey += "[" + index[depth] + "]";

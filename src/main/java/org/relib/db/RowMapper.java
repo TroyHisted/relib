@@ -23,19 +23,20 @@ import java.sql.SQLException;
  *
  * @author Troy Histed
  *
- * @param <T> The object type that will be created with each row
+ * @param <T>
+ *            The object type that will be created with each row
  */
 public abstract class RowMapper<T> {
 
 	/**
 	 * Maps a result set record to an instance of the query type.
 	 *
-	 * @param aResultSet
+	 * @param resultSet
 	 *            the result set record to process
 	 * @return the mapped row
 	 * @throws SQLException
 	 *             the sql exception
 	 */
-	protected abstract T mapRow(ResultSet aResultSet) throws SQLException;
+	protected abstract T mapRow(ResultSet resultSet) throws SQLException;
 
 }

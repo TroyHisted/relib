@@ -34,53 +34,55 @@ public class JdbcConnection {
 	/**
 	 * Constructs a DaoConnection with an SQL connection object.
 	 *
-	 * @param aConnection
+	 * @param connection
 	 *            the SQL connection to use (not null)
 	 */
-	JdbcConnection(Connection aConnection) {
-		if (aConnection == null) {
+	JdbcConnection(Connection connection) {
+		if (connection == null) {
 			throw new DaoException("Connection was null");
 		}
-		this.connection = aConnection;
+		this.connection = connection;
 	}
 
 	/**
 	 * Gets a connection to the data source provided by the DaoConnection.
-	 * @param aConnectionName
+	 *
+	 * @param connectionName
+	 *            the name given to a connection that corresponds to {@link JdbcConnector#getName()}
 	 *
 	 * @return a connection
 	 * @throws SQLException
 	 *             error creating connection
 	 */
-	public static JdbcConnection connect(String aConnectionName) throws SQLException {
-		return new JdbcConnection(ConnectorServiceLoader.getConnector(aConnectionName).getConnection());
+	public static JdbcConnection connect(String connectionName) throws SQLException {
+		return new JdbcConnection(ConnectorServiceLoader.getConnector(connectionName).getConnection());
 	}
 
 	/**
 	 * Prepares a statement using the established connection.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the statement to prepare
 	 * @return the prepared statement
 	 * @throws SQLException
 	 *             error building prepared statement
 	 */
-	PreparedStatement prepareStatement(String aStatement) throws SQLException {
-		this.preparedStatement = this.connection.prepareStatement(aStatement);
+	PreparedStatement prepareStatement(String statement) throws SQLException {
+		this.preparedStatement = this.connection.prepareStatement(statement);
 		return this.preparedStatement;
 	}
 
 	/**
 	 * Prepares a statement using the established connection.
 	 *
-	 * @param aStatement
+	 * @param statement
 	 *            the statement to prepare
 	 * @return the prepared statement
 	 * @throws SQLException
 	 *             error building prepared statement
 	 */
-	PreparedStatement prepareStatementWithGeneratedKeys(String aStatement) throws SQLException {
-		this.preparedStatement = this.connection.prepareStatement(aStatement, Statement.RETURN_GENERATED_KEYS);
+	PreparedStatement prepareStatementWithGeneratedKeys(String statement) throws SQLException {
+		this.preparedStatement = this.connection.prepareStatement(statement, Statement.RETURN_GENERATED_KEYS);
 		return this.preparedStatement;
 	}
 
@@ -108,16 +110,16 @@ public class JdbcConnection {
 	/**
 	 * Closes the connection and result set.
 	 *
-	 * @param aResultSet
+	 * @param resultSet
 	 *            the result set to close
 	 */
-	public void cleanUp(ResultSet aResultSet) {
+	public void cleanUp(ResultSet resultSet) {
 		try {
-			if (aResultSet != null) {
-				aResultSet.close();
+			if (resultSet != null) {
+				resultSet.close();
 			}
 		} catch (final SQLException e) {
-			throw new DaoException("Error closing result set: " + aResultSet, e);
+			throw new DaoException("Error closing result set: " + resultSet, e);
 		} finally {
 			this.cleanUp();
 		}

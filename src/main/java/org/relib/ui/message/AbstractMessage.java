@@ -15,7 +15,6 @@
  */
 package org.relib.ui.message;
 
-
 /**
  * A basic message with an unimplemented level.
  *
@@ -29,23 +28,26 @@ public abstract class AbstractMessage implements Message {
 	 * Constructs a message using the specified text.
 	 *
 	 * <p>
-	 * Any place holders, identified by a number between curly braces (e.g. {0}), will be replaced with the
-	 * args variable at the corresponding index.
+	 * Any place holders, identified by a number between curly braces (e.g. {0}), will be replaced with the args
+	 * variable at the corresponding index.
 	 *
 	 * <p>
 	 * Invoking the constructor as: AbstractMessage("Hello {0}!", "World"); will result in the message
 	 * "Hello World!".
 	 *
-	 * @param message the message text
-	 * @param args any message variables
+	 * @param message
+	 *            the message text
+	 * @param args
+	 *            any message variables
 	 */
 	public AbstractMessage(String message, String... args) {
-		if (message != null && args != null) {
+		String formattedMessage = message;
+		if (formattedMessage != null && args != null) {
 			for (int i = 0; i < args.length; i++) {
-				message = message.replace("{" + i + "}", args[i]);
+				formattedMessage = formattedMessage.replace("{" + i + "}", args[i]);
 			}
 		}
-		this.text = message;
+		this.text = formattedMessage;
 	}
 
 	/**

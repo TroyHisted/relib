@@ -55,11 +55,11 @@ public class ArgumentGeneratorForRequestBeanTest {
 	@Test
 	public void testGenerateArgument() {
 
-		this.mockRequest.getParameterMap().put("age", new String[] {"7"} );
-		this.mockRequest.getParameterMap().put("name", new String[] {"Oliver"} );
+		this.mockRequest.getParameterMap().put("age", new String[] { "7" });
+		this.mockRequest.getParameterMap().put("name", new String[] { "Oliver" });
 
-		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean
-			= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
+		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean =
+				new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
 
 		final Object argument = argumentGeneratorForRequestBean.generateArgument(this.requestInfo);
 
@@ -78,11 +78,11 @@ public class ArgumentGeneratorForRequestBeanTest {
 	public void testGenerateArgumentWithPrefix() {
 
 		this.requestBean.setValue("cat.");
-		this.mockRequest.getParameterMap().put("cat.age", new String[] {"7"} );
-		this.mockRequest.getParameterMap().put("cat.name", new String[] {"Oliver"} );
+		this.mockRequest.getParameterMap().put("cat.age", new String[] { "7" });
+		this.mockRequest.getParameterMap().put("cat.name", new String[] { "Oliver" });
 
-		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean
-			= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
+		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean =
+				new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
 
 		final Object argument = argumentGeneratorForRequestBean.generateArgument(this.requestInfo);
 
@@ -100,11 +100,11 @@ public class ArgumentGeneratorForRequestBeanTest {
 	@Test
 	public void testGenerateArgumentWithExtraParameters() {
 
-		this.mockRequest.getParameterMap().put("name", new String[] {"Oliver"} );
-		this.mockRequest.getParameterMap().put("weight", new String[] {"Oliver"} );
+		this.mockRequest.getParameterMap().put("name", new String[] { "Oliver" });
+		this.mockRequest.getParameterMap().put("weight", new String[] { "Oliver" });
 
-		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean
-			= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
+		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean =
+				new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
 
 		final Object argument = argumentGeneratorForRequestBean.generateArgument(this.requestInfo);
 
@@ -121,17 +121,17 @@ public class ArgumentGeneratorForRequestBeanTest {
 	@Test
 	public void testGenerateArgumentWithMultipleStringValues() {
 
-		this.mockRequest.getParameterMap().put("colorStrings", new String[] {"red", "green"} );
+		this.mockRequest.getParameterMap().put("colorStrings", new String[] { "red", "green" });
 
-		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean
-		= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
+		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean =
+				new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
 
 		final Object argument = argumentGeneratorForRequestBean.generateArgument(this.requestInfo);
 
 		Assert.assertTrue(argument instanceof Animal);
 		if (argument instanceof Animal) {
 			final Animal animal = (Animal) argument;
-			Assert.assertArrayEquals(new String[]{"red", "green"}, animal.getColorStrings());
+			Assert.assertArrayEquals(new String[] { "red", "green" }, animal.getColorStrings());
 		}
 	}
 
@@ -141,13 +141,12 @@ public class ArgumentGeneratorForRequestBeanTest {
 	@Test
 	public void testGenerateArgumentWithMultipleEnumValues() {
 
-		this.mockRequest.getParameterMap().put("colorEnums", new String[] {"RED", "GREEN"} );
+		this.mockRequest.getParameterMap().put("colorEnums", new String[] { "RED", "GREEN" });
 
-		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean
-			= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
+		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean =
+				new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
 
 		ConvertUtils.register(new Converter() {
-			@Override
 			@SuppressWarnings("unchecked")
 			public <T> T convert(Class<T> type, Object value) {
 				for (final Animal.Color color : Animal.Color.values()) {
@@ -164,8 +163,8 @@ public class ArgumentGeneratorForRequestBeanTest {
 		Assert.assertTrue(argument instanceof Animal);
 		if (argument instanceof Animal) {
 			final Animal animal = (Animal) argument;
-			Assert.assertArrayEquals(
-				new Animal.Color[]{ Animal.Color.RED, Animal.Color.GREEN}, animal.getColorEnums());
+			Assert.assertArrayEquals(new Animal.Color[] { Animal.Color.RED, Animal.Color.GREEN },
+					animal.getColorEnums());
 		}
 	}
 
@@ -175,13 +174,12 @@ public class ArgumentGeneratorForRequestBeanTest {
 	@Test
 	public void testGenerateArgumentWithMultipleEnumFieldValues() {
 
-		this.mockRequest.getParameterMap().put("colorFields.value", new String[] {"RED", "GREEN"} );
+		this.mockRequest.getParameterMap().put("colorFields.value", new String[] { "RED", "GREEN" });
 
-		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean
-			= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
+		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean =
+				new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
 
 		ConvertUtils.register(new Converter() {
-			@Override
 			@SuppressWarnings("unchecked")
 			public <T> T convert(Class<T> type, Object value) {
 				for (final Animal.Color color : Animal.Color.values()) {
@@ -198,8 +196,8 @@ public class ArgumentGeneratorForRequestBeanTest {
 		Assert.assertTrue(argument instanceof Animal);
 		if (argument instanceof Animal) {
 			final Animal animal = (Animal) argument;
-			Assert.assertArrayEquals(
-				new Animal.Color[]{ Animal.Color.RED, Animal.Color.GREEN}, animal.getColorFields().getValue());
+			Assert.assertArrayEquals(new Animal.Color[] { Animal.Color.RED, Animal.Color.GREEN },
+					animal.getColorFields().getValue());
 		}
 	}
 
@@ -209,13 +207,13 @@ public class ArgumentGeneratorForRequestBeanTest {
 	@Test
 	public void testGenerateArgumentWithFieldProperties() {
 
-		this.mockRequest.getParameterMap().put("nameField.value", new String[] {"testValue"} );
-		this.mockRequest.getParameterMap().put("nameField.label", new String[] {"testLabel"} );
-		this.mockRequest.getParameterMap().put("nameField.message", new String[] {"testMessage"} );
-		this.mockRequest.getParameterMap().put("nameField.messageText", new String[] {"testMessage"} );
+		this.mockRequest.getParameterMap().put("nameField.value", new String[] { "testValue" });
+		this.mockRequest.getParameterMap().put("nameField.label", new String[] { "testLabel" });
+		this.mockRequest.getParameterMap().put("nameField.message", new String[] { "testMessage" });
+		this.mockRequest.getParameterMap().put("nameField.messageText", new String[] { "testMessage" });
 
-		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean
-			= new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
+		final ArgumentGeneratorForRequestBean argumentGeneratorForRequestBean =
+				new ArgumentGeneratorForRequestBean(this.requestBean, Animal.class);
 
 		final Object argument = argumentGeneratorForRequestBean.generateArgument(this.requestInfo);
 
@@ -227,14 +225,19 @@ public class ArgumentGeneratorForRequestBeanTest {
 		}
 	}
 
-
 	/**
 	 * Simple bean for an animal.
 	 *
 	 * @author Troy Histed
 	 */
 	public static class Animal {
-		public enum Color { RED, GREEN };
+		/**
+		 * @author Troy Histed
+		 */
+		@SuppressWarnings("javadoc")
+		public enum Color {
+			RED, GREEN
+		};
 
 		private String name;
 		private int age;
@@ -249,76 +252,95 @@ public class ArgumentGeneratorForRequestBeanTest {
 		public String getName() {
 			return this.name;
 		}
+
 		/**
-		 * @param name the name to set
+		 * @param name
+		 *            the name to set
 		 */
 		public void setName(String name) {
 			this.name = name;
 		}
+
 		/**
 		 * @return the age
 		 */
 		public int getAge() {
 			return this.age;
 		}
+
 		/**
-		 * @param age the age to set
+		 * @param age
+		 *            the age to set
 		 */
 		public void setAge(int age) {
 			this.age = age;
 		}
+
 		/**
 		 * @return the colorStrings
 		 */
 		public String[] getColorStrings() {
 			return this.colorStrings;
 		}
+
 		/**
-		 * @param colorStrings the colorStrings to set
+		 * @param colorStrings
+		 *            the colorStrings to set
 		 */
 		public void setColorStrings(String[] colorStrings) {
 			this.colorStrings = colorStrings;
 		}
+
 		/**
 		 * @return the colorEnums
 		 */
 		public Color[] getColorEnums() {
 			return this.colorEnums;
 		}
+
 		/**
-		 * @param colorEnums the colorEnums to set
+		 * @param colorEnums
+		 *            the colorEnums to set
 		 */
 		public void setColorEnums(Color[] colorEnums) {
 			this.colorEnums = colorEnums;
 		}
+
 		/**
 		 * @return the colorFields
 		 */
 		public Field<Color[]> getColorFields() {
 			return this.colorFields;
 		}
+
 		/**
-		 * @param colorFields the colorFields to set
+		 * @param colorFields
+		 *            the colorFields to set
 		 */
 		public void setColorFields(Field<Color[]> colorFields) {
 			this.colorFields = colorFields;
 		}
+
 		/**
 		 * @return the nameField
 		 */
 		public Field<String> getNameField() {
 			return this.nameField;
 		}
+
 		/**
-		 * @param nameField the nameField to set
+		 * @param nameField
+		 *            the nameField to set
 		 */
 		public void setNameField(Field<String> nameField) {
 			this.nameField = nameField;
 		}
+
 		@Override
 		public String toString() {
-			return "Animal [name=" + this.name + ", age=" + this.age + ", colorStrings=" + Arrays.toString(this.colorStrings)
-					+ ", colorEnums=" + Arrays.toString(this.colorEnums) + ", colorFields=" + this.colorFields + "]";
+			return "Animal [name=" + this.name + ", age=" + this.age + ", colorStrings="
+					+ Arrays.toString(this.colorStrings) + ", colorEnums=" + Arrays.toString(this.colorEnums)
+					+ ", colorFields=" + this.colorFields + "]";
 		}
 
 	}

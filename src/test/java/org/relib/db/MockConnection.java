@@ -57,9 +57,7 @@ public class MockConnection implements Connection {
 	}
 
 	/**
-	 * --------------------------
-	 * Unimplemented methods
-	 * --------------------------
+	 * -------------------------- Unimplemented methods --------------------------
 	 */
 
 	public <T> T unwrap(Class<T> iface) throws SQLException {

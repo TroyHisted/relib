@@ -18,7 +18,6 @@ package org.relib.http.request;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.relib.http.RequestParam;
 
-
 /**
  * Handles creating an argument value for a request parameter type of HttpServletResponse.
  *
@@ -32,8 +31,10 @@ class ArgumentGeneratorForRequestParam implements ArgumentGenerator {
 	/**
 	 * Constructor.
 	 *
-	 * @param requestParam the request param annotation
-	 * @param type return type to build the generator for
+	 * @param requestParam
+	 *            the request param annotation
+	 * @param type
+	 *            return type to build the generator for
 	 */
 	ArgumentGeneratorForRequestParam(RequestParam requestParam, Class<?> type) {
 		this.type = type;

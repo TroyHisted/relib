@@ -49,24 +49,26 @@ public class DynaListTest {
 	 */
 	static {
 		ConvertUtils.register(new Converter() {
-			@Override
 			@SuppressWarnings("unchecked")
 			public <T> T convert(Class<T> type, Object value) {
 				return value == null ? null : (T) Direction.valueOf(String.valueOf(value));
 			}
 		}, Direction.class);
 	}
-	
+
 	/**
 	 * Verify a {@link DynaField} works properly with a list of initial values.
 	 *
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testDynaListInitialization() throws IllegalAccessException, InvocationTargetException,
-	NoSuchMethodException {
+	public void testDynaListInitialization()
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		final List<Direction> directions = DynaList.of(Direction.class, Direction.North, Direction.South);
 		Assert.assertEquals(Direction.South, directions.get(1));
 		Assert.assertEquals(Direction.South, PropertyUtils.getProperty(directions, "[1]"));
@@ -76,12 +78,15 @@ public class DynaListTest {
 	 * Verify a {@link DynaField} works properly with a {@link DynaList}.
 	 *
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testDynaListInDynaField() throws IllegalAccessException, InvocationTargetException,
-			NoSuchMethodException {
+	public void testDynaListInDynaField()
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		final Field<? extends List<Direction>> field = DynaField.of(DynaList.create(Direction.class));
 		BeanUtils.setProperty(field, "value.[0]", "South");
 		Assert.assertEquals(Direction.South, field.getValue().get(0));
@@ -92,12 +97,15 @@ public class DynaListTest {
 	 * Verify that an indexed property can be set and that the list will grow to the specified size.
 	 *
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testSetIndexedProperty() throws IllegalAccessException, InvocationTargetException,
-			NoSuchMethodException {
+	public void testSetIndexedProperty()
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		final List<String> list = new DynaList<String>(String.class);
 		BeanUtils.setProperty(list, "[2]", "value");
 		Assert.assertEquals("value", list.get(2));
@@ -110,12 +118,15 @@ public class DynaListTest {
 	 * Verify get returns the value of the array at the correct index.
 	 *
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testGetIndexedProperty() throws IllegalAccessException, InvocationTargetException,
-			NoSuchMethodException {
+	public void testGetIndexedProperty()
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		final List<String> list = new DynaList<String>(String.class);
 		list.add("value");
 		Assert.assertEquals("value", BeanUtils.getProperty(list, "[0]"));
@@ -125,12 +136,15 @@ public class DynaListTest {
 	 * Verify calling get with an index greater than the size of the list returns null.
 	 *
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testGetIndexedPropertyGreaterThanArraySize() throws IllegalAccessException,
-			InvocationTargetException, NoSuchMethodException {
+	public void testGetIndexedPropertyGreaterThanArraySize()
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		final List<String> list = new DynaList<String>(String.class);
 		Assert.assertNull(BeanUtils.getProperty(list, "[0]"));
 	}
@@ -139,12 +153,15 @@ public class DynaListTest {
 	 * Verify that an enum can be set and that the list using the registered converter.
 	 *
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testSetIndexedEnum() throws IllegalAccessException, InvocationTargetException,
-			NoSuchMethodException {
+	public void testSetIndexedEnum()
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		final List<Direction> list = DynaList.create(Direction.class);
 		BeanUtils.setProperty(list, "[2]", "North");
 		Assert.assertEquals(Direction.North, list.get(2));
@@ -154,12 +171,15 @@ public class DynaListTest {
 	 * Verify an enum can be returned from the list.
 	 *
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testGetIndexedEnum() throws IllegalAccessException, InvocationTargetException,
-			NoSuchMethodException {
+	public void testGetIndexedEnum()
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		final List<Direction> list = DynaList.create(Direction.class);
 		list.add(Direction.North);
 		Assert.assertEquals(Direction.North.name(), BeanUtils.getProperty(list, "[0]"));
@@ -170,12 +190,14 @@ public class DynaListTest {
 	 * Verify add item will add the item to the list and then return it.
 	 *
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testAddItem() throws IllegalAccessException, InvocationTargetException,
-	NoSuchMethodException {
+	public void testAddItem() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		final DynaList<Direction> list = DynaList.create(Direction.class);
 		Assert.assertEquals(Direction.North, list.addItem(Direction.North));
 		Assert.assertEquals(Direction.North, list.get(0));
@@ -186,12 +208,14 @@ public class DynaListTest {
 	 * Verify add items will add the items to the list and then return them.
 	 *
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testAddItems() throws IllegalAccessException, InvocationTargetException,
-	NoSuchMethodException {
+	public void testAddItems() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		final DynaList<Direction> list = DynaList.create(Direction.class);
 		final List<Direction> directions = Arrays.asList(Direction.North, Direction.East);
 		Assert.assertEquals(directions, list.addAllItems(directions));
@@ -204,12 +228,15 @@ public class DynaListTest {
 	 * Verify add items will add the items to the list at the specified index.
 	 *
 	 * @throws IllegalAccessException
+	 *             exception
 	 * @throws InvocationTargetException
+	 *             exception
 	 * @throws NoSuchMethodException
+	 *             exception
 	 */
 	@Test
-	public void testAddItemsAtIndex() throws IllegalAccessException, InvocationTargetException,
-			NoSuchMethodException {
+	public void testAddItemsAtIndex()
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		final DynaList<Direction> list = DynaList.create(Direction.class);
 		final List<Direction> directions = Arrays.asList(Direction.North, Direction.East);
 		final List<Direction> directions2 = Arrays.asList(Direction.South, Direction.West);

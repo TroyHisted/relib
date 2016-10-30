@@ -153,7 +153,8 @@ public class MockHttpServletResponse implements HttpServletResponse {
 	}
 
 	/**
-	 * @param contentType the contentType to set
+	 * @param contentType
+	 *            the contentType to set
 	 */
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
@@ -167,7 +168,8 @@ public class MockHttpServletResponse implements HttpServletResponse {
 	}
 
 	/**
-	 * @param locale the locale to set
+	 * @param locale
+	 *            the locale to set
 	 */
 	public void setLocale(Locale locale) {
 		this.locale = locale;
@@ -181,7 +183,8 @@ public class MockHttpServletResponse implements HttpServletResponse {
 	}
 
 	/**
-	 * @param contentLength the contentLength to set
+	 * @param contentLength
+	 *            the contentLength to set
 	 */
 	public void setContentLength(int contentLength) {
 		this.contentLength = contentLength;

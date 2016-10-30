@@ -40,6 +40,7 @@ import org.relib.util.tostring.DateToString;
  *
  * <p>
  * The common usage is in the format:
+ *
  * <pre>
  * {@code
  * ToString.of(this).build();
@@ -53,15 +54,14 @@ public class ToString {
 	/**
 	 * List of converters for handling specific class ToString conversions.
 	 */
-	private static final List<ToStringConverter> CONVERTER_CACHE =
-			Arrays.asList(new DateToString(), new CalendarToString());
+	private static final List<ToStringConverter> CONVERTER_CACHE = Arrays.asList(new DateToString(),
+			new CalendarToString());
 
 	/**
 	 * Loader for the {@link InputRenderer} service providers.
 	 */
-	private static final ServiceLoader<ToStringConverter> CONVERTER_LOADER =
-			ServiceLoader.load(ToStringConverter.class);
-
+	private static final ServiceLoader<ToStringConverter> CONVERTER_LOADER = ServiceLoader
+			.load(ToStringConverter.class);
 
 	private final Object object;
 	private final Set<String> hiddenFields = new HashSet<String>();
@@ -149,8 +149,8 @@ public class ToString {
 			return this.handleBooleanArray((boolean[]) value);
 		} else if (value instanceof char[]) {
 			return this.handleCharArray((char[]) value);
-		} else if (value instanceof Map<?,?>) {
-			return this.handleMap((Map<?,?>) value);
+		} else if (value instanceof Map<?, ?>) {
+			return this.handleMap((Map<?, ?>) value);
 		} else if (value instanceof Collection<?>) {
 			return this.handleCollection((Collection<?>) value);
 		} else if (value instanceof Class<?>) {
@@ -168,7 +168,8 @@ public class ToString {
 	/**
 	 * Handles converting an array of Objects.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string representation
 	 */
 	private String handleObjectArray(Object[] objects) {
@@ -185,7 +186,8 @@ public class ToString {
 	/**
 	 * Handles converting an array of bytes.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string representation
 	 */
 	private String handleByteArray(byte[] bytes) {
@@ -202,7 +204,8 @@ public class ToString {
 	/**
 	 * Handles converting an array of shorts.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string representation
 	 */
 	private String handleShortArray(short[] shorts) {
@@ -219,7 +222,8 @@ public class ToString {
 	/**
 	 * Handles converting an array of ints.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string representation
 	 */
 	private String handleIntArray(int[] ints) {
@@ -236,7 +240,8 @@ public class ToString {
 	/**
 	 * Handles converting an array of longs.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string representation
 	 */
 	private String handleLongArray(long[] longs) {
@@ -253,7 +258,8 @@ public class ToString {
 	/**
 	 * Handles converting an array of floats.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string representation
 	 */
 	private String handleFloatArray(float[] floats) {
@@ -270,7 +276,8 @@ public class ToString {
 	/**
 	 * Handles converting an array of doubles.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string representation
 	 */
 	private String handleDoubleArray(double[] doubles) {
@@ -287,7 +294,8 @@ public class ToString {
 	/**
 	 * Handles converting an array of booleans.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string representation
 	 */
 	private String handleBooleanArray(boolean[] booleans) {
@@ -304,7 +312,8 @@ public class ToString {
 	/**
 	 * Handles converting an array of chars.
 	 *
-	 * @param objects the objects to convert
+	 * @param objects
+	 *            the objects to convert
 	 * @return string representation
 	 */
 	private String handleCharArray(char[] chars) {
@@ -321,14 +330,15 @@ public class ToString {
 	/**
 	 * Handles converting a map.
 	 *
-	 * @param object the map to convert
+	 * @param object
+	 *            the map to convert
 	 * @return string representation
 	 */
-	private String handleMap(Map<?,?> map) {
+	private String handleMap(Map<?, ?> map) {
 		final StringBuilder buffer = new StringBuilder(map.getClass().getSimpleName());
 		buffer.append("[");
 		String delim = "";
-		for (final Entry<?,?> item : map.entrySet()) {
+		for (final Entry<?, ?> item : map.entrySet()) {
 			buffer.append(delim);
 			buffer.append(this.build(item.getKey(), null, false));
 			buffer.append(":");
@@ -342,7 +352,8 @@ public class ToString {
 	/**
 	 * Handles converting a collection.
 	 *
-	 * @param object the collection to convert
+	 * @param object
+	 *            the collection to convert
 	 * @return string representation
 	 */
 	private String handleCollection(Collection<?> collection) {
@@ -360,7 +371,8 @@ public class ToString {
 	/**
 	 * Handles the special DynaBean and DynaClass conversion to a String.
 	 *
-	 * @param dynaClass the object to convert
+	 * @param dynaClass
+	 *            the object to convert
 	 * @return string representation
 	 */
 	private String handleDynaBeanClass(DynaClass dynaClass) {
@@ -401,7 +413,7 @@ public class ToString {
 		String delimiter = "";
 
 		final List<Field> fields = this.gatherAllFields(object);
-		Collections.sort(fields,  new FieldOrder());
+		Collections.sort(fields, new FieldOrder());
 		for (final Field field : fields) {
 
 			if (field.getName().equals("this$0")) {
@@ -444,7 +456,8 @@ public class ToString {
 	/**
 	 * Produces a list of all of the fields that are part of the specified object and all of it's super classes.
 	 *
-	 * @param object the object to generate the field list from
+	 * @param object
+	 *            the object to generate the field list from
 	 * @return non-null list of fields
 	 */
 	private List<Field> gatherAllFields(Object object) {
@@ -478,8 +491,6 @@ public class ToString {
 	 * @author Troy Histed
 	 */
 	private static class FieldOrder implements Comparator<Field> {
-
-		@Override
 		public int compare(Field field1, Field field2) {
 			return field1.getName().compareTo(field2.getName());
 		}
