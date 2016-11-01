@@ -15,6 +15,7 @@
  */
 package org.relib.http.json;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -401,7 +402,7 @@ public class Json {
 	 *
 	 * @author Troy Histed
 	 */
-	private static class MethodOrder implements Comparator<Method> {
+	private static class MethodOrder implements Comparator<Method>, Serializable {
 		public int compare(Method method1, Method method2) {
 			return method1.getName().compareTo(method2.getName());
 		}

@@ -266,4 +266,28 @@ public class DynaField<T> extends InputField<T> implements DynaClass, DynaBean {
 		throw new IllegalStateException("DynaField class cannot be dynamically instantiated.");
 	}
 
+
+	/**
+	 * Performs the standard equals comparison.
+	 *
+	 * <p>
+	 * Deprecated because it is unlikely that comparing two field objects is the desired behavior.
+	 *
+	 * <p>
+	 * {@link Field#isEqual(Field)}
+	 */
+	@Override
+	@Deprecated
+	public boolean equals(Object compareTo) {
+		return super.equals(compareTo);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
 }

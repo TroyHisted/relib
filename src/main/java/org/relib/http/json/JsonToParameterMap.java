@@ -131,17 +131,17 @@ public class JsonToParameterMap {
 	 * @return non-null String of the key
 	 */
 	private static String generateKey(int depth, final String[] keys, boolean[] indexed, int[] index) {
-		String fullKey = keys[0];
+		final StringBuilder fullKey = new StringBuilder(keys[0]);
 		if (indexed[0]) {
-			fullKey += "[" + index[0] + "]";
+			fullKey.append("[").append(index[0]).append("]");
 		}
 		for (int i = 1; i <= depth; i++) {
-			fullKey += "." + keys[i];
+			fullKey.append(".").append(keys[i]);
 			if (indexed[i]) {
-				fullKey += "[" + index[depth] + "]";
+				fullKey.append("[").append(index[depth]).append("]");
 			}
 		}
-		return fullKey;
+		return fullKey.toString();
 	}
 
 }

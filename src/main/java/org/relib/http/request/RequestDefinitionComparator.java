@@ -15,6 +15,7 @@
  */
 package org.relib.http.request;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import org.relib.http.HttpMethod;
@@ -28,7 +29,7 @@ import org.relib.http.MediaType;
  *
  * @author Troy Histed
  */
-class RequestDefinitionComparator implements Comparator<RequestDefinition> {
+class RequestDefinitionComparator implements Comparator<RequestDefinition>, Serializable {
 
 	/**
 	 * The more specific an item is, the lower number it will have.

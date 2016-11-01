@@ -75,6 +75,14 @@ public class InputField<T> implements Field<T> {
 
 	/**
 	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	/**
+	 * {@inheritDoc}
 	 *
 	 * <p>
 	 * Provides additional placeholder support for the field's label using either {label} or {Label} and the

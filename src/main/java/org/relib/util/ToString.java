@@ -15,6 +15,7 @@
  */
 package org.relib.util;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -490,7 +491,7 @@ public class ToString {
 	 *
 	 * @author Troy Histed
 	 */
-	private static class FieldOrder implements Comparator<Field> {
+	private static class FieldOrder implements Comparator<Field>, Serializable {
 		public int compare(Field field1, Field field2) {
 			return field1.getName().compareTo(field2.getName());
 		}

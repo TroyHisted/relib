@@ -4,7 +4,7 @@
 	<groupId>org.relib</groupId>
 	<artifactId>relib</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>relib-core</name>
+	<name>relib</name>
 	<description>Library of simple to use objects for assisting with common web application development concerns
 	 such as handling HTTP requests and executing SQL.</description>
 	<url>https://github.com/TroyHisted/relib</url>
@@ -47,7 +47,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.6</version>
+				<version>2.9</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -57,12 +57,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
+				<version>2.10.4</version>
 				<reportSets>
 					<reportSet>
 						<reports>
 							<report>javadoc</report>
-							<report>test-javadoc</report>
 						</reports>
 					</reportSet>
 					<reportSet>
