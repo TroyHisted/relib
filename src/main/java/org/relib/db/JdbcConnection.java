@@ -91,17 +91,17 @@ public class JdbcConnection {
 	 */
 	public void cleanUp() {
 		try {
-			if (this.connection != null) {
-				this.connection.close();
+			if (this.preparedStatement != null) {
+				this.preparedStatement.close();
 			}
 		} catch (final SQLException e) {
-			throw new DaoException("Error closing connection: " + this.connection, e);
+			throw new DaoException("Error closing prepared statement: " + this.preparedStatement, e);
 		} finally {
-			if (this.preparedStatement != null) {
+			if (this.connection != null) {
 				try {
-					this.preparedStatement.close();
+					this.connection.close();
 				} catch (final SQLException e) {
-					throw new DaoException("Error closing prepared statement: " + this.preparedStatement, e);
+					throw new DaoException("Error closing connection: " + this.connection, e);
 				}
 			}
 		}
