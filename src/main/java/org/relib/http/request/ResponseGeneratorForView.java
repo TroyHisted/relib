@@ -33,6 +33,9 @@ import org.relib.http.View;
  */
 class ResponseGeneratorForView implements ResponseGenerator {
 
+	private static final String REDIRECT_PREFIX = "redirect:";
+	private static final int REDIRECT_PREFIX_LENGTH = REDIRECT_PREFIX.length();
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -43,6 +46,15 @@ class ResponseGeneratorForView implements ResponseGenerator {
 		}
 
 		final View view = (View) value;
+
+		if (view.getViewPath().startsWith("redirect:")) {
+			try {
+				response.sendRedirect(view.getViewPath().substring(REDIRECT_PREFIX_LENGTH));
+			} catch (final IOException e) {
+				throw new IllegalStateException("Unable to redirect to : " + value, e);
+			}
+			return;
+		}
 
 		for (final Entry<String, Object> entry : view.getValues().entrySet()) {
 			request.setAttribute(entry.getKey(), entry.getValue());

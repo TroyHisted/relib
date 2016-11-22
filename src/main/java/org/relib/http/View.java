@@ -21,6 +21,12 @@ import java.util.Map;
 /**
  * Represents the information that will be displayed to the end user.
  *
+ * <p>
+ * To send a redirect, prefix the value of the viewPath with the string "redirect:".
+ * <code>
+ * return View.of("redirect:http://www.github.com");
+ * </code>
+ *
  * @author Troy Histed
  */
 public class View {
