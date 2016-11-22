@@ -1,2 +1,2 @@
-org.relib.util.tostring.DateToString;
-org.relib.util.tostring.CalendarToString;
+org.relib.util.tostring.DateToString
+org.relib.util.tostring.CalendarToString
