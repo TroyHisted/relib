@@ -73,6 +73,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	private boolean requestedSessionIdFromCookie;
 	private boolean requestedSessionIdFromURL;
 	private boolean requestedSessionIdFromUrl;
+	private final MockRequestDispatcher requestDispatcher = new MockRequestDispatcher();
 
 	public String getParameter(String name) {
 		final String[] values = this.parameterMap.get(name);
@@ -130,7 +131,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	}
 
 	public RequestDispatcher getRequestDispatcher(String path) {
-		throw new UnsupportedOperationException("unimplemented");
+		return this.requestDispatcher;
 	}
 
 	public String getRealPath(String path) {
